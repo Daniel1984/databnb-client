@@ -7,6 +7,7 @@ $colorAccent: rgb(180, 222, 80);
 $lineColor: #c7c7c7;
 $screenXs: 480px;
 $screenSm: 700px;
+$screenMd: 1000px;
 
 body,
 html {
@@ -91,20 +92,20 @@ input, select, textarea {
   margin: 0 10px;
   position: relative;
   flex: 1;
-  min-width: 200px;
+  min-width: 300px;
   border-radius: 2px;
-  overflow: hidden;
 
   > * {
     width: 100%;
   }
 
-  @media (max-width: $screenSm) {
+  @media (max-width: $screenMd) {
     margin: 0 10px 20px;
   }
 }
 
 .app_form-input {
+  height: 43px;
   padding: 9px;
   background-color: whitesmoke;
   border-radius: 0;
@@ -132,20 +133,18 @@ input, select, textarea {
 
 .app_form-container {
   min-height: 150px;
-  padding: 0 20px;
+  padding: 20px;
   position: relative;
   z-index: 1;
   background-color: rgb(39, 39, 45);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 
   @media (max-width: $screenXs) {
     padding: 0 10px;
   }
-}
-
-.app_form-content-container {
-  max-width: 1000px;
-  margin: 0 auto;
 }
 
 .app_form-input-container {
@@ -155,16 +154,15 @@ input, select, textarea {
 }
 
 .app_form-title {
-  margin: 25px auto;
+  margin: 0;
   letter-spacing: 2px;
   display: block;
   color: #fff;
   text-align: center;
   font-weight: 400;
-  line-height: 1;
 
-  @media (max-width: $screenXs) {
-    margin: 15px auto;
+  @media (max-width: $screenMd) {
+    margin-bottom: 15px;
     letter-spacing: 1px;
   }
 }
@@ -207,10 +205,15 @@ input, select, textarea {
   margin: 30px auto;
   max-width: 1000px;
   display: flex;
+
+  @media (max-width: $screenSm) {
+    flex-wrap: wrap;
+  }
 }
 
 .app_features-col {
   padding: 20px;
+  min-width: 200px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -218,6 +221,10 @@ input, select, textarea {
   border-right: 1px solid $lineColor;
 
   &:last-child {
+    border-right: 0;
+  }
+
+  @media (max-width: $screenSm) {
     border-right: 0;
   }
 }
