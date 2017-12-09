@@ -129,6 +129,12 @@ input, select, textarea {
     transition: all 0.2s linear;
     background-color: darken($colorPrimary, 10%);
   }
+
+  &:disabled {
+    opacity: 0.7;
+    // pointer-events: none;
+    cursor: default;
+  }
 }
 
 .app_form-container {
@@ -238,4 +244,8 @@ input, select, textarea {
   text-align: center;
   line-height: 1.2;
   font-size: 1.1rem;
+}
+
+.app_result-map {
+  height: 500px;
 }
