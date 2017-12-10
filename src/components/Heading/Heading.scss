@@ -1,0 +1,60 @@
+@import '../../shared/variables.scss';
+
+.root {
+  position: relative;
+  height: 450px;
+  background-image: url('../../assets/room4.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  @media (max-width: $screenXs) {
+    height: 300px;
+  }
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 0;
+}
+
+.content {
+  padding-top: 150px;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: $screenXs) {
+    padding-top: 80px;
+  }
+}
+
+.title,
+.subtitle {
+  margin: 0;
+  padding: 10px 30px;
+  display: inline-block;
+  vertical-align: top;
+  background-color: $colorPrimary;
+  color: #fff;
+  box-shadow: 0 0 0 10px $colorPrimary, 0 10px 12px #000;
+
+  @media (max-width: $screenXs) {
+    padding: 10px 20px;
+  }
+}
+
+
+.title {
+  font-size: 3rem;
+  clear: both;
+  font-weight: 100;
+}
+
+.subtitle {
+  font-weight: 400;
+}

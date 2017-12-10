@@ -11,7 +11,7 @@ const IS_BUILD = process.env.npm_lifecycle_event === 'build';
 module.exports = {
   context: SOURCE_DIR,
   entry: {
-    app: './app/index.js',
+    app: './components/App/App.js',
   },
   output: {
     filename: '[name].[hash].js',
@@ -32,7 +32,7 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: false,
+                modules: true,
                 localIdentName: '[name]-[local]__[hash:base64:5]',
                 importLoaders: 2,
                 minimize: IS_BUILD,

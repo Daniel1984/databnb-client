@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,400,500,700');
+@import '../../shared/variables.scss';
+
+:global {
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background-color: whitesmoke;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  input, select, textarea {
+    border: 1px solid #fff;
+
+    &:focus {
+      border: 1px solid $colorPrimary;
+    }
+  }
+}
+
+.app_result-map {
+  height: 500px;
+}

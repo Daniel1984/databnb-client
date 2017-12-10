@@ -1,13 +1,13 @@
 // import 'material-design-lite';
 import places from 'places.js';
-import { calculatePrice } from './api';
-import './index.scss';
+import { calculatePrice } from '../../shared/api';
+import './App.scss';
 
 import { h, render } from 'preact';
-import Heading from '../components/Heading/Heading';
-import PricingForm from '../components/PricingForm/PricingForm';
-import PlatformFeatures from '../components/PlatformFeatures/PlatformFeatures';
-import Map from '../components/Map/Map';
+import Heading from '../Heading/Heading';
+import PricingForm from '../PricingForm/PricingForm';
+import PlatformFeatures from '../PlatformFeatures/PlatformFeatures';
+import Map from '../Map/Map';
 
 window.onload = () => {
 

@@ -1,12 +1,13 @@
 import { h } from 'preact';
+import styles from './Heading.scss';
 
 function Heading() {
   return (
-    <div class="app_heading">
-      <div class="app_heading-backdrop"></div>
-      <div class="app_heading-content">
-        <h1 class="app_title">META BNB</h1><br />
-        <h2 class="app_sub-title">Most efficient airbnb rental price optimiser</h2>
+    <div class={styles.root}>
+      <div class={styles.backdrop}></div>
+      <div class={styles.content}>
+        <h1 class={styles.title}>META BNB</h1><br />
+        <h2 class={styles.subtitle}>Most efficient airbnb rental price optimiser</h2>
       </div>
     </div>
   );
