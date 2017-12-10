@@ -3,7 +3,23 @@ import places from 'places.js';
 import { calculatePrice } from './api';
 import './index.scss';
 
+import { h, render } from 'preact';
+import Heading from '../components/Heading/Heading';
+import PricingForm from '../components/PricingForm/PricingForm';
+import PlatformFeatures from '../components/PlatformFeatures/PlatformFeatures';
+import Map from '../components/Map/Map';
+
 window.onload = () => {
+
+  render((
+    <div class="app">
+      <Heading />
+      <PricingForm />
+      <Map />
+      <PlatformFeatures />
+    </div>
+  ), document.body);
+
   const calculatePriceMinParams = {
     latlng: null,
     city: null,
@@ -34,7 +50,7 @@ window.onload = () => {
     const { latlng, city } = e.suggestion;
 
     if (latlng && city) {
-      map.setView([latlng.lat, latlng.lng], 15);
+      map.setView([latlng.lat, latlng.lng], 16);
       calculatePriceMinParams.latlng = latlng;
       calculatePriceMinParams.city = city;
       calculateBtn.removeAttribute('disabled');
