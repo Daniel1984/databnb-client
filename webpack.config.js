@@ -11,7 +11,7 @@ const IS_BUILD = process.env.npm_lifecycle_event === 'build';
 module.exports = {
   context: SOURCE_DIR,
   entry: {
-    app: './components/App/App.js',
+    app: './index.js',
   },
   output: {
     filename: '[name].[hash].js',

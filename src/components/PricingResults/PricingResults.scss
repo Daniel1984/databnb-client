@@ -1,0 +1,44 @@
+@import '../../shared/variables.scss';
+
+.root {
+  max-height: 0px;
+  background-color: #fff;
+  overflow: hidden;
+  position: relative;
+
+  &.expanded {
+    transition: max-height 1s linear;
+    max-height: 2000px;
+  }
+}
+
+.mapRow {
+  display: flex;
+}
+
+.mapRowCol {
+  flex: 1;
+
+  &:first-child {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+
+.summaryTitle {
+  margin-bottom: 0;
+  font-weight: 400;
+  color: $colorText;
+}
+
+.summarySubitle {
+  font-weight: 400;
+  color: $colorTextLight;
+}
+
+.listingsCount {
+  color: $colorPrimary;
+}

@@ -1,73 +1,39 @@
-// import 'material-design-lite';
 import places from 'places.js';
 import { calculatePrice } from '../../shared/api';
 import './App.scss';
 
-import { h, render } from 'preact';
+import { h, Component } from 'preact';
 import Heading from '../Heading/Heading';
 import PricingForm from '../PricingForm/PricingForm';
 import PlatformFeatures from '../PlatformFeatures/PlatformFeatures';
-import Map from '../Map/Map';
+import PricingResults from '../PricingResults/PricingResults';
 
-window.onload = () => {
-
-  render((
-    <div class="app">
-      <Heading />
-      <PricingForm />
-      <Map />
-      <PlatformFeatures />
-    </div>
-  ), document.body);
-
-  const calculatePriceMinParams = {
-    latlng: null,
-    city: null,
-    bedrooms: 0,
-  };
-
-  const map = L.map('map');
-
-  const calculateBtn = document.querySelector('.app_form-btn');
-  const bedroomSelectEl = document.querySelector('.app_form-select');
-
-  calculateBtn.addEventListener('click', () => {
-    const bedrooms = bedroomSelectEl.options[bedroomSelectEl.selectedIndex].value;
-
-    calculatePrice({ ...calculatePriceMinParams, bedrooms }).then(({ listingsWithAvailabilities }) => {
-      listingsWithAvailabilities.forEach((listing) => {
-        L.marker([listing.lat, listing.lng]).addTo(map).bindPopup("I am a green leaf.");
-      });
-    });
-  });
-
-  const placesAutocomplete = places({
-    container: document.querySelector('#address'),
-    type: 'address'
-  });
-
-  function storeLookupResults(e) {
-    const { latlng, city } = e.suggestion;
-
-    if (latlng && city) {
-      map.setView([latlng.lat, latlng.lng], 16);
-      calculatePriceMinParams.latlng = latlng;
-      calculatePriceMinParams.city = city;
-      calculateBtn.removeAttribute('disabled');
-    } else {
-      calculatePriceMinParams.latlng = null;
-      calculatePriceMinParams.city = null;
-      calculateBtn.setAttribute('disabled', true);
-    }
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      latlng: null,
+      city: null,
+      bedrooms: 0,
+      listings: [],
+      address: '',
+    };
   }
 
-  placesAutocomplete.on('change', storeLookupResults);
+  updateState(payload) {
+    this.setState(payload);
+  }
 
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+  render() {
+    const { latlng, listings, address, bedrooms } = this.state;
 
-  L.marker([51.5, -0.09]).addTo(map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();
+    return (
+      <div class="app">
+        <Heading />
+        <PricingForm updateParentState={state => this.updateState(state)} />
+        <PricingResults latlng={latlng} listings={listings} address={address} bedrooms={bedrooms} />
+        <PlatformFeatures />
+      </div>
+    );
+  }
 }
