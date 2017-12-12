@@ -10,9 +10,9 @@ export default function PricingResults({ latlng, listings, bedrooms, address }) 
     <div class={classnames(styles.root, listings.length && styles.expanded)}>
       <div class={styles.mapRow}>
         <div class={styles.mapRowCol}>
-          <h1 class={styles.summaryTitle}>
+          <h2 class={styles.summaryTitle}>
             Properties nearby: <strong class={styles.listingsCount}>{listings.length}</strong> ({bedroomsCount} bedroom)
-          </h1>
+          </h2>
           <h3 class={styles.summarySubitle}>
             {address}
           </h3>

@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import styles from './Map.scss';
 import HouseImg from '../../assets/house3.png';
+import HouseImgShadow from '../../assets/house3_shadow.png';
 
 class Map extends Component {
   componentDidMount() {
@@ -26,8 +27,11 @@ class Map extends Component {
 
     const greenIcon = L.icon({
       iconUrl: HouseImg,
+      shadowUrl: HouseImgShadow,
       iconSize: [35, 35],
+      shadowSize: [35, 35],
       iconAnchor: [17, 17],
+      shadowAnchor: [13, 17],
       popupAnchor: [0, -17],
     });
 

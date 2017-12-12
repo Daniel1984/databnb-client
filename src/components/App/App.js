@@ -31,7 +31,12 @@ export default class App extends Component {
       <div class="app">
         <Heading />
         <PricingForm updateParentState={state => this.updateState(state)} />
-        <PricingResults latlng={latlng} listings={listings} address={address} bedrooms={bedrooms} />
+        <PricingResults
+          latlng={latlng}
+          listings={listings}
+          address={address}
+          bedrooms={bedrooms}
+        />
         <PlatformFeatures />
       </div>
     );
