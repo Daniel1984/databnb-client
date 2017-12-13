@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import classnames from 'classnames';
 import Map from '../Map/Map';
+import RatingPieChart from '../RatingPieChart/RatingPieChart';
 import styles from './PricingResults.scss';
 
 export default function PricingResults({ latlng, listings, bedrooms, address }) {
@@ -13,12 +14,19 @@ export default function PricingResults({ latlng, listings, bedrooms, address }) 
           <h2 class={styles.summaryTitle}>
             Properties nearby: <strong class={styles.listingsCount}>{listings.length}</strong> ({bedroomsCount} bedroom)
           </h2>
-          <h3 class={styles.summarySubitle}>
-            {address}
-          </h3>
+          <h3 class={styles.summarySubitle}>{address}</h3>
         </div>
         <div class={styles.mapRowCol}>
           <Map latlng={latlng} listings={listings} bedrooms={bedrooms} />
+        </div>
+      </div>
+      <h1 class={styles.quickSummaryTitle}>Quick summary</h1>
+      <div class={styles.mapRow}>
+        <div class={styles.mapRowCol}>
+          <RatingPieChart listings={listings} />
+        </div>
+        <div class={styles.mapRowCol}>
+          <h1>hello</h1>
         </div>
       </div>
     </div>
