@@ -9,7 +9,7 @@ export default class ListingsGrowthChart extends Component {
       data: {
         labels: [],
         datasets: [{
-          label: "Properties growth per year",
+          label: 'Listings growth per year',
           backgroundColor: 'rgb(233, 30, 98)',
           borderColor: 'rgb(137, 193, 73)',
           data: [],

@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import classnames from 'classnames';
 import MapInfoBlock from '../MapInfoBlock/MapInfoBlock';
-import RatingInfoBlock from '../RatingInfoBlock/RatingInfoBlock';
+import QuickSummaryBlock from '../QuickSummaryBlock/QuickSummaryBlock';
 import styles from './PricingResults.scss';
 
 export default function PricingResults({ latlng, listings, bedrooms, address }) {
@@ -13,7 +13,7 @@ export default function PricingResults({ latlng, listings, bedrooms, address }) 
         bedrooms={bedrooms}
         address={address}
       />
-      <RatingInfoBlock listings={listings} />
+      <QuickSummaryBlock listings={listings} address={address} latlng={latlng} />
     </div>
   )
 }
