@@ -52,7 +52,7 @@ export default class PriceByDistanceChart extends Component {
     });
   }
 
-  componentWillReceiveProps({ listings, latlng, address }) {
+  componentWillReceiveProps({ listings, latlng }) {
     const currency = CITY_TO_CURRENCY[listings[0].city];
     const data = listings
       .map(({ lat, lng, availability }) => {

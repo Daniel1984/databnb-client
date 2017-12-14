@@ -20,7 +20,7 @@ export default class RatingPieChart extends Component {
       data: {
         labels: [],
         datasets: [{
-          label: 'Ratings',
+          label: 'Ratings distribution:',
           data: [],
           backgroundColor: [],
         }]

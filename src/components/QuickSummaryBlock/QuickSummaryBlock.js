@@ -1,11 +1,14 @@
 import { h } from 'preact';
 import styles from './QuickSummaryBlock.scss';
-import RatingChart from '../RatingChart/RatingChart';
-import ListingsGrowthChart from '../ListingsGrowthChart/ListingsGrowthChart';
-import PriceByDistanceChart from '../PriceByDistanceChart/PriceByDistanceChart';
+
+import {
+  RatingChart,
+  ListingsGrowthChart,
+  PriceByDistanceChart,
+  PriceByRatingChart,
+} from '../charts';
 
 export default function QuickSummaryBlock({ listings, latlng, address }) {
-  console.log(listings);
   return (
     <div>
       <div class={styles.quickSummaryTitle}>Quick summary</div>
@@ -27,14 +30,15 @@ export default function QuickSummaryBlock({ listings, latlng, address }) {
       <div class={styles.row}>
         <div class={styles.col}>
           <div class={styles.colTitle}>
-            Avg monthly rental price distribution by distance from <i class={styles.address}>{address}</i> (data from last 4 months)
+            Avg monthly rental price distribution by distance from <i class={styles.address}>{address}</i> (data from last 6 months)
           </div>
-          <PriceByDistanceChart listings={listings} latlng={latlng} address={address} />
+          <PriceByDistanceChart listings={listings} latlng={latlng} />
         </div>
         <div class={styles.col}>
           <div class={styles.colTitle}>
-            Price difference depenfing on property rating:
+            Avg monthly rental price depenfing on property rating (data from last 6 months):
           </div>
+          <PriceByRatingChart listings={listings} />
         </div>
       </div>
     </div>
