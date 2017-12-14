@@ -1,34 +1,19 @@
 import { h } from 'preact';
 import classnames from 'classnames';
-import Map from '../Map/Map';
-import RatingPieChart from '../RatingPieChart/RatingPieChart';
+import MapInfoBlock from '../MapInfoBlock/MapInfoBlock';
+import RatingInfoBlock from '../RatingInfoBlock/RatingInfoBlock';
 import styles from './PricingResults.scss';
 
 export default function PricingResults({ latlng, listings, bedrooms, address }) {
-  const bedroomsCount = listings.length ? listings[0].bedrooms : 0;
-
   return (
     <div class={classnames(styles.root, listings.length && styles.expanded)}>
-      <div class={styles.mapRow}>
-        <div class={styles.mapRowCol}>
-          <h2 class={styles.summaryTitle}>
-            Properties nearby: <strong class={styles.listingsCount}>{listings.length}</strong> ({bedroomsCount} bedroom)
-          </h2>
-          <h3 class={styles.summarySubitle}>{address}</h3>
-        </div>
-        <div class={styles.mapRowCol}>
-          <Map latlng={latlng} listings={listings} bedrooms={bedrooms} />
-        </div>
-      </div>
-      <h1 class={styles.quickSummaryTitle}>Quick summary</h1>
-      <div class={styles.mapRow}>
-        <div class={styles.mapRowCol}>
-          <RatingPieChart listings={listings} />
-        </div>
-        <div class={styles.mapRowCol}>
-          <h1>hello</h1>
-        </div>
-      </div>
+      <MapInfoBlock
+        latlng={latlng}
+        listings={listings}
+        bedrooms={bedrooms}
+        address={address}
+      />
+      <RatingInfoBlock listings={listings} />
     </div>
   )
 }

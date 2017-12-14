@@ -16,10 +16,11 @@ export default class RatingPieChart extends Component {
   componentDidMount() {
     const ctx = this.pieChartEl.getContext('2d');
     this.ratingsChart = new Chart(ctx, {
-      type: 'doughnut',
+      type: 'bar',
       data: {
         labels: [],
         datasets: [{
+          label: 'Ratings',
           data: [],
           backgroundColor: [],
         }]
@@ -33,7 +34,7 @@ export default class RatingPieChart extends Component {
       return acc;
     }, {});
 
-    const rankingKeys = Object.keys(ratings).sort();
+    const rankingKeys = Object.keys(ratings).sort().reverse();
     const data = rankingKeys.map(key => ratings[key]);
     const backgroundColor = backgroundColors.slice(0, rankingKeys.length);
 

@@ -1,0 +1,29 @@
+@import '../../shared/variables.scss';
+
+.row {
+  display: flex;
+}
+
+.col {
+  flex: 1;
+  padding: 20px;
+
+  &:first-child {
+    border-right: 1px solid $lineColor;
+  }
+}
+
+.quickSummaryTitle {
+  border-bottom: 1px solid $lineColor;
+  padding: 20px 0;
+  font-weight: 400;
+  font-size: 30px;
+  color: $colorText;
+  text-align: center;
+}
+
+.colTitle {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 400;
+}

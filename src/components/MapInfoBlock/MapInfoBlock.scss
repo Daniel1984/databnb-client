@@ -1,0 +1,33 @@
+@import '../../shared/variables.scss';
+
+.row {
+  display: flex;
+}
+
+.col {
+  flex: 1;
+
+  &:first-child {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: whitesmoke;
+  }
+}
+
+.summaryTitle {
+  margin-bottom: 0;
+  font-weight: 400;
+  color: $colorText;
+}
+
+.summarySubitle {
+  font-weight: 400;
+  color: $colorTextLight;
+}
+
+.listingsCount {
+  color: $colorPrimary;
+}
