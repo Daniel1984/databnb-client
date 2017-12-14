@@ -13,7 +13,7 @@ export default function PricingResults({ latlng, listings, bedrooms, address }) 
         bedrooms={bedrooms}
         address={address}
       />
-      <QuickSummaryBlock listings={listings} address={address} latlng={latlng} />
+      <QuickSummaryBlock listings={listings} latlng={latlng} />
     </div>
   )
 }

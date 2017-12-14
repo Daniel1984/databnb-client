@@ -8,14 +8,14 @@ import {
   PriceByRatingChart,
 } from '../charts';
 
-export default function QuickSummaryBlock({ listings, latlng, address }) {
+export default function QuickSummaryBlock({ listings, latlng }) {
   return (
     <div>
-      <div class={styles.quickSummaryTitle}>Quick summary</div>
+      <div class={styles.quickSummaryTitle}>Quick summary (data from last 6 months)</div>
       <div class={styles.row}>
         <div class={styles.col}>
           <div class={styles.colTitle}>
-            Distribution by rating:
+            Listings by rating:
           </div>
           <RatingChart listings={listings} />
         </div>
@@ -30,13 +30,13 @@ export default function QuickSummaryBlock({ listings, latlng, address }) {
       <div class={styles.row}>
         <div class={styles.col}>
           <div class={styles.colTitle}>
-            Avg monthly rental price distribution by distance from <i class={styles.address}>{address}</i> (data from last 6 months)
+            Avg monthly rental price by distance:
           </div>
           <PriceByDistanceChart listings={listings} latlng={latlng} />
         </div>
         <div class={styles.col}>
           <div class={styles.colTitle}>
-            Avg monthly rental price depenfing on property rating (data from last 6 months):
+            Avg monthly rental price depenfing on rating:
           </div>
           <PriceByRatingChart listings={listings} />
         </div>
