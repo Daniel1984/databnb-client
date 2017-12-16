@@ -6,6 +6,7 @@ import {
   ListingsGrowthChart,
   PriceByDistanceChart,
   PriceByRatingChart,
+  AvailabilityByPriceChart,
 } from '../charts';
 
 export default function QuickSummaryBlock({ listings, latlng }) {
@@ -40,6 +41,10 @@ export default function QuickSummaryBlock({ listings, latlng }) {
           </div>
           <PriceByRatingChart listings={listings} />
         </div>
+      </div>
+
+      <div class={styles.row}>
+        <AvailabilityByPriceChart listings={listings} />
       </div>
     </div>
   );

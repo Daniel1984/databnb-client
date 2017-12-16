@@ -1,31 +1,10 @@
-import Chart from 'chart.js';
 import { h, Component } from 'preact';
-
-const backgroundColors = [
-  'rgb(233, 30, 98)',
-  'rgb(33, 149, 242)',
-  'rgb(137, 193, 73)',
-  'rgb(253, 86, 34)',
-  'rgb(102, 58, 182)',
-  'rgb(95, 124, 137)',
-  'rgb(54, 63, 70)',
-  'rgb(119, 84, 70)',
-];
+import { CHART_COLORS, getBarChartBlueprint } from '../utils';
 
 export default class RatingPieChart extends Component {
   componentDidMount() {
-    const ctx = this.pieChartEl.getContext('2d');
-    this.ratingsChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Ratings distribution:',
-          data: [],
-          backgroundColor: [],
-        }]
-      }
-    });
+    const ctx = this.chartEl.getContext('2d');
+    this.ratingsChart = getBarChartBlueprint({ label: 'Ratings distribution:', ctx });
   }
 
   componentWillReceiveProps({ listings }) {
@@ -34,9 +13,9 @@ export default class RatingPieChart extends Component {
       return acc;
     }, {});
 
-    const rankingKeys = Object.keys(ratings).sort().reverse();
+    const rankingKeys = Object.keys(ratings).sort();
     const data = rankingKeys.map(key => ratings[key]);
-    const backgroundColor = backgroundColors.slice(0, rankingKeys.length);
+    const backgroundColor = CHART_COLORS.slice(0, rankingKeys.length);
 
     const labels = rankingKeys.map((key) => {
       if (key === 'null') {
@@ -56,7 +35,7 @@ export default class RatingPieChart extends Component {
 
   render() {
     return (
-      <canvas ref={el => this.pieChartEl = el} />
+      <canvas ref={el => this.chartEl = el} />
     )
   }
 }
