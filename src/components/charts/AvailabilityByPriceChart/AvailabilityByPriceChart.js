@@ -26,24 +26,36 @@ export default class AvailabilityByPriceChart extends Component {
   }
 
   componentWillReceiveProps({ listings }) {
-    const data = listings.map(({ availability }) => {
-      const availabilityKeys = Object.keys(availability);
+    const data = listings
+      .map(({ star_rating, availability }) => {
+        const summedAvailabilities = Object.keys(availability).reduce((acc, key) => {
+          const { availabilities, nativeAdjustedPriceTotal, nativePriceTotal } = availability[key];
 
-      const summedAvailabilities = availabilityKeys.reduce((acc, key) => {
-        const { availabilities } = availability[key];
+          const availabilitiesPerMonth =  availabilities.reduce((acc, { available }) => {
+            acc = [...acc, available];
+            return acc;
+          }, []);
 
-        const availablePerMonth = availabilities.reduce((acc, { available }) => {
-          acc = [...acc, available];
+          const occupiedTimesPerMonth = availabilitiesPerMonth.filter(available => !available).length;
+
+          const occupancyAndRating = {
+            occupancyPercentage: occupiedTimesPerMonth * 100 / availabilitiesPerMonth.length,
+            rating: star_rating,
+            monthlyPrice: nativeAdjustedPriceTotal || nativePriceTotal,
+          };
+
+          acc[key] = occupancyAndRating;
           return acc;
-        }, []);
+        }, {});
 
-        const occupiedPerMonth = availablePerMonth.filter(available => !available).length;
-        acc[key] = occupiedPerMonth * 100 / availablePerMonth.length;
-        return acc;
+        return summedAvailabilities;
+      })
+      .reduce((acc, availability) => {
+        Object.keys(availability).forEach((key) => {
+          acc[key] = acc[key] ? [...acc[key], availability[key]] : [availability[key]];
+        });
+        return acc
       }, {});
-
-      return summedAvailabilities;
-    });
 
     /*
       1. add option select or tabs to switch between available Month-year
