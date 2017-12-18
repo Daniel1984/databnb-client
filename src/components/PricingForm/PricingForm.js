@@ -5,6 +5,15 @@ import Autocomplete from '../Autocomplete/Autocomplete';
 import { calculatePrice } from '../../shared/api';
 import { Select } from '../common';
 
+const localeToGeolocation = {
+  london: {
+    lat: 51.5073835,
+    lng: -0.1277801,
+    radius: 20000,
+    country: 'gb'
+  }
+};
+
 export default class PricingForm extends Component {
   state = {
     btnEnabled: false,

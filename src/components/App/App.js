@@ -7,6 +7,7 @@ import Heading from '../Heading/Heading';
 import PricingForm from '../PricingForm/PricingForm';
 import PlatformFeatures from '../PlatformFeatures/PlatformFeatures';
 import PricingResults from '../PricingResults/PricingResults';
+import PricingBlock from '../PricingBlock/PricingBlock';
 
 export default class App extends Component {
   constructor() {
@@ -38,6 +39,7 @@ export default class App extends Component {
           bedrooms={bedrooms}
         />
         <PlatformFeatures />
+        <PricingBlock />
       </div>
     );
   }

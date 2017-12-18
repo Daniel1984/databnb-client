@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import classnames from 'classnames';
 import format from 'date-fns/format'
 import styles from './AvailabilityByPriceSummary.scss';
-import { AvailabilityByPriceChart } from '../charts';
+import { AvailabilityChart } from '../charts';
 import { Select } from '../common';
 
 function extractAvailabilityData({ availability }) {
@@ -68,7 +68,7 @@ export default class AvailabilityByPriceSummary extends Component {
     return (
       <div class={styles.root}>
         <div class={styles.col}>
-          <AvailabilityByPriceChart labels={labels} data={data} />
+          <AvailabilityChart label="Availability by pricing" labels={labels} data={data} />
         </div>
         <div class={classnames([styles.col, styles.info])}>
           <div class={styles.colTitle}>

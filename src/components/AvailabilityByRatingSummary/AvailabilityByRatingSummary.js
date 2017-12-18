@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import classnames from 'classnames';
 import format from 'date-fns/format'
 import styles from './AvailabilityByRatingSummary.scss';
-import { AvailabilityByPriceChart } from '../charts';
+import { AvailabilityChart } from '../charts';
 import { Select } from '../common';
 
 function extractAvailabilityData({ star_rating, availability }) {
@@ -62,13 +62,13 @@ export default class AvailabilityByRatingSummary extends Component {
       availabilities = availabilities.sort((a, b) => a.rating - b.rating);
     }
 
-    const labels = availabilities.map(({ rating }) => !rating ? 0 : rating);
+    const labels = availabilities.map(({ rating }) => !rating ? '0 star' : `${rating} stars`);
     const data = availabilities.map(({ occupancyPercentage }) => occupancyPercentage);
 
     return (
       <div class={styles.root}>
         <div class={styles.col}>
-          <AvailabilityByPriceChart labels={labels} data={data} />
+          <AvailabilityChart label="Availability by rating" labels={labels} data={data} />
         </div>
         <div class={classnames([styles.col, styles.info])}>
           <div class={styles.colTitle}>
