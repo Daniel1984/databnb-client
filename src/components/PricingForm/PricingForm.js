@@ -9,6 +9,7 @@ export default class PricingForm extends Component {
   state = {
     btnEnabled: false,
     bedrooms: 2,
+    btnText: 'Calculate',
   };
 
   componentDidMount() {
@@ -49,9 +50,19 @@ export default class PricingForm extends Component {
   }
 
   getPricingInfo = () => {
+    this.setState({
+      btnEnabled: false,
+      btnText: 'Loading...',
+    });
+
     const { latlng, city, bedrooms, address } = this.state;
 
     calculatePrice({ latlng, city, bedrooms }).then(({ listingsWithAvailabilities }) => {
+      this.setState({
+        btnEnabled: true,
+        btnText: 'Calculate',
+      });
+
       this.props.updateParentState({ listings: listingsWithAvailabilities, latlng, address, bedrooms });
     });
   }
@@ -89,7 +100,7 @@ export default class PricingForm extends Component {
               class={styles.btn}
               disabled={!this.state.btnEnabled}
             >
-              Calculate
+              {this.state.btnText}
             </button>
           </div>
         </div>
