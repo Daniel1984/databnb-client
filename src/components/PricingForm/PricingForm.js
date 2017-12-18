@@ -3,6 +3,7 @@ import places from 'places.js';
 import styles from './PricingForm.scss';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import { calculatePrice } from '../../shared/api';
+import { Select } from '../common';
 
 export default class PricingForm extends Component {
   state = {
@@ -69,9 +70,8 @@ export default class PricingForm extends Component {
               placeholder="Type in your address"
             />
           </div>
-          <div class={styles.formControlCustomDrpdown}>
-            <select
-              class={styles.select}
+          <div class={styles.selectContainer}>
+            <Select
               value={bedrooms}
               onChange={e => this.setState({ bedrooms: e.target.value })}
             >
@@ -81,7 +81,7 @@ export default class PricingForm extends Component {
               <option value="3">3 Bedrooms</option>
               <option value="4">4 Bedrooms</option>
               <option value="5">5 Bedrooms</option>
-            </select>
+            </Select>
           </div>
           <div class={styles.formControl}>
             <button

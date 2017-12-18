@@ -1,15 +1,16 @@
 import { h } from 'preact';
 import styles from './QuickSummaryBlock.scss';
+import AvailabilityByPriceSummary from '../AvailabilityByPriceSummary/AvailabilityByPriceSummary';
+import AvailabilityByRatingSummary from '../AvailabilityByRatingSummary/AvailabilityByRatingSummary';
 
 import {
   RatingChart,
   ListingsGrowthChart,
   PriceByDistanceChart,
   PriceByRatingChart,
-  AvailabilityByPriceChart,
 } from '../charts';
 
-import Summary from '../common/Summary/Summary';
+import { Summary } from '../common';
 
 export default function QuickSummaryBlock({ listings, latlng }) {
   return (
@@ -37,10 +38,9 @@ export default function QuickSummaryBlock({ listings, latlng }) {
         renderGraph={() => <PriceByRatingChart listings={listings} />}
       />
 
-      <Summary
-        title="Property availability percentage depending on price:"
-        renderGraph={() => <AvailabilityByPriceChart listings={listings} />}
-      />
+      <AvailabilityByPriceSummary listings={listings} />
+
+      <AvailabilityByRatingSummary listings={listings} />
     </div>
   );
 }

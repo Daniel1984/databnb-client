@@ -36,8 +36,7 @@
   align-items: center;
 }
 
-.formControl,
-.formControlCustomDrpdown {
+.formControl {
   margin: 0 10px;
   position: relative;
   flex: 1;
@@ -53,47 +52,17 @@
   }
 }
 
-.formControlCustomDrpdown {
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-  }
-
-  &:after {
-    margin-top: 0px;
-    border-top: 5px solid $colorPrimary;
-  }
-
-  &:before {
-    margin-top: -7px;
-    border-bottom: 5px solid $colorPrimary;
-  }
-}
-
 .input {
   height: 43px;
   padding: 9px;
-  background-color: whitesmoke;
+  background-color: #fff;
   border-radius: 0;
   outline: 0;
   font-size: 1.2rem;
 }
 
-.select {
-  -webkit-appearance: none;
-  padding: 9px 10px;
-  border-radius: 0;
-  box-shadow: none;
-  font-size: 1.2rem;
-  outline: 0;
-  transition: all .3s ease 0s;
+.selectContainer {
+  flex: 1;
 }
 
 .btn {
