@@ -18,7 +18,7 @@ function PricingBlock() {
             <div>Features:</div>
           </div>
           <ul class={styles.list}>
-            <li>Access to custom dashboards</li>
+            <li>Access to custom charts</li>
             <li>Up to 10 queries per hour</li>
           </ul>
         </div>
@@ -36,7 +36,7 @@ function PricingBlock() {
             <div>Features:</div>
           </div>
           <ul class={classnames([styles.list, styles.basicList])}>
-            <li>Access to custom dashboards</li>
+            <li>Access to even more custom charts</li>
             <li>Up to 50 queries per hour</li>
             <li>Weekly personalized email reports</li>
             <li>Weekly pricing recommendations</li>

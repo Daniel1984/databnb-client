@@ -24,11 +24,15 @@
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
+
+  @media (max-width: $screenMd) {
+    flex-direction: column;
+  }
 }
 
 .pricingBlock {
   margin: 20px;
-  min-width: 200px;
+  min-width: 300px;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -41,6 +45,10 @@
 
   &.basicPricingBlock {
     flex: 1.2;
+
+    @media (max-width: $screenSm) {
+      flex: 1;
+    }
   }
 
   &:first-child {
@@ -49,6 +57,10 @@
 
   &:last-child {
     margin-right: 0;
+  }
+
+  @media (max-width: $screenSm) {
+    margin: 0 0 40px 0;
   }
 }
 
