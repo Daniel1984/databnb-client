@@ -6,7 +6,10 @@
   display: flex;
 
   @media (max-width: $screenSm) {
+    margin: 0;
+    padding-top: 30px;
     flex-wrap: wrap;
+    border-top: 1px solid $lineColor;
   }
 }
 

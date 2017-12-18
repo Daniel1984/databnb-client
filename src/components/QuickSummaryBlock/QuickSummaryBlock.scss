@@ -2,25 +2,31 @@
 
 .row {
   display: flex;
-  border-bottom: 1px solid $lineColor;
 
-  &:last-child {
-    border-bottom: 0;
+  @media (max-width: $screenSm) {
+    flex-direction: column-reverse;
   }
 }
 
 .col {
-  flex: 1;
   padding: 20px 15px;
+  flex: 1;
 
-  &:first-child {
-    border-right: 1px solid $lineColor;
+  &.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+  }
+
+  @media (max-width: $screenSm) {
+    padding: 0;
   }
 }
 
 .quickSummaryTitle {
   border-bottom: 1px solid $lineColor;
-  padding: 20px 0;
+  padding: 20px 10px;
   font-weight: 400;
   font-size: 30px;
   color: $colorText;
@@ -28,7 +34,8 @@
 }
 
 .colTitle {
-  margin-bottom: 20px;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 400;
+  text-align: center;
+  padding: 15px;
 }
