@@ -14,6 +14,16 @@ const localeToGeolocation = {
   }
 };
 
+function getCityNameByType({ addressComponents, type }) {
+  return addressComponents.reduce((acc, curr) => {
+    if (curr.types.indexOf(type) !== -1) {
+      acc = curr.short_name;
+    }
+
+    return acc;
+  }, '');
+}
+
 export default class PricingForm extends Component {
   state = {
     btnEnabled: false,
@@ -34,13 +44,15 @@ export default class PricingForm extends Component {
         return;
       }
 
-      const city = place.address_components.reduce((acc, curr) => {
-        if (curr.types.indexOf('postal_town') !== -1) {
-          acc = curr.short_name;
-        }
+      let city = getCityNameByType({ addressComponents: place.address_components, type: 'postal_town' });
 
-        return acc;
-      }, '');
+      if (!city) {
+        city = getCityNameByType({ addressComponents: place.address_components, type: 'locality' });
+      }
+
+      if (!city) {
+        let city = place.vicinity;
+      }
 
       const latlng = place.geometry.location;
 
@@ -59,21 +71,18 @@ export default class PricingForm extends Component {
   }
 
   getPricingInfo = () => {
-    this.setState({
-      btnEnabled: false,
-      btnText: 'Loading...',
-    });
-
+    this.setState({ btnEnabled: false, btnText: 'Loading...' });
     const { latlng, city, bedrooms, address } = this.state;
 
-    calculatePrice({ latlng, city, bedrooms }).then(({ listingsWithAvailabilities }) => {
-      this.setState({
-        btnEnabled: true,
-        btnText: 'Calculate',
+    calculatePrice({ latlng, city, bedrooms })
+      .then(({ listingsWithAvailabilities }) => {
+        this.setState({ btnEnabled: true, btnText: 'Calculate' });
+        this.props.updateParentState({ listings: listingsWithAvailabilities, latlng, address, bedrooms });
+      })
+      .catch(() => {
+        alert(`Sorry, ${city} is not yet ready for reports.`);
+        this.setState({ btnEnabled: true, btnText: 'Calculate' });
       });
-
-      this.props.updateParentState({ listings: listingsWithAvailabilities, latlng, address, bedrooms });
-    });
   }
 
   render() {
