@@ -22,9 +22,15 @@ export default class AvailabilityByPriceChart extends Component {
         }
       }
     });
+
+    this.drawChart(this.props);
   }
 
-  componentWillReceiveProps({ data, labels }) {
+  componentWillReceiveProps(props) {
+    this.drawChart(props);
+  }
+
+  drawChart({ data, labels }) {
     this.ratingsChart.data.labels = labels;
     this.ratingsChart.data.datasets[0].data = data;
     this.ratingsChart.update();

@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 
 const CITY_TO_CURRENCY = {
   london: 'gbp',
+  rome: 'eur',
 };
 
 function getDistanceFromLatLonInM({ lat1, lng1, lat2, lng2 }) {
@@ -50,10 +51,17 @@ export default class PriceByDistanceChart extends Component {
         }]
       },
     });
+
+    this.drawChart(this.props);
   }
 
-  componentWillReceiveProps({ listings, latlng }) {
-    const currency = CITY_TO_CURRENCY[listings[0].city];
+  componentWillReceiveProps(props) {
+    this.drawChart(props);
+  }
+
+  drawChart({ listings, latlng }) {
+    const currency = listings.length ? CITY_TO_CURRENCY[listings[0].city] : 'eur';
+
     const data = listings
       .map(({ lat, lng, availability }) => {
         const distance = getDistanceFromLatLonInM({ lat1: latlng.lat, lng1: latlng.lng, lat2: lat, lng2: lng });

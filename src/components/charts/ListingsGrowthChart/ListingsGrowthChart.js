@@ -17,9 +17,15 @@ export default class ListingsGrowthChart extends Component {
         }]
       },
     });
+
+    this.drawChart(this.props);
   }
 
-  componentWillReceiveProps({ listings }) {
+  componentWillReceiveProps(props) {
+    this.drawChart(props);
+  }
+
+  drawChart({ listings }) {
     const listingsPerYear = listings.reduce((acc, { listing_start_date }) => {
       if (!listing_start_date) {
         return acc;

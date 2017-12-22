@@ -14,16 +14,6 @@ const localeToGeolocation = {
   }
 };
 
-function getCityNameByType({ addressComponents, type }) {
-  return addressComponents.reduce((acc, curr) => {
-    if (curr.types.indexOf(type) !== -1) {
-      acc = curr.short_name;
-    }
-
-    return acc;
-  }, '');
-}
-
 export default class PricingForm extends Component {
   state = {
     btnEnabled: false,
@@ -44,21 +34,10 @@ export default class PricingForm extends Component {
         return;
       }
 
-      let city = getCityNameByType({ addressComponents: place.address_components, type: 'postal_town' });
-
-      if (!city) {
-        city = getCityNameByType({ addressComponents: place.address_components, type: 'locality' });
-      }
-
-      if (!city) {
-        let city = place.vicinity;
-      }
-
       const latlng = place.geometry.location;
 
       if (latlng.lat && latlng.lng) {
         this.setState({
-          city,
           address,
           latlng: {
             lat: latlng.lat(),
@@ -72,15 +51,15 @@ export default class PricingForm extends Component {
 
   getPricingInfo = () => {
     this.setState({ btnEnabled: false, btnText: 'Loading...' });
-    const { latlng, city, bedrooms, address } = this.state;
+    const { latlng, bedrooms, address } = this.state;
 
-    calculatePrice({ latlng, city, bedrooms })
+    calculatePrice({ latlng, bedrooms })
       .then(({ listingsWithAvailabilities }) => {
         this.setState({ btnEnabled: true, btnText: 'Calculate' });
         this.props.updateParentState({ listings: listingsWithAvailabilities, latlng, address, bedrooms });
       })
       .catch(() => {
-        alert(`Sorry, ${city} is not yet ready for reports.`);
+        alert(`Sorry, ${address} is not yet ready for reports.`);
         this.setState({ btnEnabled: true, btnText: 'Calculate' });
       });
   }

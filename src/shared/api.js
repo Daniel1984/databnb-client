@@ -13,7 +13,7 @@ function fetchApi({ path }) {
     });
 }
 
-export function calculatePrice({ latlng: { lat, lng}, city, bedrooms }) {
-  const path = `price-prediction?lat=${lat}&lng=${lng}&city=${city}&bedrooms=${bedrooms}`;
+export function calculatePrice({ latlng: { lat, lng }, bedrooms }) {
+  const path = `price-prediction?lat=${lat}&lng=${lng}&bedrooms=${bedrooms}`;
   return fetchApi({ path });
 }

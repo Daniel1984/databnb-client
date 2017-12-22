@@ -19,7 +19,9 @@ export default class PricingResults extends Component{
           bedrooms={bedrooms}
           address={address}
         />
-        <QuickSummaryBlock listings={listings} latlng={latlng} />
+        {listings.length && (
+          <QuickSummaryBlock listings={listings} latlng={latlng} />
+        )}
       </div>
     );
   }

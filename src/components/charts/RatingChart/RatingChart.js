@@ -5,9 +5,14 @@ export default class RatingPieChart extends Component {
   componentDidMount() {
     const ctx = this.chartEl.getContext('2d');
     this.ratingsChart = getBarChartBlueprint({ label: 'Ratings distribution:', ctx });
+    this.drawChart(this.props);
   }
 
-  componentWillReceiveProps({ listings }) {
+  componentWillReceiveProps(props) {
+    this.drawChart(props);
+  }
+
+  drawChart({ listings }) {
     const ratings = listings.reduce((acc, { star_rating }) => {
       acc[star_rating] = acc[star_rating] ? (acc[star_rating] + 1) : 1;
       return acc;

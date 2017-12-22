@@ -5,9 +5,14 @@ export default class PriceByRatingChart extends Component {
   componentDidMount() {
     const ctx = this.chartEl.getContext('2d');
     this.priceByRatingsChart = getBarChartBlueprint({ label: 'Monthly rental price:', ctx });
+    this.drawChart(this.props);
   }
 
-  componentWillReceiveProps({ listings }) {
+  componentWillReceiveProps(props) {
+    this.drawChart(props);
+  }
+
+  drawChart({ listings }) {
     const pricesByRating = listings.reduce((acc, { star_rating, availability }) => {
       const availabilityKeys = Object.keys(availability);
 

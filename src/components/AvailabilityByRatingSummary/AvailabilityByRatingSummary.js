@@ -35,7 +35,15 @@ function putSameDateAvailabilitiesInGroups(acc, availability) {
 };
 
 export default class AvailabilityByRatingSummary extends Component {
-  componentWillReceiveProps({ listings }) {
+  componentDidMount() {
+    this.updateStateAndChart(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.updateStateAndChart(props);
+  }
+
+  updateStateAndChart({ listings }) {
     const groupedAvailabilities = listings
       .map(extractAvailabilityData)
       .reduce(putSameDateAvailabilitiesInGroups, {});
