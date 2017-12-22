@@ -24,6 +24,7 @@
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
+  justify-content: center;
 
   @media (max-width: $screenMd) {
     flex-direction: column;
@@ -33,23 +34,11 @@
 .pricingBlock {
   margin: 20px;
   min-width: 300px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
   border-radius: 10px;
   text-align: center;
   background-color: #fff;
   color: #000;
   overflow: hidden;
-
-  &.basicPricingBlock {
-    flex: 1.2;
-
-    @media (max-width: $screenSm) {
-      flex: 1;
-    }
-  }
 
   &:first-child {
     margin-left: 0;
@@ -59,15 +48,15 @@
     margin-right: 0;
   }
 
-  @media (max-width: $screenSm) {
+  @media (max-width: $screenMd) {
     margin: 0 0 40px 0;
   }
 }
 
 .pricingTitle {
   text-align: center;
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 600;
 
   &.popularTile {
     font-size: 35px;
@@ -76,51 +65,49 @@
 }
 
 .cost {
-  margin: 20px 0;
   text-align: center;
-  font-weight: 500;
-  font-size: 35px;
-  color: yellowgreen;
+  font-weight: 600;
+  font-size: 25px;
 
   &.popularCost {
     font-weight: 600;
     font-size: 55px;
-    color: orangered;
   }
 }
 
 .heading {
+  color: $colorText;
   padding: 20px 10px;
   height: 200px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-direction: column;
-}
+  background-color: #96deda;
+  background: linear-gradient(#96deda, #50c9c3);
 
-.list {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  list-style: none;
-  padding: 10px;
-  margin-bottom: 0;
-  background-color: yellowgreen;
 
   &.basicList {
-    background-color: orangered;
-
-    > li:before {
-      color: yellowgreen;
-    }
+    background-color: #fecfef;
+    background: linear-gradient(#fecfef, #ff9a9e);
   }
+}
 
-  > li {
-    padding: 10px;
+.features {
+  padding: 20px;
+}
 
-    &:before {
-      content: '✓';
-      margin-right: 10px;
-      color: $colorPrimary;
-    }
+.featuresTitle {
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.feature {
+  margin: 10px 0;
+  text-align: left;
+
+  &:before {
+    content: '✓';
+    margin-right: 10px;
+    color: $colorAccent;
   }
 }
