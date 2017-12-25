@@ -22,7 +22,7 @@ function PricingBlock() {
               Access to custom charts
             </div>
             <div class={styles.feature}>
-              Up to 10 queries per hour
+              Unlimited queries
             </div>
           </div>
         </div>
@@ -41,16 +41,13 @@ function PricingBlock() {
               Features:
             </div>
             <div class={styles.feature}>
-              Access to even more custom charts
-            </div>
-            <div class={styles.feature}>
-              Up to 50 queries per hour
-            </div>
-            <div class={styles.feature}>
               Weekly personalized email reports
             </div>
             <div class={styles.feature}>
               Weekly pricing recommendations
+            </div>
+            <div class={styles.feature}>
+              All free plan features
             </div>
           </div>
         </div>
@@ -69,9 +66,6 @@ function PricingBlock() {
             </div>
             <div class={styles.feature}>
               More custom dashboards
-            </div>
-            <div class={styles.feature}>
-              Unlimited queries
             </div>
             <div class={styles.feature}>
               Download CSV/JSON data

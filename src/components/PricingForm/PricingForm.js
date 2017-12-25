@@ -70,6 +70,14 @@ export default class PricingForm extends Component {
     socket.get().on('reenableForm', () => {
       this.setState({ btnEnabled: true, btnText: 'Calculate' });
     });
+
+    socket.get().on('getListings:loadingInfo', ({ msg }) => {
+      this.setState({ btnText: msg });
+    });
+  }
+
+  componentWillReceiveProps() {
+    this.rootEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   getPricingInfo = () => {
@@ -79,10 +87,10 @@ export default class PricingForm extends Component {
   }
 
   render() {
-    const { bedrooms } = this.state;
+    const { bedrooms, btnText, btnEnabled } = this.state;
 
     return (
-      <div class={styles.root}>
+      <div ref={el => this.rootEl = el} class={styles.root}>
         <h3 class={styles.title}>Make the most of your property</h3>
         <div class={styles.formContainer}>
           <div class={styles.formControl}>
@@ -109,9 +117,9 @@ export default class PricingForm extends Component {
             <button
               onClick={this.getPricingInfo}
               class={styles.btn}
-              disabled={!this.state.btnEnabled}
+              disabled={!btnEnabled}
             >
-              {this.state.btnText}
+              {btnText}
             </button>
           </div>
         </div>

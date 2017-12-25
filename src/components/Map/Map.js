@@ -36,7 +36,7 @@ class Map extends Component {
     });
 
     if (latlng) {
-      this.map.setView([latlng.lat, latlng.lng], 16);
+      this.map.setView([latlng.lat, latlng.lng], 9);
     }
 
     if (listings.length) {

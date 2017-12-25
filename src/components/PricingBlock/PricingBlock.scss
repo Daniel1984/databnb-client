@@ -33,13 +33,17 @@
 }
 
 .pricingBlock {
-  margin: 0 10px 40px 10px;
-  min-width: 300px;
+  margin: 0 20px 40px 20px;
   border-radius: 10px;
   text-align: center;
   background-color: #fff;
   color: #000;
   overflow: hidden;
+  flex: 1;
+
+  @media (max-width: $screenMd) {
+    margin: 0 0 40px 0;
+  }
 }
 
 .pricingTitle {
@@ -93,6 +97,7 @@
 .feature {
   margin: 10px 0;
   text-align: left;
+  display: flex;
 
   &:before {
     content: '✓';
