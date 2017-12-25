@@ -12,8 +12,3 @@ function fetchApi({ path }) {
       return response.json().then(json => json);
     });
 }
-
-export function calculatePrice({ latlng: { lat, lng }, bedrooms }) {
-  const path = `price-prediction?lat=${lat}&lng=${lng}&bedrooms=${bedrooms}`;
-  return fetchApi({ path });
-}

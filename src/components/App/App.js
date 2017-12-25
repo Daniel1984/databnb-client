@@ -9,6 +9,8 @@ import PlatformFeatures from '../PlatformFeatures/PlatformFeatures';
 import PricingResults from '../PricingResults/PricingResults';
 import PricingBlock from '../PricingBlock/PricingBlock';
 import Footer from '../Footer/Footer';
+import socketio from '../../shared/socket';
+
 
 export default class App extends Component {
   constructor() {
@@ -20,6 +22,8 @@ export default class App extends Component {
       listings: [],
       address: '',
     };
+
+    socketio.init();
   }
 
   updateState(payload) {
@@ -32,7 +36,7 @@ export default class App extends Component {
     return (
       <div class="app">
         <Heading />
-        <PricingForm updateParentState={state => this.updateState(state)} />
+        <PricingForm listings={listings} updateParentState={state => this.updateState(state)} />
         <PricingResults
           latlng={latlng}
           listings={listings}

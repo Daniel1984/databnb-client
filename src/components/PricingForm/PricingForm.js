@@ -4,6 +4,7 @@ import styles from './PricingForm.scss';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import { calculatePrice } from '../../shared/api';
 import { Select } from '../common';
+import socket from '../../shared/socket';
 
 const localeToGeolocation = {
   london: {
@@ -29,6 +30,7 @@ export default class PricingForm extends Component {
     autoCompleteForm.addListener('place_changed', () => {
       const place = autoCompleteForm.getPlace();
       const address = place.formatted_address || '';
+      console.log(address)
 
       if (!place || !place.address_components || !place.geometry) {
         return;
@@ -47,21 +49,33 @@ export default class PricingForm extends Component {
         });
       }
     });
+
+    socket.get().on('listings', ({ listings }) => {
+      const { latlng, bedrooms, address } = this.state;
+      this.setState({ btnEnabled: true, btnText: 'Calculate', listings });
+      this.props.updateParentState({ listings, latlng, address, bedrooms });
+    });
+
+    socket.get().on('listing', ({ listing }) => {
+      console.log(listing[0]);
+      const { latlng, bedrooms, address } = this.state;
+      this.props.updateParentState({
+        listings: [...this.props.listings, ...listing],
+        latlng,
+        address,
+        bedrooms
+      });
+    });
+
+    socket.get().on('reenableForm', () => {
+      this.setState({ btnEnabled: true, btnText: 'Calculate' });
+    });
   }
 
   getPricingInfo = () => {
     this.setState({ btnEnabled: false, btnText: 'Loading...' });
     const { latlng, bedrooms, address } = this.state;
-
-    calculatePrice({ latlng, bedrooms })
-      .then(({ listingsWithAvailabilities }) => {
-        this.setState({ btnEnabled: true, btnText: 'Calculate' });
-        this.props.updateParentState({ listings: listingsWithAvailabilities, latlng, address, bedrooms });
-      })
-      .catch(() => {
-        alert(`Sorry, ${address} is not yet ready for reports.`);
-        this.setState({ btnEnabled: true, btnText: 'Calculate' });
-      });
+    socket.get().emit('getListings', { ...latlng, bedrooms, address });
   }
 
   render() {
