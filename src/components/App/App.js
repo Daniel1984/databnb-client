@@ -9,6 +9,7 @@ import PlatformFeatures from '../PlatformFeatures/PlatformFeatures';
 import PricingResults from '../PricingResults/PricingResults';
 import PricingBlock from '../PricingBlock/PricingBlock';
 import Footer from '../Footer/Footer';
+import SuccessStories from '../SuccessStories/SuccessStories';
 import socketio from '../../shared/socket';
 
 
@@ -44,6 +45,7 @@ export default class App extends Component {
         />
         <PlatformFeatures />
         <PricingBlock />
+        <SuccessStories />
         <Footer />
       </div>
     );
