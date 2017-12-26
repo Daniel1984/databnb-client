@@ -40,8 +40,6 @@ function getCombinedDataByRating(availabilities) {
     return acc;
   }, {});
 
-  console.log('combinedAvailabilities = ', combinedAvailabilities);
-
   return Object.keys(combinedAvailabilities).map((key) => {
     const combinedPercentage = combinedAvailabilities[key];
 
@@ -105,7 +103,7 @@ export default class AvailabilityByRatingSummary extends Component {
     return (
       <div class={styles.root}>
         <div class={styles.col}>
-          <AvailabilityChart label="Availability by rating" labels={labels} data={data} />
+          <AvailabilityChart label="Occupancy by rating" labels={labels} data={data} />
         </div>
         <div class={classnames([styles.col, styles.info])}>
           <div class={styles.colTitle}>

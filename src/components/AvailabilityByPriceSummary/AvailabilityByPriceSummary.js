@@ -76,7 +76,7 @@ export default class AvailabilityByPriceSummary extends Component {
     return (
       <div class={styles.root}>
         <div class={styles.col}>
-          <AvailabilityChart label="Availability by pricing" labels={labels} data={data} />
+          <AvailabilityChart label="Occupancy by pricing" labels={labels} data={data} />
         </div>
         <div class={classnames([styles.col, styles.info])}>
           <div class={styles.colTitle}>

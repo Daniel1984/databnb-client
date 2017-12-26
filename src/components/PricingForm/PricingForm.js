@@ -53,17 +53,18 @@ export default class PricingForm extends Component {
     socket.get().on('listings', ({ listings }) => {
       const { latlng, bedrooms, address } = this.state;
       this.setState({ btnEnabled: true, btnText: 'Calculate', listings });
-      this.props.updateParentState({ listings, latlng, address, bedrooms });
+      this.props.updateParentState({ listings, latlng, address, bedrooms, fetchedListings: true });
     });
 
     socket.get().on('listing', ({ listing }) => {
-      console.log(listing[0]);
       const { latlng, bedrooms, address } = this.state;
+
       this.props.updateParentState({
         listings: [...this.props.listings, ...listing],
         latlng,
         address,
-        bedrooms
+        bedrooms,
+        fetchedListings: true,
       });
     });
 
@@ -81,6 +82,7 @@ export default class PricingForm extends Component {
   }
 
   getPricingInfo = () => {
+    this.props.updateParentState({ fetchedListings: false });
     this.setState({ btnEnabled: false, btnText: 'Loading...' });
     const { latlng, bedrooms, address } = this.state;
     socket.get().emit('getListings', { ...latlng, bedrooms, address });

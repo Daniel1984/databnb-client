@@ -1,6 +1,6 @@
 import places from 'places.js';
 import { calculatePrice } from '../../shared/api';
-import './App.scss';
+import styles from './App.scss';
 
 import { h, Component } from 'preact';
 import Heading from '../Heading/Heading';
@@ -12,18 +12,17 @@ import Footer from '../Footer/Footer';
 import SuccessStories from '../SuccessStories/SuccessStories';
 import socketio from '../../shared/socket';
 
-
 export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      latlng: null,
-      city: null,
-      bedrooms: 0,
-      listings: [],
-      address: '',
-    };
+  state = {
+    latlng: null,
+    city: null,
+    bedrooms: 0,
+    listings: [],
+    address: '',
+    fetchedListings: false,
+  };
 
+  componentWillMount() {
     socketio.init();
   }
 
@@ -32,7 +31,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { latlng, listings, address, bedrooms } = this.state;
+    const { latlng, listings, address, bedrooms, fetchedListings } = this.state;
 
     return (
       <div class="app">
@@ -43,6 +42,11 @@ export default class App extends Component {
           listings={listings}
           address={address}
         />
+        {(fetchedListings && !listings.length) && (
+          <div class={styles.noListings}>
+            Unfortunately there's no <b>{bedrooms} bedroom</b> listings in <b>{address}</b> area
+          </div>
+        )}
         <PlatformFeatures />
         <PricingBlock />
         <SuccessStories />
