@@ -80,7 +80,7 @@ export default class AvailabilityByPriceSummary extends Component {
         </div>
         <div class={classnames([styles.col, styles.info])}>
           <div class={styles.colTitle}>
-            Property availability percentage depending on price:
+            Property occupancy percentage depending on price:
           </div>
           {availableDates && (
             <div class={styles.selectContainer}>

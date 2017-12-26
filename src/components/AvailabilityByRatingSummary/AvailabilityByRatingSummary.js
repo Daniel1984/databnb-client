@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import format from 'date-fns/format'
 import styles from './AvailabilityByRatingSummary.scss';
 import { AvailabilityChart } from '../charts';
-import { Select } from '../common';
+import { Select, Checkbox } from '../common';
 
 function extractAvailabilityData({ star_rating, availability }) {
   return Object.keys(availability).reduce((acc, key) => {
@@ -34,6 +34,24 @@ function putSameDateAvailabilitiesInGroups(acc, availability) {
   return acc;
 };
 
+function getCombinedDataByRating(availabilities) {
+  const combinedAvailabilities = availabilities.reduce((acc, { occupancyPercentage, rating }) => {
+    acc[rating] = acc[rating] ? [...acc[rating], occupancyPercentage] : [occupancyPercentage];
+    return acc;
+  }, {});
+
+  console.log('combinedAvailabilities = ', combinedAvailabilities);
+
+  return Object.keys(combinedAvailabilities).map((key) => {
+    const combinedPercentage = combinedAvailabilities[key];
+
+    return {
+      rating: key === 'null' ? null : Number(key),
+      occupancyPercentage: combinedPercentage.reduce((acc, curr) => acc + curr) / combinedPercentage.length
+    }
+  });
+}
+
 export default class AvailabilityByRatingSummary extends Component {
   componentDidMount() {
     this.updateStateAndChart(this.props);
@@ -62,16 +80,27 @@ export default class AvailabilityByRatingSummary extends Component {
     });
   }
 
-  render() {
-    const { groupedAvailabilities, availableDates, selectedDate } = this.state;
+  getChartData() {
+    const { groupedAvailabilities, selectedDate, combinedByRating } = this.state;
     let availabilities = groupedAvailabilities ? groupedAvailabilities[selectedDate] : [];
 
-    if (availabilities.length) {
-      availabilities = availabilities.sort((a, b) => a.rating - b.rating);
+    if (combinedByRating) {
+      availabilities = getCombinedDataByRating(availabilities);
     }
 
-    const labels = availabilities.map(({ rating }) => !rating ? '0 star' : `${rating} stars`);
-    const data = availabilities.map(({ occupancyPercentage }) => occupancyPercentage);
+    if (availabilities.length) {
+      availabilities = availabilities.sort((a, b) => Number(a.rating) - Number(b.rating));
+    }
+
+    return {
+      labels: availabilities.map(({ rating }) => !rating || rating === 'null' ? '0 stars' : `${rating} stars`),
+      data: availabilities.map(({ occupancyPercentage }) => occupancyPercentage),
+    };
+  }
+
+  render() {
+    const { availableDates, selectedDate } = this.state;
+    const { labels, data } = this.getChartData();
 
     return (
       <div class={styles.root}>
@@ -80,7 +109,7 @@ export default class AvailabilityByRatingSummary extends Component {
         </div>
         <div class={classnames([styles.col, styles.info])}>
           <div class={styles.colTitle}>
-            Property availability percentage depending on rating:
+            Property occupancy percentage depending on rating:
           </div>
           {availableDates && (
             <div class={styles.selectContainer}>
@@ -93,6 +122,13 @@ export default class AvailabilityByRatingSummary extends Component {
               </Select>
             </div>
           )}
+
+          <div class={styles.toggleContainer}>
+            <Checkbox
+              label="Combined by rating:"
+              onChange={(e) => this.setState({ combinedByRating: e.target.checked })}
+            />
+          </div>
         </div>
       </div>
     );
