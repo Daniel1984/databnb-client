@@ -41,7 +41,6 @@ export default class App extends Component {
           latlng={latlng}
           listings={listings}
           address={address}
-          bedrooms={bedrooms}
         />
         <PlatformFeatures />
         <PricingBlock />

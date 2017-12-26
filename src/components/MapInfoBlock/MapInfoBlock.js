@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import Map from '../Map/Map';
 import styles from './MapInfoBlock.scss';
 
-export default function MapInfoBlock({ listings, latlng, bedrooms, address }) {
+export default function MapInfoBlock({ listings, latlng, address }) {
   const bedroomsCount = listings.length ? listings[0].bedrooms : 0;
 
   return (
@@ -17,7 +17,7 @@ export default function MapInfoBlock({ listings, latlng, bedrooms, address }) {
         </div>
       </div>
       <div class={classnames([styles.col, styles.map])}>
-        <Map latlng={latlng} listings={listings} bedrooms={bedrooms} />
+        <Map latlng={latlng} listings={listings} />
       </div>
     </div>
   );

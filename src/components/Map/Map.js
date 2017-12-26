@@ -12,18 +12,10 @@ class Map extends Component {
     }).addTo(this.map);
   }
 
-  componentWillReceiveProps(newProps) {
-    const { latlng, bedrooms } = this.props;
-    const locationChanged = latlng && (latlng.lat !== newProps.latlng.lat || latlng.lng !== newProps.latlng.lng);
-    const bedroomsChanged = bedrooms && (bedrooms !== newProps.bedrooms);
-
-    if (locationChanged || bedroomsChanged) {
+  componentWillReceiveProps({ latlng, listings }) {
+    if (this.markersLayer) {
       this.map.removeLayer(this.markersLayer);
     }
-  }
-
-  componentDidUpdate() {
-    const { latlng, listings } = this.props;
 
     const greenIcon = L.icon({
       iconUrl: HouseImg,
@@ -34,10 +26,6 @@ class Map extends Component {
       shadowAnchor: [13, 17],
       popupAnchor: [0, -17],
     });
-
-    if (latlng) {
-      this.map.setView([latlng.lat, latlng.lng], 9);
-    }
 
     if (listings.length) {
       const { markers, bounds } = listings.reduce((acc, curr) => {
