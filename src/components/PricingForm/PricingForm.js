@@ -20,6 +20,7 @@ export default class PricingForm extends Component {
     btnEnabled: false,
     bedrooms: 2,
     btnText: 'Calculate',
+    listings: []
   };
 
   componentDidMount() {
@@ -57,14 +58,16 @@ export default class PricingForm extends Component {
     });
 
     socket.get().on('listing', ({ listing }) => {
-      const { latlng, bedrooms, address } = this.state;
+      this.setState({ listings: [...this.state.listings, ...listing] }, () => {
+        const { latlng, bedrooms, address, listings } = this.state;
 
-      this.props.updateParentState({
-        listings: [...this.props.listings, ...listing],
-        latlng,
-        address,
-        bedrooms,
-        fetchedListings: true,
+        this.props.updateParentState({
+          listings,
+          latlng,
+          address,
+          bedrooms,
+          fetchedListings: true,
+        });
       });
     });
 
@@ -83,7 +86,7 @@ export default class PricingForm extends Component {
 
   getPricingInfo = () => {
     this.props.updateParentState({ fetchedListings: false });
-    this.setState({ btnEnabled: false, btnText: 'Loading...' });
+    this.setState({ btnEnabled: false, btnText: 'Loading...', listings: [] });
     const { latlng, bedrooms, address } = this.state;
     socket.get().emit('getListings', { ...latlng, bedrooms, address });
   }
