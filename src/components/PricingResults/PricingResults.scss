@@ -9,10 +9,10 @@
 
   &.expanded {
     transition: max-height 1s linear;
-    max-height: 3000px;
+    max-height: 5000px;
 
     @media (max-width: $screenSm) {
-      max-height: 6000px;
+      max-height: 8000px;
     }
   }
 }

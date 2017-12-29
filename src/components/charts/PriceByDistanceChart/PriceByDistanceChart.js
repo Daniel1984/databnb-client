@@ -1,10 +1,6 @@
 import Chart from 'chart.js';
 import { h, Component } from 'preact';
-
-const CITY_TO_CURRENCY = {
-  london: 'gbp',
-  rome: 'eur',
-};
+import LineChart from '../LineChart/LineChart';
 
 function getDistanceFromLatLonInM({ lat1, lng1, lat2, lng2 }) {
   const R = 6371; // Radius of the earth in km
@@ -35,62 +31,41 @@ function sortPricesByDistanceAscending(a, b) {
   return 0;
 }
 
+function getPriceByDistane({ lat, lng, availability, latlng }) {
+  const distance = getDistanceFromLatLonInM({
+    lat1: latlng.lat,
+    lng1: latlng.lng,
+    lat2: lat,
+    lng2: lng,
+  });
+
+  const availabilityKeys = Object.keys(availability);
+
+  const totalPrice = availabilityKeys.reduce((acc, currentKey) => {
+    const { nativeAdjustedPriceTotal, nativePriceTotal } = availability[currentKey];
+    acc = acc + (nativeAdjustedPriceTotal || nativePriceTotal);
+    return acc;
+  }, 0);
+
+  const avgPrice = Math.ceil(totalPrice / availabilityKeys.length);
+
+  return { distance, avgPrice };
+}
+
 export default class PriceByDistanceChart extends Component {
-  componentDidMount() {
-    const ctx = this.chartEl.getContext('2d');
-    this.priceByDistanceChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: '',
-          backgroundColor: 'rgb(233, 30, 98)',
-          borderColor: 'rgb(137, 193, 73)',
-          data: [],
-          fill: false,
-        }]
-      },
-    });
-
-    this.drawChart(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.drawChart(props);
-  }
-
-  drawChart({ listings, latlng }) {
-    const currency = listings.length ? CITY_TO_CURRENCY[listings[0].city] : 'eur';
+  render() {
+    const { listings, latlng } = this.props;
 
     const data = listings
-      .map(({ lat, lng, availability }) => {
-        const distance = getDistanceFromLatLonInM({ lat1: latlng.lat, lng1: latlng.lng, lat2: lat, lng2: lng });
-        const availabilityKeys = Object.keys(availability);
-
-        const totalPrice = availabilityKeys.reduce((acc, currentKey) => {
-          const { nativeAdjustedPriceTotal, nativePriceTotal } = availability[currentKey];
-          acc = acc + (nativeAdjustedPriceTotal || nativePriceTotal);
-          return acc;
-        }, 0);
-
-        const avgPrice = Math.ceil(totalPrice / availabilityKeys.length);
-
-        return {
-          distance,
-          avgPrice,
-        };
-      })
+      .map(listing => getPriceByDistane({ ...listing, latlng }))
       .sort(sortPricesByDistanceAscending);
 
-    this.priceByDistanceChart.data.labels = data.map(({ distance }) => `${distance} m` );
-    this.priceByDistanceChart.data.datasets[0].data = data.map(({ avgPrice }) => avgPrice );
-    this.priceByDistanceChart.data.datasets[0].label = `Currency: ${currency} / Distance: meters`;
-    this.priceByDistanceChart.update();
-  }
-
-  render() {
     return (
-      <canvas ref={el => this.chartEl = el} />
+      <LineChart
+        labels={data.map(({ distance }) => `${distance} m` )}
+        data={data.map(({ avgPrice }) => avgPrice )}
+        label="Price / Distance"
+      />
     )
   }
 }

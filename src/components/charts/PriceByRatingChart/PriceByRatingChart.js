@@ -1,10 +1,24 @@
 import { h, Component } from 'preact';
-import { CHART_COLORS, getBarChartBlueprint } from '../utils';
+import { CHART_COLORS, getHumanizedRatingLabels } from '../utils';
+import BarChart from '../BarChart/BarChart';
+
+function getPricesGroupedByRating(acc, { star_rating, availability }) {
+  const availabilityKeys = Object.keys(availability);
+
+  const totalPrice = availabilityKeys.reduce((acc, currentKey) => {
+    const { nativeAdjustedPriceTotal, nativePriceTotal } = availability[currentKey];
+    acc = acc + (nativeAdjustedPriceTotal || nativePriceTotal);
+    return acc;
+  }, 0);
+
+  const avgPrice = Math.ceil(totalPrice / availabilityKeys.length);
+  acc[star_rating] = acc[star_rating] ? [...acc[star_rating], avgPrice] : [avgPrice];
+
+  return acc;
+}
 
 export default class PriceByRatingChart extends Component {
   componentDidMount() {
-    const ctx = this.chartEl.getContext('2d');
-    this.priceByRatingsChart = getBarChartBlueprint({ label: 'Monthly rental price:', ctx });
     this.drawChart(this.props);
   }
 
@@ -13,49 +27,36 @@ export default class PriceByRatingChart extends Component {
   }
 
   drawChart({ listings }) {
-    const pricesByRating = listings.reduce((acc, { star_rating, availability }) => {
-      const availabilityKeys = Object.keys(availability);
-
-      const totalPrice = availabilityKeys.reduce((acc, currentKey) => {
-        const { nativeAdjustedPriceTotal, nativePriceTotal } = availability[currentKey];
-        acc = acc + (nativeAdjustedPriceTotal || nativePriceTotal);
-        return acc;
-      }, 0);
-
-      const avgPrice = Math.ceil(totalPrice / availabilityKeys.length);
-      acc[star_rating] = acc[star_rating] ? [...acc[star_rating], avgPrice] : [avgPrice];
-      return acc;
-    }, {});
-
+    const pricesByRating = listings.reduce(getPricesGroupedByRating, {});
     const ratingKeys = Object.keys(pricesByRating).sort();
     const backgroundColor = CHART_COLORS.slice(0, ratingKeys.length);
 
-    const data = ratingKeys.map((key) => {
+    const dataset = ratingKeys.map((key) => {
       const prices = pricesByRating[key];
       const sumOfPrices = prices.reduce((accumulator, currentValue) => accumulator + currentValue);
 
       return Math.ceil(sumOfPrices / prices.length);
     });
 
-    const labels = ratingKeys.map((key) => {
-      if (key === 'null') {
-        return 'Unrated';
-      } else if (key === '1') {
-        return `${key} Star`;
-      }
+    const labels = getHumanizedRatingLabels(ratingKeys);
 
-      return `${key} Stars`;
+    this.setState({
+      dataset,
+      labels,
+      backgroundColor,
     });
-
-    this.priceByRatingsChart.data.labels = labels;
-    this.priceByRatingsChart.data.datasets[0].data = data;
-    this.priceByRatingsChart.data.datasets[0].backgroundColor = backgroundColor;
-    this.priceByRatingsChart.update();
   }
 
   render() {
+    const { labels = [], dataset = [], backgroundColor = [] } = this.state;
+
     return (
-      <canvas ref={el => this.chartEl = el} />
+      <BarChart
+        label="Monthly rental price:"
+        labels={labels}
+        data={dataset}
+        backgroundColor={backgroundColor}
+      />
     )
   }
 }

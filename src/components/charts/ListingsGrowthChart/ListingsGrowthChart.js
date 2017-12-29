@@ -1,23 +1,8 @@
-import Chart from 'chart.js';
 import { h, Component } from 'preact';
+import LineChart from '../LineChart/LineChart';
 
 export default class ListingsGrowthChart extends Component {
   componentDidMount() {
-    const ctx = this.chartEl.getContext('2d');
-    this.listingsGrowthChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Listings growth per year',
-          backgroundColor: 'rgb(233, 30, 98)',
-          borderColor: 'rgb(137, 193, 73)',
-          data: [],
-          fill: true,
-        }]
-      },
-    });
-
     this.drawChart(this.props);
   }
 
@@ -37,16 +22,19 @@ export default class ListingsGrowthChart extends Component {
     }, {});
 
     const labels = Object.keys(listingsPerYear);
-    const data = labels.map(label => listingsPerYear[label])
-
-    this.listingsGrowthChart.data.labels = labels;
-    this.listingsGrowthChart.data.datasets[0].data = data;
-    this.listingsGrowthChart.update();
+    const dataset = labels.map(label => listingsPerYear[label])
+    this.setState({ labels, dataset });
   }
 
   render() {
+    const { labels = [], dataset = [] } = this.state;
+
     return (
-      <canvas ref={el => this.chartEl = el} />
+      <LineChart
+        labels={labels}
+        data={dataset}
+        label="Listings growth per year"
+      />
     )
   }
 }

@@ -1,10 +1,9 @@
 import { h, Component } from 'preact';
-import { CHART_COLORS, getBarChartBlueprint } from '../utils';
+import { CHART_COLORS, getHumanizedRatingLabels } from '../utils';
+import BarChart from '../BarChart/BarChart';
 
 export default class RatingPieChart extends Component {
   componentDidMount() {
-    const ctx = this.chartEl.getContext('2d');
-    this.ratingsChart = getBarChartBlueprint({ label: 'Ratings distribution:', ctx });
     this.drawChart(this.props);
   }
 
@@ -18,29 +17,28 @@ export default class RatingPieChart extends Component {
       return acc;
     }, {});
 
-    const rankingKeys = Object.keys(ratings).sort();
-    const data = rankingKeys.map(key => ratings[key]);
-    const backgroundColor = CHART_COLORS.slice(0, rankingKeys.length);
+    const ratingKeys = Object.keys(ratings).sort();
+    const dataset = ratingKeys.map(key => ratings[key]);
+    const backgroundColor = CHART_COLORS.slice(0, ratingKeys.length);
+    const labels = getHumanizedRatingLabels(ratingKeys);
 
-    const labels = rankingKeys.map((key) => {
-      if (key === 'null') {
-        return 'Unrated';
-      } else if (key === '1') {
-        return `${key} Star`;
-      }
-
-      return `${key} Stars`;
+    this.setState({
+      labels,
+      dataset,
+      backgroundColor,
     });
-
-    this.ratingsChart.data.labels = labels;
-    this.ratingsChart.data.datasets[0].data = data;
-    this.ratingsChart.data.datasets[0].backgroundColor = backgroundColor;
-    this.ratingsChart.update();
   }
 
   render() {
+    const { labels = [], dataset = [], backgroundColor = [] } = this.state;
+
     return (
-      <canvas ref={el => this.chartEl = el} />
-    )
+      <BarChart
+        label="Ratings distribution:"
+        labels={labels}
+        data={dataset}
+        backgroundColor={backgroundColor}
+      />
+    );
   }
 }

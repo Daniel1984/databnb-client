@@ -11,16 +11,14 @@ export const CHART_COLORS = [
   'rgb(119, 84, 70)',
 ];
 
-export function getBarChartBlueprint({ label, ctx }) {
-  return new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: [],
-      datasets: [{
-        label,
-        data: [],
-        backgroundColor: [],
-      }]
+export function getHumanizedRatingLabels(ratings) {
+  return ratings.map((key) => {
+    if (key === 'null') {
+      return 'Unrated';
+    } else if (key === '1') {
+      return `${key} Star`;
     }
+
+    return `${key} Stars`;
   });
 }
