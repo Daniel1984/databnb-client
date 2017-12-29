@@ -29,7 +29,7 @@ class Map extends Component {
 
     if (listings.length) {
       const { markers, bounds } = listings.reduce((acc, curr) => {
-        acc.markers.push(L.marker([curr.lat, curr.lng], {icon: greenIcon}).bindPopup("I am a green leaf."));
+        acc.markers.push(L.marker([curr.lat, curr.lng], {icon: greenIcon}).bindPopup('I am a green leaf.'));
         acc.bounds.push([curr.lat, curr.lng]);
         return acc;
         // L.marker([listing.lat, listing.lng]).addTo(this.map).bindPopup("I am a green leaf.");

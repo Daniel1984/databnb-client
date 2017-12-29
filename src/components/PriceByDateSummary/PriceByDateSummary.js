@@ -52,7 +52,7 @@ export default class PriceByDateSummary extends Component {
     const pricingByRating = getGroupedByDateAvgPrices(getGroupedByDatePrices(listings));
 
     const ratings = Object.keys(pricingByRating).map((rating) => ({
-      label: rating === 'null' ? 'Unrated' : `${rating} stars rating`,
+      label: rating === 'null' ? 'Unrated' : `${rating} stars`,
       value: rating,
     }));
 
