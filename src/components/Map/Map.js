@@ -13,15 +13,15 @@ class Map extends Component {
     }).addTo(this.map);
   }
 
-  componentWillReceiveProps({ latlng, listings }) {
+  componentWillReceiveProps({ listings }) {
     if (this.markersLayer) {
       this.map.removeLayer(this.markersLayer);
     }
 
     if (listings.length) {
-      const { markers, bounds } = listings.reduce((acc, curr) => {
-        acc.markers.push(L.marker([curr.lat, curr.lng], { icon: customHouseMarkerIcon }).bindPopup('I am a green leaf.'));
-        acc.bounds.push([curr.lat, curr.lng]);
+      const { markers, bounds } = listings.reduce((acc, { lat, lng, pointerTitle }) => {
+        acc.markers.push(L.marker([lat, lng], { icon: customHouseMarkerIcon }).bindPopup(pointerTitle));
+        acc.bounds.push([lat, lng]);
         return acc;
         // L.marker([listing.lat, listing.lng]).addTo(this.map).bindPopup("I am a green leaf.");
       }, { markers: [], bounds: [] });

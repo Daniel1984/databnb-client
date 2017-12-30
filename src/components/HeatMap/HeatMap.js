@@ -23,7 +23,7 @@ function getGroupedByDatePrices(listings) {
 
 const heatmapCfg = {
   radius: 0.001,
-  maxOpacity: .8,
+  maxOpacity: .6,
   scaleRadius: true,
   // if set to false the heatmap uses the global maximum for colorization
   // if activated: uses the data maximum within the current map boundaries
@@ -57,8 +57,12 @@ export default class HeatMap extends Component {
 
   updateMap({ latlng: { lat, lng }, listings, address }) {
     this.markerLayer.eachLayer(l => this.markerLayer.removeLayer(l));
-    const marker = L.marker([lat, lng], { icon: customHouseMarkerIcon }).bindPopup(address);
-    marker.addTo(this.markerLayer);
+
+    L
+      .marker([lat, lng], { icon: customHouseMarkerIcon })
+      .bindPopup(address)
+      .addTo(this.markerLayer);
+
     this.map.setView([lat, lng], 15);
     this.heatmapLayer.setData({ data: getGroupedByDatePrices(listings) });
   }
