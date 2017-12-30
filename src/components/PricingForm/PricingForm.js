@@ -18,6 +18,7 @@ const localeToGeolocation = {
 export default class PricingForm extends Component {
   state = {
     btnEnabled: false,
+    formDisabled: false,
     bedrooms: 2,
     btnText: 'Calculate',
     listings: []
@@ -53,7 +54,12 @@ export default class PricingForm extends Component {
 
     socket.get().on('listings', ({ listings }) => {
       const { latlng, bedrooms, address } = this.state;
-      this.setState({ btnEnabled: true, btnText: 'Calculate', listings });
+      this.setState({
+        btnEnabled: true,
+        formDisabled: false,
+        btnText: 'Calculate',
+        listings
+      });
       this.props.updateParentState({ listings, latlng, address, bedrooms, fetchedListings: true });
     });
 
@@ -72,7 +78,11 @@ export default class PricingForm extends Component {
     });
 
     socket.get().on('reenableForm', () => {
-      this.setState({ btnEnabled: true, btnText: 'Calculate' });
+      this.setState({
+        btnEnabled: true,
+        btnText: 'Calculate',
+        formDisabled: false,
+      });
     });
 
     socket.get().on('getListings:loadingInfo', ({ msg }) => {
@@ -86,13 +96,18 @@ export default class PricingForm extends Component {
 
   getPricingInfo = () => {
     this.props.updateParentState({ fetchedListings: false });
-    this.setState({ btnEnabled: false, btnText: 'Loading...', listings: [] });
+    this.setState({
+      btnEnabled: false,
+      btnText: 'Loading...',
+      listings: [],
+      formDisabled: true,
+    });
     const { latlng, bedrooms, address } = this.state;
     socket.get().emit('getListings', { ...latlng, bedrooms, address });
   }
 
   render() {
-    const { bedrooms, btnText, btnEnabled } = this.state;
+    const { bedrooms, btnText, btnEnabled, formDisabled } = this.state;
 
     return (
       <div ref={el => this.rootEl = el} class={styles.root}>
@@ -103,10 +118,12 @@ export default class PricingForm extends Component {
               ref={el => this.placesEl = el}
               class={styles.input}
               placeholder="Type in your address"
+              disabled={formDisabled}
             />
           </div>
           <div class={styles.selectContainer}>
             <Select
+              disabled={formDisabled}
               value={bedrooms}
               onChange={e => this.setState({ bedrooms: e.target.value })}
             >

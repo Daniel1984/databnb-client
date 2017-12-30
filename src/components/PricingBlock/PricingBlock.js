@@ -80,7 +80,7 @@ class PricingBlock extends Component {
                 All basic features
               </div>
               <div class={styles.feature}>
-                More custom dashboards
+                API access
               </div>
               <div class={styles.feature}>
                 Download CSV/JSON data

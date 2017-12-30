@@ -47,7 +47,7 @@ export default function QuickSummaryBlock({ listings, latlng }) {
         renderGraph={() => <PriceByDistanceChart listings={listings} latlng={latlng} />}
       />
 
-      <HeatMap latlng={latlng} />
+      <HeatMap latlng={latlng} listings={listings} />
     </div>
   );
 }
