@@ -87,7 +87,7 @@ export default class PriceByDateSummary extends Component {
         </div>
         <div class={classnames([styles.col, styles.info])}>
           <div class={styles.colTitle}>
-            Property price change over time:
+            Rental price change over time:
           </div>
           {ratings && (
             <div class={styles.selectContainer}>

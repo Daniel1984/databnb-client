@@ -40,7 +40,6 @@
   color: $colorText;
 
   @media (max-width: $screenSm) {
-    font-size: 20px;
     color: $colorTextLight;
   }
 }

@@ -1,3 +1,56 @@
+@import '../../shared/variables.scss';
+
 .map {
   height: 400px;
+}
+
+.root {
+  display: flex;
+
+  &:nth-child(odd) {
+    flex-direction: row-reverse;
+
+    @media (max-width: $screenSm) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  @media (max-width: $screenSm) {
+    flex-direction: column-reverse;
+  }
+}
+
+.col {
+  flex: 1;
+
+  &.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    flex-direction: column;
+  }
+
+  &.mapCol {
+    padding: 0;
+  }
+
+  @media (max-width: $screenSm) {
+    padding: 0;
+  }
+}
+
+.infoContent {
+  padding: 20px 15px;
+}
+
+.colTitle {
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  color: $colorText;
+
+  @media (max-width: $screenSm) {
+    color: $colorTextLight;
+  }
 }

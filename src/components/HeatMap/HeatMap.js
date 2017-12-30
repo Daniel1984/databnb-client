@@ -1,6 +1,8 @@
 import { h, Component } from 'preact';
-import styles from './HeatMap.scss';
+import classnames from 'classnames';
 import HeatMapLayer from 'leaflet-heatmap';
+import styles from './HeatMap.scss';
+import customHouseMarkerIcon from '../../shared/customHouseMarkerIcon';
 
 function getGroupedByDatePrices(listings) {
   return listings.reduce((acc, { lat, lng, availability }) => {
@@ -32,49 +34,48 @@ const heatmapCfg = {
   valueField: 'price'
 };
 
-
 export default class HeatMap extends Component {
   componentDidMount() {
-    const { latlng: { lat, lng }, listings } = this.props;
-    const heatmapData = getGroupedByDatePrices(listings);
-
     const baseLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     });
 
     this.heatmapLayer = new HeatMapLayer(heatmapCfg);
-    // this.map = L.map(this.mapEl).setView([lat, lng], 15);
+    this.markerLayer = L.featureGroup();
+
     this.map = new L.Map(this.mapEl, {
-      center: new L.LatLng(lat, lng),
-      zoom: 17,
-      layers: [baseLayer, this.heatmapLayer],
+      zoom: 15,
+      layers: [baseLayer, this.heatmapLayer, this.markerLayer],
     });
 
-    L.marker([lat, lng]).addTo(this.map).bindPopup('I am a green leaf.');
-
-    this.heatmapLayer.setData({
-      max: 20,
-      data: heatmapData,
-    });
+    this.updateMap(this.props);
   }
 
-  componentWillReceiveProps({ latlng: { lat, lng}, listings }) {
-    L.marker([lat, lng]).addTo(this.map).bindPopup('I am a green leaf.');
-    this.map.setView([lat, lng], 15);
+  componentWillReceiveProps(props) {
+    this.updateMap(props);
+  }
 
-    const heatmapData = getGroupedByDatePrices(listings);
-    console.log('componentWillReceiveProps - ', heatmapData);
-    this.heatmapLayer.setData({
-      max: 15,
-      data: heatmapData,
-    });
+  updateMap({ latlng: { lat, lng }, listings, address }) {
+    this.markerLayer.eachLayer(l => this.markerLayer.removeLayer(l));
+    const marker = L.marker([lat, lng], { icon: customHouseMarkerIcon }).bindPopup(address);
+    marker.addTo(this.markerLayer);
+    this.map.setView([lat, lng], 15);
+    this.heatmapLayer.setData({ data: getGroupedByDatePrices(listings) });
   }
 
   render() {
     return (
-      <div>
-        <h1>Prices heatmap</h1>
-        <div ref={el => this.mapEl = el} class={styles.map}></div>
+      <div class={styles.root}>
+        <div class={classnames([styles.col, styles.mapCol])}>
+          <div ref={el => this.mapEl = el} class={styles.map}></div>
+        </div>
+        <div class={classnames([styles.col, styles.info])}>
+          <div class={styles.infoContent}>
+            <div class={styles.colTitle}>
+              Pricing heatmap in the area:
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

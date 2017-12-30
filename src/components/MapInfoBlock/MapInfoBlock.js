@@ -7,9 +7,9 @@ export default function MapInfoBlock({ listings, latlng, address }) {
   const bedroomsCount = listings.length ? listings[0].bedrooms : 0;
 
   return (
-    <div class={styles.row}>
-      <div class={styles.col}>
-        <div>
+    <div class={styles.root}>
+      <div class={classnames([styles.col, styles.info])}>
+        <div class={styles.infoContent}>
           <h2 class={styles.summaryTitle}>
             Properties nearby: <strong class={styles.listingsCount}>{listings.length}</strong> ({bedroomsCount} bedroom)
           </h2>

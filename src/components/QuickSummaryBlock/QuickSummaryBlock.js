@@ -14,7 +14,7 @@ import {
 
 import { Summary } from '../common';
 
-export default function QuickSummaryBlock({ listings, latlng }) {
+export default function QuickSummaryBlock({ listings, latlng, address }) {
   return (
     <div>
       <div class={styles.quickSummaryTitle}>
@@ -47,7 +47,7 @@ export default function QuickSummaryBlock({ listings, latlng }) {
         renderGraph={() => <PriceByDistanceChart listings={listings} latlng={latlng} />}
       />
 
-      <HeatMap latlng={latlng} listings={listings} />
+      <HeatMap latlng={latlng} listings={listings} address={address} />
     </div>
   );
 }

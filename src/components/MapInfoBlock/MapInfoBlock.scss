@@ -1,23 +1,30 @@
 @import '../../shared/variables.scss';
 
-.row {
+.root {
   display: flex;
 
   @media (max-width: $screenSm) {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 }
 
 .col {
   flex: 1;
 
-  &:first-child {
-    padding: 20px;
+  &.info {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     background-color: whitesmoke;
+    flex-direction: column;
+  }
+
+  &.mapCol {
+    padding: 0;
+  }
+
+  @media (max-width: $screenSm) {
+    padding: 0;
   }
 }
 
@@ -41,4 +48,8 @@
 
 .listingsCount {
   color: $colorPrimary;
+}
+
+.infoContent {
+  padding: 20px 15px;
 }
