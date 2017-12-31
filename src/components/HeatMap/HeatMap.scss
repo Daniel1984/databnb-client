@@ -2,6 +2,11 @@
 
 .map {
   height: 400px;
+
+  @media (max-width: $screenSm) {
+    height: 200px;
+    overflow: hidden;
+  }
 }
 
 .root {

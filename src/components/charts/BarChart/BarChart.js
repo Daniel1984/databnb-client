@@ -3,9 +3,11 @@ import { h, Component } from 'preact';
 
 export default class BarChart extends Component {
   componentDidMount() {
+    const { type = 'bar' } = this.props;
     const ctx = this.chartEl.getContext('2d');
+
     this.barChart = new Chart(ctx, {
-      type: 'bar',
+      type,
       data: {
         labels: [],
         datasets: [{

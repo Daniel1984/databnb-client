@@ -27,10 +27,6 @@
     background-color: whitesmoke;
     flex-direction: column;
   }
-
-  @media (max-width: $screenSm) {
-    padding: 0;
-  }
 }
 
 .colTitle {

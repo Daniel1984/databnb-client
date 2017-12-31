@@ -14,6 +14,7 @@
 .selectContainer {
   position: relative;
   min-width: 300px;
+  flex: 1;
   border-radius: 2px;
 
   > * {
@@ -40,10 +41,6 @@
   &:before {
     margin-top: -7px;
     border-bottom: 5px solid $colorPrimary;
-  }
-
-  @media (max-width: $screenMd) {
-    margin: 0 10px 20px;
   }
 }
 

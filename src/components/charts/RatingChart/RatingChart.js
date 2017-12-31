@@ -34,6 +34,7 @@ export default class RatingPieChart extends Component {
 
     return (
       <BarChart
+        type="doughnut"
         label="Ratings distribution:"
         labels={labels}
         data={dataset}
