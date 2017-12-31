@@ -91,10 +91,9 @@ export default class PriceByDateSummary extends Component {
           </div>
           {ratings && (
             <div class={styles.selectContainer}>
-              <div class={styles.selectLabel}>
-                Change rating:
-              </div>
               <Select
+                vertical
+                label="Change rating:"
                 customStyles={styles.select}
                 onChange={e => this.setState({ selectedRating: e.target.value })}
                 value={selectedRating}

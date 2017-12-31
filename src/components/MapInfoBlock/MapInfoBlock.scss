@@ -18,14 +18,6 @@
     background-color: whitesmoke;
     flex-direction: column;
   }
-
-  &.mapCol {
-    padding: 0;
-  }
-
-  @media (max-width: $screenSm) {
-    padding: 0;
-  }
 }
 
 .map {
@@ -36,14 +28,13 @@
 }
 
 .summaryTitle {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   font-weight: 400;
   font-size: 22px;
   color: $colorText;
 }
 
-.summarySubitle {
-  margin-bottom: 20px;
+.titleMuted {
   font-weight: 400;
   color: $colorTextLight;
 }
@@ -52,6 +43,26 @@
   color: $colorPrimary;
 }
 
+.red {
+  color: #d25528;
+}
+
+.green {
+  color: #25ae5f;
+}
+
 .infoContent {
   padding: 20px 15px;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 20px;
+}
+
+.subInfoRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
