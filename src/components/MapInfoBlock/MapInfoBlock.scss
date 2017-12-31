@@ -36,12 +36,14 @@
 }
 
 .summaryTitle {
-  margin-bottom: 0;
+  margin-bottom: 10px;
   font-weight: 400;
+  font-size: 22px;
   color: $colorText;
 }
 
 .summarySubitle {
+  margin-bottom: 20px;
   font-weight: 400;
   color: $colorTextLight;
 }
