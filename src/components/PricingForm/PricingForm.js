@@ -91,7 +91,9 @@ export default class PricingForm extends Component {
   }
 
   componentWillReceiveProps() {
-    this.rootEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!this.state.listings.length) {
+      this.rootEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   getPricingInfo = () => {
