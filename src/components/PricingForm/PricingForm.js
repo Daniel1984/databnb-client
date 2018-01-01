@@ -3,7 +3,7 @@ import places from 'places.js';
 import styles from './PricingForm.scss';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import { calculatePrice } from '../../shared/api';
-import { Select } from '../common';
+import { Select, Button } from '../common';
 import socket from '../../shared/socket';
 
 const localeToGeolocation = {
@@ -138,13 +138,11 @@ export default class PricingForm extends Component {
             </Select>
           </div>
           <div class={styles.formControl}>
-            <button
+            <Button
               onClick={this.getPricingInfo}
-              class={styles.btn}
               disabled={!btnEnabled}
-            >
-              {btnText}
-            </button>
+              btnText={btnText}
+            />
           </div>
         </div>
       </div>

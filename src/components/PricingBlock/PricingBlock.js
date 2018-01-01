@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import classnames from 'classnames';
 import styles from './PricingBlock.scss';
 import { Checkbox } from '../common';
+import Subscribe from '../Subscribe/Subscribe';
 
 class PricingBlock extends Component {
   state = {
@@ -70,7 +71,7 @@ class PricingBlock extends Component {
           <div class={styles.pricingBlock}>
             <div class={styles.heading}>
               <div class={styles.pricingTitle}>Pro</div>
-              <div class={styles.cost}>$20</div>
+              <div class={styles.cost}>Subscribe to find out more</div>
             </div>
             <div class={styles.features}>
               <div class={styles.featuresTitle}>
@@ -88,6 +89,7 @@ class PricingBlock extends Component {
             </div>
           </div>
         </div>
+        <Subscribe />
       </div>
     );
   }

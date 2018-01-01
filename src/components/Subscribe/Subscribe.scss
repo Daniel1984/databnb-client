@@ -1,0 +1,50 @@
+@import '../../shared/variables.scss';
+
+.root {
+
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+  color: whitesmoke;
+}
+
+.formContainer {
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: center;
+
+  @media (max-width: $screenSm) {
+    flex-direction: column;
+  }
+}
+
+.error,
+.success {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: $colorAccent;
+}
+
+.formControl {
+  @media (max-width: $screenSm) {
+    > input {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    > button {
+      width: 100%;
+    }
+  }
+}

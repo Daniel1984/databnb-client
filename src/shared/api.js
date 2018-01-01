@@ -12,3 +12,4 @@ function fetchApi({ path }) {
       return response.json().then(json => json);
     });
 }
+
