@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "bugsnag-js": "^4.0.3",
     "chart.js": "^2.7.1",
     "classnames": "^2.2.5",
     "date-fns": "^1.29.0",
