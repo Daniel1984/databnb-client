@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import format from 'date-fns/format'
 import styles from './AvailabilityByRatingSummary.scss';
 import { AvailabilityChart } from '../charts';
-import { Select, Checkbox } from '../common';
+import { Select } from '../common';
 
 function extractAvailabilityData({ star_rating, availability }) {
   return Object.keys(availability).reduce((acc, key) => {
@@ -79,19 +79,16 @@ export default class AvailabilityByRatingSummary extends Component {
   }
 
   getChartData() {
-    const { groupedAvailabilities, selectedDate, combinedByRating } = this.state;
+    const { groupedAvailabilities, selectedDate } = this.state;
     let availabilities = groupedAvailabilities ? groupedAvailabilities[selectedDate] : [];
-
-    if (combinedByRating) {
-      availabilities = getCombinedDataByRating(availabilities);
-    }
+    availabilities = getCombinedDataByRating(availabilities);
 
     if (availabilities.length) {
       availabilities = availabilities.sort((a, b) => Number(a.rating) - Number(b.rating));
     }
 
     return {
-      labels: availabilities.map(({ rating }) => !rating || rating === 'null' ? '0 stars' : `${rating} stars`),
+      labels: availabilities.map(({ rating }) => !rating || rating === 'null' ? 'Unrated' : `${rating} stars`),
       data: availabilities.map(({ occupancyPercentage }) => occupancyPercentage),
     };
   }
@@ -120,13 +117,6 @@ export default class AvailabilityByRatingSummary extends Component {
               </Select>
             </div>
           )}
-
-          <div class={styles.toggleContainer}>
-            <Checkbox
-              label="Combined by rating:"
-              onChange={(e) => this.setState({ combinedByRating: e.target.checked })}
-            />
-          </div>
         </div>
       </div>
     );

@@ -51,7 +51,7 @@ export default class MapInfoBlock extends Component {
               <div class={styles.titleMuted}>
                 Highest rental price
                 <strong class={styles.green}> {highestPrice} </strong>
-                {currency}
+                {currency}/month (no discount)
               </div>
             </div>
             <div class={styles.subInfoRow}>
@@ -59,7 +59,7 @@ export default class MapInfoBlock extends Component {
               <div class={styles.titleMuted}>
                 Lowest rental price
                 <strong class={styles.red}> {lowestPrice} </strong>
-                {currency}
+                {currency}/month (no discount)
               </div>
             </div>
           </div>

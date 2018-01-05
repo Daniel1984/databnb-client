@@ -80,7 +80,7 @@ export default class PriceByDateSummary extends Component {
       <div class={styles.root}>
         <div class={styles.col}>
           <LineChart
-            label="Price over time"
+            label="Price per month"
             labels={labels}
             data={dataset}
           />

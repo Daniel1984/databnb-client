@@ -35,16 +35,9 @@ export default function QuickSummaryBlock({ listings, latlng, address }) {
         renderGraph={() => <ListingsGrowthChart listings={listings} />}
       />
 
-      <AvailabilityByPriceSummary listings={listings} />
-
       <Summary
         title="Average monthly rental price depending on rating:"
         renderGraph={() => <PriceByRatingChart listings={listings} />}
-      />
-
-      <Summary
-        title="Average monthly rental price depending on the distance from your address:"
-        renderGraph={() => <PriceByDistanceChart listings={listings} latlng={latlng} />}
       />
 
       <HeatMap latlng={latlng} listings={listings} address={address} />

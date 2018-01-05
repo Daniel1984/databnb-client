@@ -7,4 +7,4 @@ export default {
   production: {
     apiUrl: 'https://api.metabnb.com',
   },
-}[process.env.HOSTMAKER_ENV || DEFAULT_ENV];
+}[process.env.NODE_ENV || DEFAULT_ENV];
