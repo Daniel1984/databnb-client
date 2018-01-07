@@ -19,8 +19,8 @@ class Map extends Component {
     }
 
     if (listings.length) {
-      const { markers, bounds } = listings.reduce((acc, { lat, lng, currentMonthPrice, currency }) => {
-        acc.markers.push(L.marker([lat, lng], { icon: customHouseMarkerIcon }).bindPopup(`${currentMonthPrice} ${currency}`));
+      const { markers, bounds } = listings.reduce((acc, { lat, lng, currentDayPrice, currency }) => {
+        acc.markers.push(L.marker([lat, lng], { icon: customHouseMarkerIcon }).bindPopup(`${currentDayPrice} ${currency}`));
         acc.bounds.push([lat, lng]);
         return acc;
         // L.marker([listing.lat, listing.lng]).addTo(this.map).bindPopup("I am a green leaf.");

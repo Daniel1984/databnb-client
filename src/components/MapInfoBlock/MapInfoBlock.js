@@ -7,13 +7,24 @@ import BedIcon from '../../assets/icons/bed3.svg';
 import MinIncomeIcon from '../../assets/icons/graph-4.svg';
 import MaxIncomeIcon from '../../assets/icons/graph-3.svg';
 
+function getBedrooms(bedrooms) {
+  return bedrooms.sort().map((bedroom, i) => {
+    return `${!bedroom ? 'studio' : bedroom}${i !== bedrooms.length - 1 ? ', ' : ''}`
+  });
+}
+
 export default class MapInfoBlock extends Component {
   componentWillReceiveProps({ listings }) {
-    const { prices, currency } = listings.reduce((acc, { currentMonthPrice, currency }) => {
-      acc.prices = [...acc.prices, currentMonthPrice],
+    const { prices, currency, bedrooms } = listings.reduce((acc, { currentDayPrice, currency, bedrooms }) => {
+      acc.prices = [...acc.prices, currentDayPrice],
       acc.currency = currency;
+
+      if (acc.bedrooms.indexOf(bedrooms) === -1) {
+        acc.bedrooms = [...acc.bedrooms, bedrooms];
+      }
+
       return acc;
-    }, { prices: [] });
+    }, { prices: [], bedrooms: [] });
 
     const sortedPrices = prices.sort((a, b) => a - b);
     const highestPrice = sortedPrices.pop();
@@ -23,13 +34,13 @@ export default class MapInfoBlock extends Component {
       highestPrice,
       lowestPrice,
       currency,
+      bedrooms,
     });
   }
 
   render() {
     const { listings, latlng, address } = this.props;
-    const bedroomsCount = listings.length ? listings[0].bedrooms : 0;
-    const { highestPrice, lowestPrice, currency } = this.state;
+    const { highestPrice, lowestPrice, currency, bedrooms = [] } = this.state;
 
     return (
       <div class={styles.root}>
@@ -44,22 +55,22 @@ export default class MapInfoBlock extends Component {
             </div>
             <div class={styles.subInfoRow}>
               <img class={styles.icon} src={BedIcon} />
-              <div class={styles.titleMuted}>{bedroomsCount} bedroom</div>
+              <div class={styles.titleMuted}>{getBedrooms(bedrooms)} bedroom apartments</div>
             </div>
             <div class={styles.subInfoRow}>
               <img class={styles.icon} src={MaxIncomeIcon} />
               <div class={styles.titleMuted}>
-                Highest rental price
+                Highest daily rate
                 <strong class={styles.green}> {highestPrice} </strong>
-                {currency}/month (no discount)
+                {currency}
               </div>
             </div>
             <div class={styles.subInfoRow}>
               <img class={styles.icon} src={MinIncomeIcon} />
               <div class={styles.titleMuted}>
-                Lowest rental price
+                Lowest daily rate
                 <strong class={styles.red}> {lowestPrice} </strong>
-                {currency}/month (no discount)
+                {currency}
               </div>
             </div>
           </div>
