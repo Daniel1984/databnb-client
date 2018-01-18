@@ -7,7 +7,7 @@ function Heading() {
       <div class={styles.backdrop}></div>
       <div class={styles.content}>
         <h1 class={styles.title}>META BNB</h1><br />
-        <h2 class={styles.subtitle}>Most efficient airbnb rental price optimiser</h2>
+        <h2 class={styles.subtitle}>Increase your airbnb rental income</h2>
       </div>
     </div>
   );

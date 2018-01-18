@@ -8,7 +8,7 @@ export default function SuccessStories() {
         Who is Metabnb for?
       </div>
       <div class={styles.info}>
-        Metabnb is designed to help hosts with keeping their properties occupied 100% of time and optimise their income
+        Metabnb is designed to help hosts with keeping their properties occupied 100% of time and increase their income
       </div>
 
       <div class={styles.storyContainer}>

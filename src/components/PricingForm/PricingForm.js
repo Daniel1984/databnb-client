@@ -113,7 +113,7 @@ export default class PricingForm extends Component {
 
     return (
       <div ref={el => this.rootEl = el} class={styles.root}>
-        <h3 class={styles.title}>Make the most of your property</h3>
+        <h3 class={styles.title}>Make the most of your airbnb listing</h3>
         <div class={styles.formContainer}>
           <div class={styles.formControl}>
             <input

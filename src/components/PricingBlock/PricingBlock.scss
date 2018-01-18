@@ -2,7 +2,7 @@
 
 .root {
   padding: 40px 20px;
-  background-color: rgb(39, 39, 45);
+  background: linear-gradient($colorBackgroundDark, $colorBackgroundLight);
   color: #fff;
 }
 

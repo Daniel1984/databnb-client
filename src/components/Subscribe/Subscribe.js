@@ -58,7 +58,7 @@ export default class Subscribe extends Component {
     return (
       <div class={styles.root}>
         <div class={styles.title}>
-          Please subscribe to find out when the platform is ready for you to use
+          Please subscribe to find out when you can use our platform to increase your airbnb income
         </div>
         <div class={styles.formContainer}>
           <div class={styles.formControl}>
