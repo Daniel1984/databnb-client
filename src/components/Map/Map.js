@@ -13,6 +13,10 @@ class Map extends Component {
     }).addTo(this.map);
   }
 
+  componentWillUnmount() {
+    this.map.remove();
+  }
+
   componentWillReceiveProps({ listings }) {
     if (this.markersLayer) {
       this.map.removeLayer(this.markersLayer);

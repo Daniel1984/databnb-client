@@ -51,6 +51,10 @@ export default class HeatMap extends Component {
     this.updateMap(this.props);
   }
 
+  componentWillUnmount() {
+    this.map.remove();
+  }
+
   componentWillReceiveProps(props) {
     this.updateMap(props);
   }
