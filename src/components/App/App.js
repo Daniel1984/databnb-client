@@ -1,4 +1,3 @@
-import places from 'places.js';
 import { calculatePrice } from '../../shared/api';
 import styles from './App.scss';
 

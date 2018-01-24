@@ -13,7 +13,6 @@
     "classnames": "^2.2.5",
     "date-fns": "^1.29.0",
     "leaflet-heatmap": "^1.0.0",
-    "places.js": "^1.4.15",
     "preact": "^8.2.6",
     "socket.io-client": "^2.0.4"
   },

@@ -1,5 +1,4 @@
 import { h, Component } from 'preact';
-import places from 'places.js';
 import styles from './PricingForm.scss';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import { calculatePrice } from '../../shared/api';
