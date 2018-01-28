@@ -3,7 +3,7 @@
 .root {
   position: relative;
   height: 450px;
-  background-image: url('../../assets/room2.jpeg');
+  background-image: url('../../assets/room4.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -14,12 +14,12 @@
 }
 
 .content {
-  padding-top: 80px;
+  padding-top: 130px;
   position: relative;
   z-index: 1;
 
   @media (max-width: $screenSm) {
-    padding-top: 40px;
+    padding-top: 60px;
   }
 }
 
@@ -53,18 +53,25 @@
 }
 
 .ctaContainer {
-  padding: 20px;
+  height: 42px;
+  padding: 0 20px;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  background-color: $colorBackgroundDark;
 }
 
 .loginBtn,
 .signupBtn {
   width: 100px;
-  padding: 10px;
-  font-weight: 500;
+  height: 28px;
+  font-weight: 400;
   color: #fff;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .loginBtn {
@@ -72,7 +79,13 @@
 }
 
 .signupBtn {
+  border-radius: 4px;
   background-color: $colorPrimary;
-  color: #fff;
-  padding: 10px;
+  transition: opacity linear .1s;
+  box-sizing: content-box;
+  opacity: .8;
+
+  &:hover {
+    opacity: 1;
+  }
 }
