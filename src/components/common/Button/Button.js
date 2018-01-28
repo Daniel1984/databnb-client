@@ -1,14 +1,15 @@
 import { h } from 'preact';
+import classnames from 'classnames';
 import styles from './Button.scss';
 
-export default function Button({ onClick, btnText, disabled }) {
+export default function Button({ onClick, disabled, children, className }) {
   return (
     <button
-      class={styles.root}
+      class={classnames([styles.root, className && className])}
       onClick={(e) => onClick(e)}
       disabled={disabled}
     >
-      {btnText}
+      {children}
     </button>
   )
 }

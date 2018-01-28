@@ -1,17 +1,16 @@
-import { calculatePrice } from '../../shared/api';
-import styles from './App.scss';
-
 import { h, Component } from 'preact';
-import Heading from '../Heading/Heading';
-import PricingForm from '../PricingForm/PricingForm';
-import PlatformFeatures from '../PlatformFeatures/PlatformFeatures';
-import PricingResults from '../PricingResults/PricingResults';
-import PricingBlock from '../PricingBlock/PricingBlock';
-import Footer from '../Footer/Footer';
-import SuccessStories from '../SuccessStories/SuccessStories';
+import { calculatePrice } from '../../shared/api';
+import styles from './Landing.scss';
+import Heading from '../../components/Heading/Heading';
+import PricingForm from '../../components/PricingForm/PricingForm';
+import PlatformFeatures from '../../components/PlatformFeatures/PlatformFeatures';
+import PricingResults from '../../components/PricingResults/PricingResults';
+import PricingBlock from '../../components/PricingBlock/PricingBlock';
+import Footer from '../../components/Footer/Footer';
+import SuccessStories from '../../components/SuccessStories/SuccessStories';
 import socketio from '../../shared/socket';
 
-export default class App extends Component {
+export default class Landing extends Component {
   state = {
     latlng: null,
     city: null,
@@ -33,7 +32,7 @@ export default class App extends Component {
     const { latlng, listings, address, bedrooms, fetchedListings } = this.state;
 
     return (
-      <div class="app">
+      <div>
         <Heading />
         <PricingForm listings={listings} updateParentState={state => this.updateState(state)} />
         <PricingResults

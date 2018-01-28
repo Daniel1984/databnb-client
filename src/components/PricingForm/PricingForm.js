@@ -137,11 +137,9 @@ export default class PricingForm extends Component {
             </Select>
           </div>
           <div class={styles.formControl}>
-            <Button
-              onClick={this.getPricingInfo}
-              disabled={!btnEnabled}
-              btnText={btnText}
-            />
+            <Button onClick={this.getPricingInfo} disabled={!btnEnabled}>
+              {btnText}
+            </Button>
           </div>
         </div>
       </div>

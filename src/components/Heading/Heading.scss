@@ -13,16 +13,6 @@
   }
 }
 
-.backdrop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  z-index: 0;
-}
-
 .content {
   padding-top: 150px;
   position: relative;
@@ -48,7 +38,6 @@
   }
 }
 
-
 .title {
   font-size: 3rem;
   clear: both;
@@ -57,4 +46,29 @@
 
 .subtitle {
   font-weight: 400;
+}
+
+.ctaContainer {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.loginBtn,
+.signupBtn {
+  width: 100px;
+  padding: 10px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+}
+
+.loginBtn {
+  background-color: $colorBackgroundDark;
+}
+
+.signupBtn {
+  background-color: $colorPrimary;
+  color: #fff;
+  padding: 10px;
 }
