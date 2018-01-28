@@ -1,94 +1,44 @@
 @import '../../shared/variables.scss';
 
 .root {
-  position: relative;
-  height: 450px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  display: flex;
+  z-index: 100;
+}
+
+.mapCol {
+  flex: 1;
+}
+
+.controlsCol {
+  width: 400px;
+}
+
+.infoContainer {
+  height: 100%;
   background-image: url('../../assets/room4.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
-
-  @media (max-width: $screenSm) {
-    height: 300px;
-  }
-}
-
-.content {
-  padding-top: 170px;
-  position: relative;
-  z-index: 1;
-
-  @media (max-width: $screenSm) {
-    padding-top: 115px;
-  }
-}
-
-.title,
-.subtitle {
-  margin: 0;
-  padding: 10px 30px;
-  display: inline-block;
-  vertical-align: top;
-  background-color: $colorPrimary;
-  color: #fff;
-  box-shadow: 0 0 0 10px $colorPrimary, 0 10px 12px #000;
-
-  @media (max-width: $screenSm) {
-    padding: 10px 20px;
-  }
-}
-
-.title {
-  font-size: 3rem;
-  clear: both;
-  font-weight: 100;
-
-  @media (max-width: $screenSm) {
-    font-size: 2.2rem;
-  }
-}
-
-.subtitle {
-  font-weight: 400;
-}
-
-.ctaContainer {
-  height: 42px;
-  width: 100%;
-  padding: 0 20px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: $colorBackgroundDark;
-  position: fixed;
-  z-index: 1000;
-}
-
-.loginBtn,
-.signupBtn {
-  width: 100px;
-  height: 28px;
-  font-weight: 400;
-  color: #fff;
-  text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-decoration: none;
+  justify-content: flex-start;
 }
 
-.loginBtn {
-  background-color: $colorBackgroundDark;
-}
-
-.signupBtn {
-  border-radius: 4px;
+.infoText {
+  width: 600px;
   background-color: $colorPrimary;
-  transition: opacity linear .1s;
-  box-sizing: content-box;
-  opacity: .8;
+  padding: 20px;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 300;
+}
 
-  &:hover {
-    opacity: 1;
-  }
+.header {
+  font-weight: 600;
+  font-size: 2.5rem;
+  margin-bottom: 25px;
 }

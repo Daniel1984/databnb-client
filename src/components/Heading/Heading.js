@@ -1,17 +1,28 @@
 import { h } from 'preact';
-import { Link } from 'preact-router/match';
 import styles from './Heading.scss';
+import Map from '../Map/Map';
+import Dashboard from '../Dashboard/Dashboard';
 
-function Heading() {
+function Heading({ latlng, listings, updateParentState }) {
   return (
     <div class={styles.root}>
-      <div class={styles.ctaContainer}>
-        <Link href="/login" class={styles.loginBtn}>Login</Link>
-        <Link href="/signup" class={styles.signupBtn}>Sign Up</Link>
+      <div class={styles.mapCol}>
+        {!listings.length && (
+          <div class={styles.infoContainer}>
+            <div class={styles.infoText}>
+              <div class={styles.header}>META BNB</div>
+              <div>Find how much you could earn with your property on airbnb or any other short term rental platform.</div>
+              <br />
+              <div>Quickly adopt to market changes by following our recommendations, increase your occupancy and income.</div>
+            </div>
+          </div>
+        )}
+        {!!listings.length && (
+          <Map latlng={latlng} listings={listings} />
+        )}
       </div>
-      <div class={styles.content}>
-        <h1 class={styles.title}>META BNB</h1><br />
-        <h2 class={styles.subtitle}>Increase your airbnb rental income</h2>
+      <div class={styles.controlsCol}>
+        <Dashboard listings={listings} updateParentState={state => updateParentState(state)} />
       </div>
     </div>
   );

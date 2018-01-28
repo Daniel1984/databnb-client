@@ -1,0 +1,78 @@
+@import '../../shared/variables.scss';
+
+.root {
+  height: 100%;
+  position: relative;
+  background-color: $colorBackgroundDark;
+  overflow-y: auto;
+}
+
+.name {
+  margin-bottom: 30px;
+  height: 50px;
+  font-weight: 300;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: $colorPrimary;
+}
+
+.content {
+  padding: 0 20px;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.formControl {
+  margin: 20px 0;
+  position: relative;
+  width: 100%;
+  border-radius: 2px;
+
+  > * {
+    width: 100%;
+  }
+
+  @media (max-width: $screenMd) {
+    margin: 0 10px 20px;
+  }
+}
+
+.input {
+  height: 43px;
+  padding: 9px;
+  background-color: #fff;
+  border-radius: 0;
+  outline: 0;
+  font-size: 1.2rem;
+}
+
+.quickSummary {
+  margin-top: 40px;
+}
+
+.ctaContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loginBtn,
+.signupBtn {
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+}
+
+.spacer {
+  margin: 0 10px;
+  color: #fff;
+}

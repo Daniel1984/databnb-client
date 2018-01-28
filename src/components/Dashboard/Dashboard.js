@@ -1,9 +1,11 @@
 import { h, Component } from 'preact';
-import styles from './PricingForm.scss';
+import { Link } from 'preact-router/match';
+import styles from './Dashboard.scss';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import { calculatePrice } from '../../shared/api';
 import { Select, Button } from '../common';
 import socket from '../../shared/socket';
+import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary'
 
 const localeToGeolocation = {
   london: {
@@ -14,7 +16,7 @@ const localeToGeolocation = {
   }
 };
 
-export default class PricingForm extends Component {
+export default class Dashboard extends Component {
   state = {
     btnEnabled: false,
     formDisabled: false,
@@ -31,7 +33,6 @@ export default class PricingForm extends Component {
     autoCompleteForm.addListener('place_changed', () => {
       const place = autoCompleteForm.getPlace();
       const address = place.formatted_address || '';
-      console.log(address)
 
       if (!place || !place.address_components || !place.geometry) {
         return;
@@ -108,12 +109,13 @@ export default class PricingForm extends Component {
   }
 
   render() {
-    const { bedrooms, btnText, btnEnabled, formDisabled } = this.state;
+    const { bedrooms, btnText, btnEnabled, formDisabled, listings, address } = this.state;
 
     return (
       <div ref={el => this.rootEl = el} class={styles.root}>
-        <h3 class={styles.title}>Make the most of your airbnb listing</h3>
-        <div class={styles.formContainer}>
+        <div class={styles.name}>META BNB</div>
+        <div class={styles.content}>
+          <div class={styles.title}>Make the most of your property:</div>
           <div class={styles.formControl}>
             <input
               ref={el => this.placesEl = el}
@@ -122,7 +124,7 @@ export default class PricingForm extends Component {
               disabled={formDisabled}
             />
           </div>
-          <div class={styles.selectContainer}>
+          <div class={styles.formControl}>
             <Select
               disabled={formDisabled}
               value={bedrooms}
@@ -136,10 +138,21 @@ export default class PricingForm extends Component {
               <option value="5">5 Bedrooms</option>
             </Select>
           </div>
+
           <div class={styles.formControl}>
             <Button onClick={this.getPricingInfo} disabled={!btnEnabled}>
               {btnText}
             </Button>
+          </div>
+
+          {/* <div class={styles.ctaContainer}>
+            <Link href="/login" class={styles.loginBtn}>Login</Link>
+            <div class={styles.spacer}>/</div>
+            <Link href="/signup" class={styles.signupBtn}>Sign Up</Link>
+          </div> */}
+
+          <div class={styles.quickSummary}>
+            <AreaQuickSummary listings={listings} address={address} />
           </div>
         </div>
       </div>

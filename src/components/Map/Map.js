@@ -6,18 +6,24 @@ import HouseImgShadow from '../../assets/house3_shadow.png';
 
 class Map extends Component {
   componentDidMount() {
-    this.map = L.map(this.mapEl);
+    this.map = L.map(this.mapEl, { scrollWheelZoom: false });
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
+
+    this.updateMap(this.props);
   }
 
   componentWillUnmount() {
     this.map.remove();
   }
 
-  componentWillReceiveProps({ listings }) {
+  componentWillReceiveProps(newProps) {
+    this.updateMap(newProps);
+  }
+
+  updateMap({ listings }) {
     if (this.markersLayer) {
       this.map.removeLayer(this.markersLayer);
     }

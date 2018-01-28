@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import { calculatePrice } from '../../shared/api';
 import styles from './Landing.scss';
 import Heading from '../../components/Heading/Heading';
-import PricingForm from '../../components/PricingForm/PricingForm';
 import PlatformFeatures from '../../components/PlatformFeatures/PlatformFeatures';
 import PricingResults from '../../components/PricingResults/PricingResults';
 import PricingBlock from '../../components/PricingBlock/PricingBlock';
@@ -33,8 +32,8 @@ export default class Landing extends Component {
 
     return (
       <div>
-        <Heading />
-        <PricingForm listings={listings} updateParentState={state => this.updateState(state)} />
+        <div class={styles.spacer} />
+        <Heading listings={listings} latlng={latlng} updateParentState={state => this.updateState(state)} />
         <PricingResults
           latlng={latlng}
           listings={listings}
