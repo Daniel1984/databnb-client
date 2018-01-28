@@ -14,12 +14,12 @@
 }
 
 .content {
-  padding-top: 130px;
+  padding-top: 170px;
   position: relative;
   z-index: 1;
 
   @media (max-width: $screenSm) {
-    padding-top: 60px;
+    padding-top: 115px;
   }
 }
 
@@ -54,11 +54,14 @@
 
 .ctaContainer {
   height: 42px;
+  width: 100%;
   padding: 0 20px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   background-color: $colorBackgroundDark;
+  position: fixed;
+  z-index: 1000;
 }
 
 .loginBtn,
