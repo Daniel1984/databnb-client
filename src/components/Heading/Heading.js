@@ -18,7 +18,9 @@ function Heading({ latlng, listings, updateParentState }) {
           </div>
         )}
         {!!listings.length && (
-          <Map latlng={latlng} listings={listings} />
+          <div class={styles.mapContainer}>
+            <Map latlng={latlng} listings={listings} />
+          </div>
         )}
       </div>
       <div class={styles.controlsCol}>

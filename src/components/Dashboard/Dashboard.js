@@ -90,12 +90,6 @@ export default class Dashboard extends Component {
     });
   }
 
-  componentWillReceiveProps() {
-    if (!this.state.listings.length) {
-      this.rootEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
   getPricingInfo = () => {
     this.props.updateParentState({ fetchedListings: false });
     this.setState({

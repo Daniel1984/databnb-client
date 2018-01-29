@@ -33,4 +33,8 @@
 
 .spacer {
   height: 100vh;
+
+  @media (max-width: $screenSm) {
+    display: none;
+  }
 }

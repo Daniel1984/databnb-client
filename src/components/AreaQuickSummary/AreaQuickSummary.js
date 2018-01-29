@@ -52,7 +52,7 @@ export default class AreaQuickSummary extends Component {
   render() {
     const { listings, address } = this.props;
     const { highestPrice, lowestPrice, avgPrice, currency, bedrooms = [] } = this.state;
-    console.log('===========> ', bedrooms)
+
     return (
       <div class={styles.root}>
         <div class={styles.summaryTitle}>
