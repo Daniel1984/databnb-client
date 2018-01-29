@@ -3,7 +3,6 @@ import styles from './QuickSummaryBlock.scss';
 import AvailabilityByPriceSummary from '../AvailabilityByPriceSummary/AvailabilityByPriceSummary';
 import AvailabilityByRatingSummary from '../AvailabilityByRatingSummary/AvailabilityByRatingSummary';
 import PriceByDateSummary from '../PriceByDateSummary/PriceByDateSummary';
-import HeatMap from '../HeatMap/HeatMap';
 
 import {
   RatingChart,
@@ -39,8 +38,6 @@ export default function QuickSummaryBlock({ listings, latlng, address }) {
         title="Average monthly rental price depending on rating:"
         renderGraph={() => <PriceByRatingChart listings={listings} />}
       />
-
-      <HeatMap latlng={latlng} listings={listings} address={address} />
     </div>
   );
 }
