@@ -1,0 +1,22 @@
+@import '../../../shared/variables.scss';
+
+.root {
+  width: 470px;
+  padding: 40px 40px 20px 40px;
+  border-radius: 5px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: $screenSm) {
+    width: 100%;
+    padding: 40px 20px 20px 20px;
+  }
+}
+
+.cardTitle {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+}

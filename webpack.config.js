@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SOURCE_DIR = path.resolve(__dirname, 'src');
 const DESTINATION_DIR = path.resolve(__dirname, 'public');
 
@@ -87,6 +88,10 @@ module.exports = {
         filename: IS_BUILD ? '[name].[contenthash].css' : '[name].bundle.css',
         allChunks: true,
       }),
+      new CopyWebpackPlugin([
+        { from: 'assets/cover.png', to: 'cover.png' },
+        { from: 'robots.txt', to: 'robots.txt' },
+      ])
 		];
 
 		if (IS_BUILD) {
