@@ -3,15 +3,14 @@ import { Link } from 'preact-router/match';
 import styles from './SignUp.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import fetch from '../../shared/fetch';
-import LeftArrowIcon from '../../assets/icons/left-arrow.svg';
 import config from '../../../config';
 
 export default class Signup extends Component {
   state = {
     email: '',
     password: '',
-    err: null,
-    success: null,
+    registerError: null,
+    registerSuccess: false,
   };
 
   oninputChange = (e) => {
@@ -22,32 +21,44 @@ export default class Signup extends Component {
 
   submitNewUser = (e) => {
     fetch(`${config.apiUrl}/register`, { method: 'POST', body: this.state })
-      .then((res) => {
+      .then(() => {
         this.setState({
-          success: 'Thank you. Please verify your email now.',
-          err: null,
+          registerSuccess: true,
+          registerError: null,
         });
       })
-      .catch(({ err }) => this.setState({ err }));
+      .catch(({ err }) => {
+        this.setState({
+          registerError: err,
+          email: '',
+          password: ''
+        });
+      });
   }
 
   render() {
-    const { err, success } = this.state;
+    const { registerError, registerSuccess, email, password } = this.state;
 
     return (
       <SettingsPageContainer backTo="/" title="META BNB">
         <div className={styles.cardContainer}>
           <Card title="Sign Up">
-            {!!success && (
-              <div class={styles.success}>{success}</div>
+            {registerSuccess && (
+              <div class={styles.successContainer}>
+                <div class={styles.successTitle}>Congratulations!</div>
+                <div class={styles.successMsg}>
+                  Now all thet is left is to confirm your email address and enjoy the ride ;)
+                </div>
+              </div>
             )}
-            {!success && (
+            {!registerSuccess && (
               <div class={styles.formContainer}>
                 <div class={styles.inputContainer}>
                   <Input
                     thickLines
                     type="email"
                     placeholder="Email Address"
+                    value={email}
                     onKeyUp={this.oninputChange}
                   />
                 </div>
@@ -56,12 +67,13 @@ export default class Signup extends Component {
                     thickLines
                     type="password"
                     placeholder="Password"
+                    value={password}
                     onKeyUp={this.oninputChange}
                   />
                 </div>
-                {!!err && (
+                {!!registerError && (
                   <div class={styles.inputContainer}>
-                    <div class={styles.error}>{err}</div>
+                    <div class={styles.error}>{registerError}</div>
                   </div>
                 )}
                 <div class={styles.inputContainer}>

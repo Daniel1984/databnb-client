@@ -5,6 +5,7 @@ import classnames from 'classnames'
 export default function Input({ thickLines, type, onKeyUp, placeholder, disabled = false, value }) {
   return (
     <input
+      type={type}
       value={value}
       class={classnames([styles.root, thickLines && styles.thickLines])}
       onKeyUp={(e) => onKeyUp(e)}

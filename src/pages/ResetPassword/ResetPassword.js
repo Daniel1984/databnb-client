@@ -2,7 +2,6 @@ import { h } from 'preact';
 import { Link } from 'preact-router/match';
 import styles from './ResetPassword.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
-import LeftArrowIcon from '../../assets/icons/left-arrow.svg';
 
 export default function Login() {
   return (
