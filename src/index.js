@@ -7,15 +7,17 @@ import SignUp from './pages/SignUp/SignUp';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import Settings from './pages/Settings/Settings';
 import ForOfor from './pages/ForOfor/ForOfor';
+import RegistrationThankYou from './pages/RegistrationThankYou/RegistrationThankYou';
 
 const client = bugsnag('48900f3e09cc8859e1e9220b2439f97a');
 
 const Main = () => (
 	<Router>
 		<Landing path="/" />
-		<Login path="/login" />
+		<Login path="/login/:q?" />
 		<SignUp path="/signup" />
 		<ResetPassword path="/reset-password" />
+    <RegistrationThankYou path="/thank-you/:q?" />
     <Settings path="/settings" to="/login" />
     <ForOfor default />
 	</Router>

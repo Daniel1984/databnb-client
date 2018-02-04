@@ -47,7 +47,7 @@ export default class Signup extends Component {
               <div class={styles.successContainer}>
                 <div class={styles.successTitle}>Congratulations!</div>
                 <div class={styles.successMsg}>
-                  Now all thet is left is to confirm your email address and enjoy the ride ;)
+                  Now all that is left is to confirm your email address and enjoy the ride ;)
                 </div>
               </div>
             )}
