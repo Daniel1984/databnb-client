@@ -1,14 +1,5 @@
 @import '../../shared/variables.scss';
 
-.input {
-  padding: 15px;
-  border: 2px solid #e7e7e7;
-  background-color: #fcfcfc;
-  color: $colorText;
-  font-size: 1rem;
-  width: 100%;
-}
-
 .inputContainer {
   width: 100%;
   margin: 10px 0;
@@ -39,4 +30,14 @@
 .cardContainer {
   display: flex;
   justify-content: center;
+}
+
+.error {
+  color: $colorDanger;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

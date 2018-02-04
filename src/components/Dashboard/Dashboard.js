@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import styles from './Dashboard.scss';
 import Autocomplete from '../Autocomplete/Autocomplete';
-import { calculatePrice } from '../../shared/api';
 import { Select, Button } from '../common';
 import socket from '../../shared/socket';
 import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary'

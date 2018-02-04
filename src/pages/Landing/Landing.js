@@ -1,5 +1,4 @@
 import { h, Component } from 'preact';
-import { calculatePrice } from '../../shared/api';
 import styles from './Landing.scss';
 import Heading from '../../components/Heading/Heading';
 import PlatformFeatures from '../../components/PlatformFeatures/PlatformFeatures';
