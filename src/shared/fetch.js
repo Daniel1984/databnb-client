@@ -14,7 +14,7 @@ export default function fetch(url, props = {}) {
     mode: 'cors',
     ...rest,
     headers,
-    body: body || null,
+    body,
   };
 
   return window.fetch(url, config).then((response) => {

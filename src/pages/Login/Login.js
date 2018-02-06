@@ -2,6 +2,8 @@ import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import styles from './Login.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
+import fetch from '../../shared/fetch';
+import config from '../../../config';
 
 export default class Login extends Component {
   state = {
@@ -15,6 +17,23 @@ export default class Login extends Component {
     this.setState({
       [e.target.type]: e.target.value
     });
+  }
+
+  login = (e) => {
+    fetch(`${config.apiUrl}/login`, { method: 'POST', body: this.state })
+      .then(() => {
+        this.setState({
+          loginSuccess: true,
+          loginError: null,
+        });
+      })
+      .catch(({ err }) => {
+        this.setState({
+          loginError: err,
+          email: '',
+          password: ''
+        });
+      });
   }
 
   render() {
@@ -42,7 +61,7 @@ export default class Login extends Component {
               />
             </div>
             <div class={styles.inputContainer}>
-              <Button className={styles.submitBtn}>Log In</Button>
+              <Button className={styles.submitBtn} onClick={this.login}>Log In</Button>
             </div>
             <div class={styles.inputContainer}>
               <Link class={styles.forgotPassLink} href="/reset-password">Forgot password?</Link>

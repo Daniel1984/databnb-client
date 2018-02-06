@@ -10,10 +10,10 @@ function Heading({ latlng, listings, updateParentState }) {
         {!listings.length && (
           <div class={styles.infoContainer}>
             <div class={styles.infoText}>
-              <div class={styles.header}>META BNB</div>
-              <div>Find how much you could earn with your property on airbnb or any other short term rental platform.</div>
+              <h1 class={styles.header}>META BNB - Free Airbnb Income Calculator</h1>
+              <div>Find how much your property could earn on airbnb or any other short term rental platform.</div>
               <br />
-              <div>Quickly adopt to market changes by following our recommendations, increase your occupancy and income.</div>
+              <div>Quickly adopt to market changes by following our recommendations. Increase occupancy and income.</div>
             </div>
           </div>
         )}
