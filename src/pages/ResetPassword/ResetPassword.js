@@ -1,25 +1,62 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import styles from './ResetPassword.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
+import fetch from '../../shared/fetch';
+import config from '../../../config';
 
-export default function Login() {
-  return (
-    <SettingsPageContainer backTo="/" title="META BNB">
-      <div className={styles.cardContainer}>
-        <Card title="Reset Password">
-          <div class={styles.inputContainer}>
-            <Input
-              thickLines
-              type="email"
-              placeholder="Email Address"
-            />
-          </div>
-          <div class={styles.inputContainer}>
-            <Button className={styles.submitBtn}>Reset my password</Button>
-          </div>
-        </Card>
-      </div>
-    </SettingsPageContainer>
-  );
+export default class ResetPassword extends Component {
+  state = {
+    email: '',
+    resetError: null,
+  };
+
+  onEmailChange = (e) => {
+    this.setState({ email: e.target.value });
+  }
+
+  requestPasswordReset = (e) => {
+    e.preventDefault();
+    fetch(`${config.apiUrl}/request-password-reset`, { method: 'POST', body: this.state })
+      .then(() => {
+        this.setState({ resetError: null });
+      })
+      .catch(({ err }) => {
+        this.setState({ resetError: err });
+      });
+  }
+
+  render() {
+    const { resetError, email } = this.state;
+
+    return (
+      <SettingsPageContainer backTo="/" title="META BNB">
+        <div className={styles.cardContainer}>
+          <Card title="Reset Password">
+            <form class={styles.form} onSubmit={this.requestPasswordReset}>
+              <div class={styles.inputContainer}>
+                <Input
+                  thickLines
+                  type="email"
+                  value={email}
+                  placeholder="Email Address"
+                  onKeyUp={this.onEmailChange}
+                />
+              </div>
+              {!!resetError && (
+                <div class={styles.inputContainer}>
+                  <div class={styles.error}>{resetError}</div>
+                </div>
+              )}
+              <div class={styles.inputContainer}>
+                <Button className={styles.submitBtn} onClick={this.requestPasswordReset}>
+                  Reset my password
+                </Button>
+              </div>
+            </form>
+          </Card>
+        </div>
+      </SettingsPageContainer>
+    );
+  }
 }

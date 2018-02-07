@@ -138,11 +138,11 @@ export default class Dashboard extends Component {
             </Button>
           </div>
 
-          {/* <div class={styles.ctaContainer}>
+          <div class={styles.ctaContainer}>
             <Link href="/login" class={styles.loginBtn}>Login</Link>
             <div class={styles.spacer}>/</div>
             <Link href="/signup" class={styles.signupBtn}>Sign Up</Link>
-          </div> */}
+          </div>
 
           <div class={styles.quickSummary}>
             <AreaQuickSummary listings={listings} address={address} />

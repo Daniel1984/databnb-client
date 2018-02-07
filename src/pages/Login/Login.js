@@ -20,6 +20,7 @@ export default class Login extends Component {
   }
 
   login = (e) => {
+    e.preventDefault();
     fetch(`${config.apiUrl}/login`, { method: 'POST', body: this.state })
       .then(() => {
         this.setState({
@@ -37,32 +38,40 @@ export default class Login extends Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, loginError } = this.state;
+
     return (
       <SettingsPageContainer backTo="/" title="META BNB">
         <div className={styles.cardContainer}>
           <Card title="Login">
-            <div class={styles.inputContainer}>
-              <Input
-                thickLines
-                type="email"
-                value={email}
-                placeholder="Email Address"
-                onKeyUp={this.oninputChange}
-              />
-            </div>
-            <div class={styles.inputContainer}>
-              <Input
-                thickLines
-                type="password"
-                value={password}
-                placeholder="Password"
-                onKeyUp={this.oninputChange}
-              />
-            </div>
-            <div class={styles.inputContainer}>
-              <Button className={styles.submitBtn} onClick={this.login}>Log In</Button>
-            </div>
+            <form class={styles.form} onSubmit={this.login}>
+              <div class={styles.inputContainer}>
+                <Input
+                  thickLines
+                  type="email"
+                  value={email}
+                  placeholder="Email Address"
+                  onKeyUp={this.oninputChange}
+                />
+              </div>
+              <div class={styles.inputContainer}>
+                <Input
+                  thickLines
+                  type="password"
+                  value={password}
+                  placeholder="Password"
+                  onKeyUp={this.oninputChange}
+                />
+              </div>
+              {!!loginError && (
+                <div class={styles.inputContainer}>
+                  <div class={styles.error}>{loginError}</div>
+                </div>
+              )}
+              <div class={styles.inputContainer}>
+                <Button className={styles.submitBtn} onClick={this.login}>Log In</Button>
+              </div>
+            </form>
             <div class={styles.inputContainer}>
               <Link class={styles.forgotPassLink} href="/reset-password">Forgot password?</Link>
             </div>

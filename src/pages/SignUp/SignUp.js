@@ -20,6 +20,7 @@ export default class Signup extends Component {
   }
 
   submitNewUser = (e) => {
+    e.preventDefault();
     fetch(`${config.apiUrl}/register`, { method: 'POST', body: this.state })
       .then(() => {
         this.setState({
@@ -52,7 +53,7 @@ export default class Signup extends Component {
               </div>
             )}
             {!registerSuccess && (
-              <div class={styles.formContainer}>
+              <form class={styles.formContainer} onSubmit={this.submitNewUser}>
                 <div class={styles.inputContainer}>
                   <Input
                     thickLines
@@ -81,7 +82,7 @@ export default class Signup extends Component {
                     Sign Up
                   </Button>
                 </div>
-              </div>
+              </form>
             )}
           </Card>
         </div>
