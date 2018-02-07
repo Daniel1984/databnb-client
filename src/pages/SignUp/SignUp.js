@@ -31,7 +31,6 @@ export default class Signup extends Component {
       .catch(({ err }) => {
         this.setState({
           registerError: err,
-          email: '',
           password: ''
         });
       });

@@ -5,7 +5,7 @@ import { Card, SettingsPageContainer } from '../../components/common';
 
 export default function RegistrationThankYou({ email }) {
   return (
-    <SettingsPageContainer backTo="/" title="THANK YOU">
+    <SettingsPageContainer backTo="/" title="META BNB">
       <div className={styles.cardContainer}>
         <Card title="Thank you for registering with Metabnb!">
           <div class={styles.message}>
