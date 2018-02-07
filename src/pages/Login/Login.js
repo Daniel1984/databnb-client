@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
+import { route } from 'preact-router';
 import styles from './Login.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import fetch from '../../shared/fetch';
@@ -22,11 +23,9 @@ export default class Login extends Component {
   login = (e) => {
     e.preventDefault();
     fetch(`${config.apiUrl}/login`, { method: 'POST', body: this.state })
-      .then(() => {
-        this.setState({
-          loginSuccess: true,
-          loginError: null,
-        });
+      .then(({ token }) => {
+        sessionStorage.setItem('auth-token', token);
+        route('/settings', true);
       })
       .catch(({ err }) => {
         this.setState({
