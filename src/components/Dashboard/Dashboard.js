@@ -1,19 +1,9 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import styles from './Dashboard.scss';
-import Autocomplete from '../Autocomplete/Autocomplete';
 import { Select, Button } from '../common';
 import socket from '../../shared/socket';
 import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary'
-
-const localeToGeolocation = {
-  london: {
-    lat: 51.5073835,
-    lng: -0.1277801,
-    radius: 20000,
-    country: 'gb'
-  }
-};
 
 export default class Dashboard extends Component {
   state = {
@@ -105,7 +95,7 @@ export default class Dashboard extends Component {
     const { bedrooms, btnText, btnEnabled, formDisabled, listings, address } = this.state;
 
     return (
-      <div ref={el => this.rootEl = el} class={styles.root}>
+      <div class={styles.root}>
         <div class={styles.name}>META BNB</div>
         <div class={styles.content}>
           <div class={styles.title}>Make the most of your property:</div>
