@@ -6,6 +6,7 @@ import fetch from '../../shared/fetch';
 import config from '../../../config';
 import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary';
 import AuthControls from '../AuthControls/AuthControls';
+import Autocomplete from '../Autocomplete/Autocomplete';
 
 export default class Dashboard extends Component {
   state = {
@@ -19,32 +20,6 @@ export default class Dashboard extends Component {
 
   componentDidMount() {
     this.getUserInfo();
-
-    const autoCompleteForm = new google.maps.places.Autocomplete(this.placesEl, {
-      types: ['geocode']
-    });
-
-    autoCompleteForm.addListener('place_changed', () => {
-      const place = autoCompleteForm.getPlace();
-      const address = place.formatted_address || '';
-
-      if (!place || !place.address_components || !place.geometry) {
-        return;
-      }
-
-      const latlng = place.geometry.location;
-
-      if (latlng.lat && latlng.lng) {
-        this.setState({
-          address,
-          latlng: {
-            lat: latlng.lat(),
-            lng: latlng.lng(),
-          },
-          btnEnabled: true,
-        });
-      }
-    });
 
     socket.get().on('listings', ({ listings }) => {
       const { latlng, bedrooms, address } = this.state;
@@ -114,11 +89,9 @@ export default class Dashboard extends Component {
         <div class={styles.name}>META BNB</div>
         <div class={styles.title}>Make the most of your property:</div>
         <div class={styles.formControl}>
-          <input
-            ref={el => this.placesEl = el}
-            class={styles.input}
-            placeholder="Type in your address"
-            disabled={formDisabled}
+          <Autocomplete
+            formDisabled={formDisabled}
+            updateParentState={state => this.setState({ ...this.state, ...state })}
           />
         </div>
         <div class={styles.formControl}>

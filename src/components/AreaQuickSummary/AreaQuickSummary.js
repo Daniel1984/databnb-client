@@ -24,7 +24,6 @@ export default class AreaQuickSummary extends Component {
   }
 
   updateQuickInfo({ listings }) {
-    console.log(listings)
     const { prices, currency, bedrooms } = listings.reduce((acc, { currentDayPrice, currency, bedrooms }) => {
       acc.prices = [...acc.prices, currentDayPrice],
       acc.currency = currency;
