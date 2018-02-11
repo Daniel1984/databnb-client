@@ -17,7 +17,7 @@ export default function AuthControls({ user }) {
         <div class={styles.userInfo}>
           <Gravatar class={styles.gravatarLogo} email={user.email} size={200} />
           <div class={styles.ctaContainer}>
-            <Link href="/settings" class={styles.settingsBtn}>Settings</Link>
+            {/* <Link href="/settings" class={styles.settingsBtn}>Settings</Link> */}
             <Link
               class={styles.logoutBtn}
               onClick={() => sessionStorage.clear()}
