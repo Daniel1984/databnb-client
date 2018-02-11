@@ -4,6 +4,7 @@ import styles from './SignUp.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import fetch from '../../shared/fetch';
 import config from '../../../config';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default class Signup extends Component {
   state = {
@@ -40,7 +41,8 @@ export default class Signup extends Component {
     const { registerError, registerSuccess, email, password } = this.state;
 
     return (
-      <SettingsPageContainer backTo="/" title="META BNB">
+      <SettingsPageContainer>
+        <Navbar  backTo="/" title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Sign Up">
             {registerSuccess && (

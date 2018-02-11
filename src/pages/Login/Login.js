@@ -3,6 +3,7 @@ import { Link } from 'preact-router/match';
 import { route } from 'preact-router';
 import styles from './Login.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
+import Navbar from '../../components/Navbar/Navbar';
 import fetch from '../../shared/fetch';
 import config from '../../../config';
 
@@ -39,7 +40,8 @@ export default class Login extends Component {
     const { email, password, loginError } = this.state;
 
     return (
-      <SettingsPageContainer backTo="/" title="META BNB">
+      <SettingsPageContainer>
+        <Navbar  backTo="/" title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Login">
             <form class={styles.form} onSubmit={this.login}>

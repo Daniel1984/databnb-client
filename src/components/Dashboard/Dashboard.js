@@ -97,47 +97,47 @@ export default class Dashboard extends Component {
     return (
       <div class={styles.root}>
         <div class={styles.name}>META BNB</div>
-        <div class={styles.content}>
-          <div class={styles.title}>Make the most of your property:</div>
-          <div class={styles.formControl}>
-            <input
-              ref={el => this.placesEl = el}
-              class={styles.input}
-              placeholder="Type in your address"
-              disabled={formDisabled}
-            />
-          </div>
-          <div class={styles.formControl}>
-            <Select
-              disabled={formDisabled}
-              value={bedrooms}
-              onChange={e => this.setState({ bedrooms: e.target.value })}
-            >
-              <option value="0">Studio</option>
-              <option value="1">1 Bedroom</option>
-              <option value="2">2 Bedrooms</option>
-              <option value="3">3 Bedrooms</option>
-              <option value="4">4 Bedrooms</option>
-              <option value="5">5 Bedrooms</option>
-            </Select>
-          </div>
+        <div class={styles.title}>Make the most of your property:</div>
+        <div class={styles.formControl}>
+          <input
+            ref={el => this.placesEl = el}
+            class={styles.input}
+            placeholder="Type in your address"
+            disabled={formDisabled}
+          />
+        </div>
+        <div class={styles.formControl}>
+          <Select
+            disabled={formDisabled}
+            value={bedrooms}
+            onChange={e => this.setState({ bedrooms: e.target.value })}
+          >
+            <option value="0">Studio</option>
+            <option value="1">1 Bedroom</option>
+            <option value="2">2 Bedrooms</option>
+            <option value="3">3 Bedrooms</option>
+            <option value="4">4 Bedrooms</option>
+            <option value="5">5 Bedrooms</option>
+          </Select>
+        </div>
 
-          <div class={styles.formControl}>
-            <Button onClick={this.getPricingInfo} disabled={!btnEnabled}>
-              {btnText}
-            </Button>
-          </div>
+        <div class={styles.formControl}>
+          <Button onClick={this.getPricingInfo} disabled={!btnEnabled}>
+            {btnText}
+          </Button>
+        </div>
 
-          <div class={styles.ctaContainer}>
-            <Link href="/login" class={styles.loginBtn}>Login</Link>
-            <div class={styles.spacer}>/</div>
-            <Link href="/signup" class={styles.signupBtn}>Sign Up</Link>
-          </div>
+        <div class={styles.ctaContainer}>
+          <Link href="/login" class={styles.loginBtn}>Login</Link>
+          <div class={styles.spacer}>/</div>
+          <Link href="/signup" class={styles.signupBtn}>Sign Up</Link>
+        </div>
 
+        {!!listings.length && (
           <div class={styles.quickSummary}>
             <AreaQuickSummary listings={listings} address={address} />
           </div>
-        </div>
+        )}
       </div>
     );
   }

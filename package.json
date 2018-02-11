@@ -12,6 +12,7 @@
     "chart.js": "^2.7.1",
     "classnames": "^2.2.5",
     "date-fns": "^1.29.0",
+    "gravatar-url": "^2.0.0",
     "leaflet-heatmap": "^1.0.0",
     "preact": "^8.2.6",
     "preact-router": "^2.6.0",

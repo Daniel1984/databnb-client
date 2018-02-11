@@ -2,10 +2,12 @@ import { h } from 'preact';
 import { Link } from 'preact-router/match';
 import styles from './RegistrationThankYou.scss';
 import { Card, SettingsPageContainer } from '../../components/common';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function RegistrationThankYou({ email }) {
   return (
-    <SettingsPageContainer backTo="/" title="META BNB">
+    <SettingsPageContainer>
+      <Navbar  backTo="/" title="META BNB" />
       <div className={styles.cardContainer}>
         <Card title="Thank you for registering with Metabnb!">
           <div class={styles.message}>
