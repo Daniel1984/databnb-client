@@ -1,14 +1,14 @@
 @import '../../shared/variables.scss';
 
 .root {
-  height: 50px;
+  height: 60px;
   background-color: $colorPrimary;
   display: flex;
   align-items: center;
 }
 
 .leftCta, .rightCta {
-  width: 40px;
+  width: 50px;
   display: flex;
   justify-content: center;
 }
@@ -32,4 +32,8 @@
   @media (max-width: $screenSm) {
     margin: 10px 0;
   }
+}
+
+.link {
+  text-decoration: none;
 }

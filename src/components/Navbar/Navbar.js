@@ -13,7 +13,9 @@ export default function SettingsPageContainer({ backTo, title, children }) {
       </div>
 
       <div class={styles.midSection}>
-        <div class={styles.title}>{title}</div>
+        <Link class={styles.link} href={backTo}>
+          <div class={styles.title}>{title}</div>
+        </Link>
       </div>
 
       <div class={styles.rightCta}>
