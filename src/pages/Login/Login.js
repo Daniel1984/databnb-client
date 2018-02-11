@@ -26,7 +26,7 @@ export default class Login extends Component {
     fetch(`${config.apiUrl}/login`, { method: 'POST', body: this.state })
       .then(({ token }) => {
         sessionStorage.setItem('auth-token', token);
-        route('/settings', true);
+        route('/', true);
       })
       .catch(({ err }) => {
         this.setState({

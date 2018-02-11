@@ -10,6 +10,11 @@ export default function fetch(url, props = {}) {
     body = JSON.stringify(body)
   }
 
+  const token = sessionStorage.getItem('auth-token');
+  if (token) {
+    headers = { ...headers, 'x-access-token': token };
+  }
+
   const config = {
     mode: 'cors',
     ...rest,

@@ -1,9 +1,11 @@
 import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
 import styles from './Dashboard.scss';
 import { Select, Button } from '../common';
 import socket from '../../shared/socket';
-import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary'
+import fetch from '../../shared/fetch';
+import config from '../../../config';
+import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary';
+import AuthControls from '../AuthControls/AuthControls';
 
 export default class Dashboard extends Component {
   state = {
@@ -11,10 +13,13 @@ export default class Dashboard extends Component {
     formDisabled: false,
     bedrooms: 2,
     btnText: 'Calculate',
-    listings: []
+    listings: [],
+    user: null
   };
 
   componentDidMount() {
+    this.getUserInfo();
+
     const autoCompleteForm = new google.maps.places.Autocomplete(this.placesEl, {
       types: ['geocode']
     });
@@ -79,6 +84,16 @@ export default class Dashboard extends Component {
     });
   }
 
+  componentWillReceiveProps() {
+    this.getUserInfo();
+  }
+
+  getUserInfo() {
+    fetch(`${config.apiUrl}/me`)
+      .then(user => this.setState({ user }))
+      .catch(() => this.setState({ user: null }));
+  }
+
   getPricingInfo = () => {
     this.props.updateParentState({ fetchedListings: false });
     this.setState({
@@ -92,7 +107,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { bedrooms, btnText, btnEnabled, formDisabled, listings, address } = this.state;
+    const { bedrooms, btnText, btnEnabled, formDisabled, listings, address, user } = this.state;
 
     return (
       <div class={styles.root}>
@@ -127,11 +142,7 @@ export default class Dashboard extends Component {
           </Button>
         </div>
 
-        <div class={styles.ctaContainer}>
-          <Link href="/login" class={styles.loginBtn}>Login</Link>
-          <div class={styles.spacer}>/</div>
-          <Link href="/signup" class={styles.signupBtn}>Sign Up</Link>
-        </div>
+        <AuthControls user={user} />
 
         {!!listings.length && (
           <div class={styles.quickSummary}>

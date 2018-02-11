@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import getGravatarUrl from 'gravatar-url';
+import styles from './Gravatar.scss';
 
 export default class Gravatar extends Component {
   componentDidMount() {
@@ -10,15 +11,15 @@ export default class Gravatar extends Component {
     this.getGrvatarImage(props);
   }
 
-  getGrvatarImage = async ({ email, size = 200 }) => {
-    const gravatarUrl = await getGravatarUrl('sindresorhus@gmail.com', {size: 200});
+  getGrvatarImage({ email, size = 200 }) {
+    const gravatarUrl = getGravatarUrl(email, { size });
     this.setState({ gravatarUrl });
   }
 
   render() {
     const { gravatarUrl } = this.state;
     return (
-      <img src={gravatarUrl} />
+      <div class={styles.logo} style={{ backgroundImage: `url(${gravatarUrl})` }} />
     )
   }
 }
