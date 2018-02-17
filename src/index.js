@@ -6,7 +6,7 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
-import Settings from './pages/Settings/Settings';
+import Profile from './pages/Profile/Profile';
 import ForOfor from './pages/ForOfor/ForOfor';
 import RegistrationThankYou from './pages/RegistrationThankYou/RegistrationThankYou';
 
@@ -20,7 +20,7 @@ const Main = () => (
 		<ResetPassword path="/reset-password" />
     <RegistrationThankYou path="/thank-you/:q?" />
     <ChangePassword path="/change-password/:q?" />
-    <Settings path="/settings/profile" to="/login" />
+    <Profile path="/settings/profile" to="/login" />
     <ForOfor default />
 	</Router>
 );

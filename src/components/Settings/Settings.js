@@ -27,11 +27,11 @@ export default class Settings extends RedirectUnauthenticated {
         <Navbar backTo="/" title="Settings" />
         {!!user && (
           <div class={styles.contentWrapper}>
-            <div class={styles.content}>
-              ddd
-            </div>
             <div class={styles.menu}>
               <SettingsMenu user={user} />
+            </div>
+            <div class={styles.content}>
+              {this.props.children}
             </div>
           </div>
         )}

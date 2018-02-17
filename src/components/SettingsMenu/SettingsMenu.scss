@@ -2,7 +2,18 @@
 
 .root {
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.name {
+  font-weight: $fontBold;
 }
 
 .gravatar {
@@ -12,23 +23,10 @@
   overflow: hidden;
 }
 
-.heading {
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  flex: 1;
-  color: #fff;
-}
-
-.name {
-  font-weight: $fontBold;
-}
-
 .gravatarHalo {
-  width: 100px;
-  height: 100px;
-  padding: 10px;
+  width: 88px;
+  height: 88px;
+  padding: 4px;
   margin-bottom: 10px;
   background-color: $colorAccent;
   border-radius: 50px;
