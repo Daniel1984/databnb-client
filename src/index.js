@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp/SignUp';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
 import Profile from './pages/Profile/Profile';
+import Billing from './pages/Billing/Billing';
 import ForOfor from './pages/ForOfor/ForOfor';
 import RegistrationThankYou from './pages/RegistrationThankYou/RegistrationThankYou';
 
@@ -21,6 +22,7 @@ const Main = () => (
     <RegistrationThankYou path="/thank-you/:q?" />
     <ChangePassword path="/change-password/:q?" />
     <Profile path="/settings/profile" to="/login" />
+    <Billing path="/settings/billing" to="/login" />
     <ForOfor default />
 	</Router>
 );
