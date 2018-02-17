@@ -19,7 +19,7 @@ export default function AuthControls({ user }) {
             <Gravatar email={user.email} size={200} />
           </div>
           <div class={styles.ctaContainer}>
-            <Link href="/settings" class={styles.settingsBtn}>Settings</Link>
+            <Link href="/settings/profile" class={styles.settingsBtn}>Settings</Link>
             <Link
               class={styles.logoutBtn}
               onClick={() => sessionStorage.clear()}

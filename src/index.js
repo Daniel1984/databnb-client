@@ -20,7 +20,7 @@ const Main = () => (
 		<ResetPassword path="/reset-password" />
     <RegistrationThankYou path="/thank-you/:q?" />
     <ChangePassword path="/change-password/:q?" />
-    <Settings path="/settings" to="/login" />
+    <Settings path="/settings/profile" to="/login" />
     <ForOfor default />
 	</Router>
 );
