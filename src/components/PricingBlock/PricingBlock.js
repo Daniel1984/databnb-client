@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import styles from './PricingBlock.scss';
 import { Checkbox } from '../common';
@@ -13,77 +13,77 @@ class PricingBlock extends Component {
     const { yearly } = this.state;
 
     return (
-      <div class={styles.root}>
-        <div class={styles.title}>Plans and Pricing</div>
-        <div class={styles.subTitle}>Billed {yearly ? 'Yearly' : 'Monthly' }</div>
+      <div className={styles.root}>
+        <div className={styles.title}>Plans and Pricing</div>
+        <div className={styles.subTitle}>Billed {yearly ? 'Yearly' : 'Monthly' }</div>
 
-        <div class={styles.checkbox}>
+        <div className={styles.checkbox}>
           <Checkbox
             label="Month / Year"
             onChange={e => this.setState({ yearly: e.target.checked })}
           />
         </div>
 
-        <div class={styles.pricingContainer}>
-          <div class={styles.pricingBlock}>
-            <div class={styles.heading}>
-              <div class={styles.pricingTitle}>Free</div>
-              <div class={styles.cost}>$0</div>
+        <div className={styles.pricingContainer}>
+          <div className={styles.pricingBlock}>
+            <div className={styles.heading}>
+              <div className={styles.pricingTitle}>Free</div>
+              <div className={styles.cost}>$0</div>
             </div>
-            <div class={styles.features}>
-              <div class={styles.featuresTitle}>
+            <div className={styles.features}>
+              <div className={styles.featuresTitle}>
                 Features:
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 Access to custom charts
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 Unlimited queries
               </div>
             </div>
           </div>
 
-          <div class={styles.pricingBlock}>
-            <div class={classnames([styles.heading, styles.basicList])}>
-              <div class={classnames([styles.pricingTitle, styles.popularTile])}>
+          <div className={styles.pricingBlock}>
+            <div className={classnames([styles.heading, styles.basicList])}>
+              <div className={classnames([styles.pricingTitle, styles.popularTile])}>
                 Basic
               </div>
-              <div class={classnames([styles.cost, styles.popularCost])}>
+              <div className={classnames([styles.cost, styles.popularCost])}>
                 {yearly ? '$100' : '$10' }
               </div>
             </div>
-            <div class={styles.features}>
-              <div class={styles.featuresTitle}>
+            <div className={styles.features}>
+              <div className={styles.featuresTitle}>
                 Features:
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 Weekly personalized email reports
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 Weekly pricing recommendations
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 All free plan features
               </div>
             </div>
           </div>
 
-          <div class={styles.pricingBlock}>
-            <div class={styles.heading}>
-              <div class={styles.pricingTitle}>Pro</div>
-              <div class={styles.cost}>Subscribe to find out more</div>
+          <div className={styles.pricingBlock}>
+            <div className={styles.heading}>
+              <div className={styles.pricingTitle}>Pro</div>
+              <div className={styles.cost}>Subscribe to find out more</div>
             </div>
-            <div class={styles.features}>
-              <div class={styles.featuresTitle}>
+            <div className={styles.features}>
+              <div className={styles.featuresTitle}>
                 Features:
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 All basic features
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 API access
               </div>
-              <div class={styles.feature}>
+              <div className={styles.feature}>
                 Download CSV/JSON data
               </div>
             </div>

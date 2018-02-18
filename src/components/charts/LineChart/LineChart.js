@@ -1,5 +1,5 @@
+import React, { Component } from 'react';
 import Chart from 'chart.js';
-import { h, Component } from 'preact';
 
 export default class LineChart extends Component {
   componentDidMount() {

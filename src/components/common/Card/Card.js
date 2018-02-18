@@ -1,10 +1,13 @@
-import { h } from 'preact';
+import React from 'react';
+import classnames from 'classnames';
 import styles from './Card.scss';
 
-export default function Card({ title, children }) {
+export default function Card({ title, children, flex }) {
   return (
-    <div class={styles.root}>
-      <div class={styles.cardTitle}>{title}</div>
+    <div className={classnames([styles.root, flex && styles.flex])}>
+      {!!title && (
+        <div className={styles.cardTitle}>{title}</div>
+      )}
       {children}
     </div>
   );

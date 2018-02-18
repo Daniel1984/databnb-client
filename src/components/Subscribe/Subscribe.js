@@ -1,4 +1,4 @@
-import { h, Componnt, Component } from 'preact';
+import React, { Component } from 'react';
 import styles from './Subscribe.scss';
 import { Button, Input } from '../common';
 import config from '../../../config';
@@ -56,19 +56,19 @@ export default class Subscribe extends Component {
     const { btnText, btnEnabled, hasError, hasSuccess, email } = this.state;
 
     return (
-      <div class={styles.root}>
-        <div class={styles.title}>
+      <div className={styles.root}>
+        <div className={styles.title}>
           Please subscribe to find out when you can use our platform to increase your airbnb income
         </div>
-        <div class={styles.formContainer}>
-          <div class={styles.formControl}>
+        <div className={styles.formContainer}>
+          <div className={styles.formControl}>
             <Input
               value={email}
               placeholder="Type in your address"
               onKeyUp={this.setEmailValue}
             />
           </div>
-          <div class={styles.formControl}>
+          <div className={styles.formControl}>
             <Button onClick={this.subscribe} disabled={!btnEnabled}>
               {btnText}
             </Button>
@@ -76,11 +76,11 @@ export default class Subscribe extends Component {
         </div>
 
         {hasError && (
-          <div class={styles.error}>Please enter valid email</div>
+          <div className={styles.error}>Please enter valid email</div>
         )}
 
         {hasSuccess && (
-          <div class={styles.success}>Thank you for your interest</div>
+          <div className={styles.success}>Thank you for your interest</div>
         )}
       </div>
     );

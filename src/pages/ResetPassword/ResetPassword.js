@@ -1,5 +1,4 @@
-import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
+import React, { Component } from 'react';
 import styles from './ResetPassword.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import fetch from '../../shared/fetch';
@@ -37,22 +36,22 @@ export default class ResetPassword extends Component {
         <div className={styles.cardContainer}>
           <Card title="Reset Password">
             {!resetSuccess && (
-              <form class={styles.form} onSubmit={this.requestPasswordReset}>
-                <div class={styles.inputContainer}>
+              <form className={styles.form} onSubmit={this.requestPasswordReset}>
+                <div className={styles.inputContainer}>
                   <Input
                     thickLines
                     type="email"
                     value={email}
                     placeholder="Email Address"
-                    onKeyUp={this.onEmailChange}
+                    onChange={this.onEmailChange}
                   />
                 </div>
                 {!!resetError && (
-                  <div class={styles.inputContainer}>
-                    <div class={styles.error}>{resetError}</div>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.error}>{resetError}</div>
                   </div>
                 )}
-                <div class={styles.inputContainer}>
+                <div className={styles.inputContainer}>
                   <Button className={styles.submitBtn} onClick={this.requestPasswordReset}>
                     Reset my password
                   </Button>
@@ -60,9 +59,9 @@ export default class ResetPassword extends Component {
               </form>
             )}
             {resetSuccess && (
-              <div class={styles.successContainer}>
-                <div class={styles.successTitle}>Done!</div>
-                <div class={styles.successMsg}>
+              <div className={styles.successContainer}>
+                <div className={styles.successTitle}>Done!</div>
+                <div className={styles.successMsg}>
                   Reset password instructions were sent to your email address.
                 </div>
               </div>

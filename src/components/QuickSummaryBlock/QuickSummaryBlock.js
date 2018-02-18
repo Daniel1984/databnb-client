@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import React from 'react';
 import styles from './QuickSummaryBlock.scss';
 import AvailabilityByPriceSummary from '../AvailabilityByPriceSummary/AvailabilityByPriceSummary';
 import AvailabilityByRatingSummary from '../AvailabilityByRatingSummary/AvailabilityByRatingSummary';
@@ -16,7 +16,7 @@ import { Summary } from '../common';
 export default function QuickSummaryBlock({ listings, latlng, address }) {
   return (
     <div>
-      <div class={styles.quickSummaryTitle}>
+      <div className={styles.quickSummaryTitle}>
         Quick summary
       </div>
 

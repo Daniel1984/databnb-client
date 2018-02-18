@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import classnames from 'classnames'
 import Map from '../Map/Map';
 import styles from './AreaQuickSummary.scss';
@@ -54,39 +54,39 @@ export default class AreaQuickSummary extends Component {
     const { highestPrice, lowestPrice, avgPrice, currency, bedrooms = [] } = this.state;
 
     return (
-      <div class={styles.root}>
-        <div class={styles.summaryTitle}>
+      <div className={styles.root}>
+        <div className={styles.summaryTitle}>
           Properties nearby: {listings.length || '--'}
         </div>
-        <div class={styles.subInfoRow}>
-          <img class={styles.icon} src={LocationIcon} />
-          <div class={styles.titleMuted}>{address || '--'}</div>
+        <div className={styles.subInfoRow}>
+          <img className={styles.icon} src={LocationIcon} />
+          <div className={styles.titleMuted}>{address || '--'}</div>
         </div>
-        <div class={styles.subInfoRow}>
-          <img class={styles.icon} src={BedIcon} />
-          <div class={styles.titleMuted}>Bedroom count {bedrooms.length ? getBedrooms(bedrooms) : '--'}</div>
+        <div className={styles.subInfoRow}>
+          <img className={styles.icon} src={BedIcon} />
+          <div className={styles.titleMuted}>Bedroom count {bedrooms.length ? getBedrooms(bedrooms) : '--'}</div>
         </div>
-        <div class={styles.subInfoRow}>
-          <img class={styles.icon} src={MaxIncomeIcon} />
-          <div class={styles.titleMuted}>
+        <div className={styles.subInfoRow}>
+          <img className={styles.icon} src={MaxIncomeIcon} />
+          <div className={styles.titleMuted}>
             Highest daily rate
-            <strong class={styles.green}> {highestPrice || '--'} </strong>
+            <strong className={styles.green}> {highestPrice || '--'} </strong>
             {currency}
           </div>
         </div>
-        <div class={styles.subInfoRow}>
-          <img class={styles.icon} src={MinIncomeIcon} />
-          <div class={styles.titleMuted}>
+        <div className={styles.subInfoRow}>
+          <img className={styles.icon} src={MinIncomeIcon} />
+          <div className={styles.titleMuted}>
             Lowest daily rate
-            <strong class={styles.red}> {lowestPrice || '--'} </strong>
+            <strong className={styles.red}> {lowestPrice || '--'} </strong>
             {currency}
           </div>
         </div>
-        <div class={styles.subInfoRow}>
-          <img class={styles.icon} src={AvgIncomeIcon} />
-          <div class={styles.titleMuted}>
+        <div className={styles.subInfoRow}>
+          <img className={styles.icon} src={AvgIncomeIcon} />
+          <div className={styles.titleMuted}>
             Average daily rate
-            <strong class={styles.green}> {avgPrice || '--'} </strong>
+            <strong className={styles.green}> {avgPrice || '--'} </strong>
             {currency}
           </div>
         </div>

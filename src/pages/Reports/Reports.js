@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import Settings from '../../components/Settings/Settings';
 import styles from './Reports.scss';
 

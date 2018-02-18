@@ -1,10 +1,10 @@
-import { h } from 'preact';
+import React from 'react';
 import styles from './Footer.scss';
 
 function Footer() {
   return (
-    <div class={styles.root}>
-      <div class={styles.content}>
+    <div className={styles.root}>
+      <div className={styles.content}>
         © 2017 All rights reserved metabnb.com
       </div>
     </div>

@@ -1,5 +1,5 @@
-import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './SignUp.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import fetch from '../../shared/fetch';
@@ -46,39 +46,39 @@ export default class Signup extends Component {
         <div className={styles.cardContainer}>
           <Card title="Sign Up">
             {registerSuccess && (
-              <div class={styles.successContainer}>
-                <div class={styles.successTitle}>Congratulations!</div>
-                <div class={styles.successMsg}>
+              <div className={styles.successContainer}>
+                <div className={styles.successTitle}>Congratulations!</div>
+                <div className={styles.successMsg}>
                   Now all that is left is to confirm your email address and enjoy the ride ;)
                 </div>
               </div>
             )}
             {!registerSuccess && (
-              <form class={styles.formContainer} onSubmit={this.submitNewUser}>
-                <div class={styles.inputContainer}>
+              <form className={styles.formContainer} onSubmit={this.submitNewUser}>
+                <div className={styles.inputContainer}>
                   <Input
                     thickLines
                     type="email"
                     placeholder="Email Address"
                     value={email}
-                    onKeyUp={this.oninputChange}
+                    onChange={this.oninputChange}
                   />
                 </div>
-                <div class={styles.inputContainer}>
+                <div className={styles.inputContainer}>
                   <Input
                     thickLines
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onKeyUp={this.oninputChange}
+                    onChange={this.oninputChange}
                   />
                 </div>
                 {!!registerError && (
-                  <div class={styles.inputContainer}>
-                    <div class={styles.error}>{registerError}</div>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.error}>{registerError}</div>
                   </div>
                 )}
-                <div class={styles.inputContainer}>
+                <div className={styles.inputContainer}>
                   <Button className={styles.submitBtn} onClick={this.submitNewUser}>
                     Sign Up
                   </Button>
@@ -87,8 +87,8 @@ export default class Signup extends Component {
             )}
           </Card>
         </div>
-        <div class={styles.signupHelper}>
-        Already have an account? <Link class={styles.signupLink} href="/login">Log In</Link>
+        <div className={styles.signupHelper}>
+        Already have an account? <Link className={styles.signupLink} to="/login">Log In</Link>
         </div>
       </SettingsPageContainer>
     );

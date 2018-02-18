@@ -1,29 +1,29 @@
-import { h } from 'preact';
-import { Link } from 'preact-router/match';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './AuthControls.scss';
 import { Gravatar } from '../common';
 
 export default function AuthControls({ user }) {
   return (
-    <div class={styles.authControls}>
+    <div className={styles.authControls}>
       {!user && (
-        <div class={styles.ctaContainer}>
-          <Link href="/login" class={styles.loginBtn}>Login</Link>
-          <Link href="/signup" class={styles.signupBtn}>Sign Up</Link>
+        <div className={styles.ctaContainer}>
+          <Link to="/login" className={styles.loginBtn}>Login</Link>
+          <Link to="/signup" className={styles.signupBtn}>Sign Up</Link>
         </div>
       )}
 
       {user && (
-        <div class={styles.userInfo}>
-          <div class={styles.gravatar}>
+        <div className={styles.userInfo}>
+          <div className={styles.gravatar}>
             <Gravatar email={user.email} size={200} />
           </div>
-          <div class={styles.ctaContainer}>
-            <Link href="/settings/profile" class={styles.settingsBtn}>Settings</Link>
+          <div className={styles.ctaContainer}>
+            <Link to="/settings/profile" className={styles.settingsBtn}>Settings</Link>
             <Link
-              class={styles.logoutBtn}
+              className={styles.logoutBtn}
               onClick={() => sessionStorage.clear()}
-              href="/"
+              to="/"
             >
               Logout
             </Link>

@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import styles from './Autocomplete.scss';
 
 export default class Autocomplete extends Component {
@@ -37,7 +37,7 @@ export default class Autocomplete extends Component {
     return (
       <input
         ref={el => this.placesEl = el}
-        class={styles.input}
+        className={styles.input}
         placeholder="Type in your address"
         disabled={formDisabled}
       />

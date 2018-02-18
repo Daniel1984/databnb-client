@@ -1,6 +1,7 @@
-import bugsnag from 'bugsnag-js'
-import { h, render } from 'preact';
-import Router from 'preact-router';
+import React from 'react';
+import bugsnag from 'bugsnag-js';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { render } from 'react-dom';
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
@@ -14,19 +15,22 @@ import RegistrationThankYou from './pages/RegistrationThankYou/RegistrationThank
 
 const client = bugsnag('48900f3e09cc8859e1e9220b2439f97a');
 
-const Main = () => (
-	<Router>
-		<Landing path="/" />
-		<Login path="/login/:q?" />
-		<SignUp path="/signup" />
-		<ResetPassword path="/reset-password" />
-    <RegistrationThankYou path="/thank-you/:q?" />
-    <ChangePassword path="/change-password/:q?" />
-    <Profile path="/settings/profile" to="/login" />
-    <Billing path="/settings/billing" to="/login" />
-    <Reports path="/settings/reports" to="/login" />
-    <ForOfor default />
+const Metabnb = () => (
+  <Router>
+    <Switch>
+      <Route path='/' exact component={Landing} />
+      <Route path='/login' component={Login} />
+      <Route path='/signup' component={SignUp} />
+      <Route path='/reset-password' component={ResetPassword} />
+      <Route path='/thank-you' component={RegistrationThankYou} />
+      <Route path='/change-password' component={ChangePassword} />
+      <Route path='/settings' component={Profile} />
+      {/* https://reacttraining.com/react-router/web/example/basic */}
+      {/* <Route path='/settings/billing' component={Billing} />
+      <Route path='/settings/reports' component={Reports} /> */}
+      <Route component={ForOfor} />
+    </Switch>
 	</Router>
 );
 
-render(<Main />, document.body);
+render(<Metabnb />, document.querySelector('.metabnb-container'));

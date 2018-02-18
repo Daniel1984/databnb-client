@@ -1,6 +1,6 @@
-import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
-import { route } from 'preact-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { parse } from 'qs';
 import styles from './Login.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import Navbar from '../../components/Navbar/Navbar';
@@ -9,7 +9,7 @@ import config from '../../../config';
 
 export default class Login extends Component {
   state = {
-    email: this.props.email,
+    email: parse(this.props.location.search.substr(1)).email,
     password: '',
     loginError: null,
     loginSuccess: false,
@@ -26,7 +26,7 @@ export default class Login extends Component {
     fetch(`${config.apiUrl}/login`, { method: 'POST', body: this.state })
       .then(({ token }) => {
         sessionStorage.setItem('auth-token', token);
-        route('/', true);
+        this.props.history.push('/');
       })
       .catch(({ err }) => {
         this.setState({
@@ -44,41 +44,41 @@ export default class Login extends Component {
         <Navbar  backTo="/" title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Login">
-            <form class={styles.form} onSubmit={this.login}>
-              <div class={styles.inputContainer}>
+            <form className={styles.form} onSubmit={this.login}>
+              <div className={styles.inputContainer}>
                 <Input
                   thickLines
                   type="email"
                   value={email}
                   placeholder="Email Address"
-                  onKeyUp={this.oninputChange}
+                  onChange={this.oninputChange}
                 />
               </div>
-              <div class={styles.inputContainer}>
+              <div className={styles.inputContainer}>
                 <Input
                   thickLines
                   type="password"
                   value={password}
                   placeholder="Password"
-                  onKeyUp={this.oninputChange}
+                  onChange={this.oninputChange}
                 />
               </div>
               {!!loginError && (
-                <div class={styles.inputContainer}>
-                  <div class={styles.error}>{loginError}</div>
+                <div className={styles.inputContainer}>
+                  <div className={styles.error}>{loginError}</div>
                 </div>
               )}
-              <div class={styles.inputContainer}>
+              <div className={styles.inputContainer}>
                 <Button className={styles.submitBtn} onClick={this.login}>Log In</Button>
               </div>
             </form>
-            <div class={styles.inputContainer}>
-              <Link class={styles.forgotPassLink} href="/reset-password">Forgot password?</Link>
+            <div className={styles.inputContainer}>
+              <Link className={styles.forgotPassLink} to="/reset-password">Forgot password?</Link>
             </div>
           </Card>
         </div>
-        <div class={styles.signupHelper}>
-          Don't have an account? <Link class={styles.signupLink} href="/signup">Sign Up</Link>
+        <div className={styles.signupHelper}>
+          Don't have an account? <Link className={styles.signupLink} to="/signup">Sign Up</Link>
         </div>
       </SettingsPageContainer>
     );

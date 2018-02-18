@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import format from 'date-fns/format';
 import styles from './PriceByDateSummary.scss';
@@ -77,20 +77,20 @@ export default class PriceByDateSummary extends Component {
     }
 
     return (
-      <div class={styles.root}>
-        <div class={styles.col}>
+      <div className={styles.root}>
+        <div className={styles.col}>
           <LineChart
             label="Price per month"
             labels={labels}
             data={dataset}
           />
         </div>
-        <div class={classnames([styles.col, styles.info])}>
-          <div class={styles.colTitle}>
+        <div className={classnames([styles.col, styles.info])}>
+          <div className={styles.colTitle}>
             Rental price change over time:
           </div>
           {ratings && (
-            <div class={styles.selectContainer}>
+            <div className={styles.selectContainer}>
               <Select
                 vertical
                 label="Change rating:"

@@ -2,15 +2,16 @@
 
 .root {
   height: 60px;
-  background-color: $colorPrimary;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid $colorBackgroundLight;
 }
 
-.leftCta, .rightCta {
-  width: 50px;
+.leftCta,
+.rightCta {
+  width: 60px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .midSection {
@@ -18,7 +19,7 @@
 }
 
 .backIcon {
-  width: 30px;
+  width: 28px;
 }
 
 .title {
@@ -32,8 +33,4 @@
   @media (max-width: $screenSm) {
     margin: 10px 0;
   }
-}
-
-.link {
-  text-decoration: none;
 }

@@ -1,11 +1,11 @@
-import { h } from 'preact';
+import React from 'react';
 import classnames from 'classnames';
 import QuickSummaryBlock from '../QuickSummaryBlock/QuickSummaryBlock';
 import styles from './PricingResults.scss';
 
 export default function PricingResults({ latlng, listings, address }) {
   return (
-    <div class={classnames(styles.root, listings.length && styles.expanded)}>
+    <div className={classnames(styles.root, listings.length && styles.expanded)}>
       {listings.length && (
         <QuickSummaryBlock
           listings={listings}

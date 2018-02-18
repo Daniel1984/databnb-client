@@ -1,5 +1,5 @@
-import { h, Component } from 'preact';
-import { route } from 'preact-router';
+import React, { Component } from 'react';
+import { parse } from 'qs';
 import styles from './ChangePassword.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import fetch from '../../shared/fetch';
@@ -18,10 +18,10 @@ export default class ChangePassword extends Component {
 
   submitNewPassword = (e) => {
     e.preventDefault();
-    const { token } = this.props;
+    const { token } = parse(this.props.location.search.substr(1));
     fetch(`${config.apiUrl}/change-password`, { method: 'POST', body: { ...this.state, token } })
       .then(({ email }) => {
-        route(`/login?email=${email}`, true);
+        this.props.history.push(`/login?email=${email}`);
       })
       .catch(({ err }) => {
         this.setState({ changePassError: err });
@@ -36,22 +36,22 @@ export default class ChangePassword extends Component {
         <Navbar  backTo="/" title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Change Password">
-            <form class={styles.form} onSubmit={this.submitNewPassword}>
-              <div class={styles.inputContainer}>
+            <form className={styles.form} onSubmit={this.submitNewPassword}>
+              <div className={styles.inputContainer}>
                 <Input
                   thickLines
                   type="password"
                   value={password}
                   placeholder="New password"
-                  onKeyUp={this.onPasswordChange}
+                  onChange={this.onPasswordChange}
                 />
               </div>
               {!!changePassError && (
-                <div class={styles.inputContainer}>
-                  <div class={styles.error}>{changePassError}</div>
+                <div className={styles.inputContainer}>
+                  <div className={styles.error}>{changePassError}</div>
                 </div>
               )}
-              <div class={styles.inputContainer}>
+              <div className={styles.inputContainer}>
                 <Button className={styles.submitBtn} onClick={this.submitNewPassword}>
                   Change password
                 </Button>

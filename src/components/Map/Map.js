@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import HeatMapLayer from 'leaflet-heatmap';
 import styles from './Map.scss';
 import customHouseMarkerIcon from '../../shared/customHouseMarkerIcon';
@@ -97,8 +97,8 @@ class Map extends Component {
 
   render() {
     return (
-      <div class={styles.root}>
-        <div ref={el => this.mapEl = el} class={styles.map}></div>
+      <div className={styles.root}>
+        <div ref={el => this.mapEl = el} className={styles.map}></div>
       </div>
     );
   }

@@ -1,16 +1,16 @@
-import { h } from 'preact';
+import React from 'react';
 import classnames from 'classnames';
 import styles from './Select.scss';
 
 export default function Select({ onChange, value, children, customStyles, label, vertical = false }) {
   return (
-    <div class={classnames(styles.root, vertical && styles.vertical)}>
+    <div className={classnames(styles.root, vertical && styles.vertical)}>
       {label && (
-        <div class={styles.label}>{label}</div>
+        <div className={styles.label}>{label}</div>
       )}
-      <div class={styles.selectContainer}>
+      <div className={styles.selectContainer}>
         <select
-          class={classnames([styles.select, customStyles && customStyles ])}
+          className={classnames([styles.select, customStyles && customStyles ])}
           value={value}
           onChange={onChange}
         >

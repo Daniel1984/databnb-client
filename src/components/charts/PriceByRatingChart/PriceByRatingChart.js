@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import { CHART_COLORS, getHumanizedRatingLabels } from '../utils';
 import BarChart from '../BarChart/BarChart';
 

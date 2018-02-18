@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import styles from './Dashboard.scss';
 import { Select, Button } from '../common';
 import socket from '../../shared/socket';
@@ -85,16 +85,16 @@ export default class Dashboard extends Component {
     const { bedrooms, btnText, btnEnabled, formDisabled, listings, address, user } = this.state;
 
     return (
-      <div class={styles.root}>
-        <div class={styles.name}>META BNB</div>
-        <div class={styles.title}>Make the most of your property:</div>
-        <div class={styles.formControl}>
+      <div className={styles.root}>
+        <div className={styles.name}>META BNB</div>
+        <div className={styles.title}>Make the most of your property:</div>
+        <div className={styles.formControl}>
           <Autocomplete
             formDisabled={formDisabled}
             updateParentState={state => this.setState({ ...this.state, ...state })}
           />
         </div>
-        <div class={styles.formControl}>
+        <div className={styles.formControl}>
           <Select
             disabled={formDisabled}
             value={bedrooms}
@@ -109,7 +109,7 @@ export default class Dashboard extends Component {
           </Select>
         </div>
 
-        <div class={styles.formControl}>
+        <div className={styles.formControl}>
           <Button onClick={this.getPricingInfo} disabled={!btnEnabled}>
             {btnText}
           </Button>
@@ -118,7 +118,7 @@ export default class Dashboard extends Component {
         <AuthControls user={user} />
 
         {!!listings.length && (
-          <div class={styles.quickSummary}>
+          <div className={styles.quickSummary}>
             <AreaQuickSummary listings={listings} address={address} />
           </div>
         )}

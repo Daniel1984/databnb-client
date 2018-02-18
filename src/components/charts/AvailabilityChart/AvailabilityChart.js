@@ -1,6 +1,6 @@
+import React, { Component } from 'react';
 import Chart from 'chart.js';
 import format from 'date-fns/format'
-import { h, Component } from 'preact';
 
 export default class AvailabilityByPriceChart extends Component {
   componentDidMount() {

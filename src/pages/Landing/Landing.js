@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import styles from './Landing.scss';
 import Heading from '../../components/Heading/Heading';
 import PlatformFeatures from '../../components/PlatformFeatures/PlatformFeatures';
@@ -31,7 +31,7 @@ export default class Landing extends Component {
 
     return (
       <div>
-        <div class={styles.spacer} />
+        <div className={styles.spacer} />
         <Heading listings={listings} latlng={latlng} updateParentState={state => this.updateState(state)} />
         <PricingResults
           latlng={latlng}
@@ -39,7 +39,7 @@ export default class Landing extends Component {
           address={address}
         />
         {(fetchedListings && !listings.length) && (
-          <div class={styles.noListings}>
+          <div className={styles.noListings}>
             Unfortunately there's no <b>{bedrooms} bedroom</b> listings in <b>{address}</b> area
           </div>
         )}

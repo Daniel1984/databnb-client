@@ -1,24 +1,22 @@
-import { h } from 'preact';
-import { Link } from 'preact-router/match';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Navbar.scss';
 import LeftArrowIcon from '../../assets/icons/left-arrow.svg';
 
 export default function SettingsPageContainer({ backTo, title, children }) {
   return (
-    <div class={styles.root}>
-      <div class={styles.leftCta}>
-        <Link href={backTo}>
-          <img class={styles.backIcon} src={LeftArrowIcon} />
+    <div className={styles.root}>
+      <div className={styles.leftCta}>
+        <Link to={backTo}>
+          <img className={styles.backIcon} src={LeftArrowIcon} />
         </Link>
       </div>
 
-      <div class={styles.midSection}>
-        <Link class={styles.link} href={backTo}>
-          <div class={styles.title}>{title}</div>
-        </Link>
+      <div className={styles.midSection}>
+        <div className={styles.title}>{title}</div>
       </div>
 
-      <div class={styles.rightCta}>
+      <div className={styles.rightCta}>
         {children}
       </div>
     </div>

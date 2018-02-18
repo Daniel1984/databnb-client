@@ -1,12 +1,11 @@
-import { h, Component } from 'preact';
-import { route } from 'preact-router';
+import React, { Component } from 'react';
 
 export default class RedirectUnauthenticated extends Component {
   componentWillMount() {
     const authToken = sessionStorage.getItem('auth-token');
 
     if (!authToken) {
-      route(this.props.to, true);
+      this.props.history.push(this.props.to);
     }
   }
 

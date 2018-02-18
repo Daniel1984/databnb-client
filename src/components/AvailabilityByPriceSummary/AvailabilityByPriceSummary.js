@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import format from 'date-fns/format'
 import styles from './AvailabilityByPriceSummary.scss';
@@ -74,16 +74,16 @@ export default class AvailabilityByPriceSummary extends Component {
     const data = availabilities.map(({ occupancyPercentage }) => occupancyPercentage);
 
     return (
-      <div class={styles.root}>
-        <div class={styles.col}>
+      <div className={styles.root}>
+        <div className={styles.col}>
           <AvailabilityChart label="Occupancy by pricing" labels={labels} data={data} />
         </div>
-        <div class={classnames([styles.col, styles.info])}>
-          <div class={styles.colTitle}>
+        <div className={classnames([styles.col, styles.info])}>
+          <div className={styles.colTitle}>
             Property occupancy percentage depending on price:
           </div>
           {availableDates && (
-            <div class={styles.selectContainer}>
+            <div className={styles.selectContainer}>
               <Select
                 customStyles={styles.select}
                 onChange={e => this.setState({ selectedDate: e.target.value })}
