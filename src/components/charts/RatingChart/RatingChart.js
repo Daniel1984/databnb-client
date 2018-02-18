@@ -3,6 +3,8 @@ import { CHART_COLORS, getHumanizedRatingLabels } from '../utils';
 import BarChart from '../BarChart/BarChart';
 
 export default class RatingPieChart extends Component {
+  state = {};
+
   componentDidMount() {
     this.drawChart(this.props);
   }

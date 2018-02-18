@@ -1,12 +1,23 @@
 @import '../../shared/variables.scss';
 
 .headerRow {
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.name {
-  font-size: 2.5rem;
-  font-weight: $fontRegular;
+.title {
+  font-size: 2rem;
+  font-weight: $fontSemi;
+}
+
+.infoContainer {
+  line-height: 1.5;
+  color: $colorTextLight;
+}
+
+.card {
+  margin-bottom: 50px;
+  max-width: 800px;
 }

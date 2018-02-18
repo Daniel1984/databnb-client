@@ -51,6 +51,8 @@ function getCombinedDataByRating(availabilities) {
 }
 
 export default class AvailabilityByRatingSummary extends Component {
+  state = {};
+
   componentDidMount() {
     this.updateStateAndChart(this.props);
   }
@@ -113,7 +115,7 @@ export default class AvailabilityByRatingSummary extends Component {
                 onChange={e => this.setState({ selectedDate: e.target.value })}
                 value={selectedDate}
               >
-                {availableDates.map(({ label, value }) => <option value={value}>{label}</option>)}
+                {availableDates.map(({ label, value }) => <option key={label} value={value}>{label}</option>)}
               </Select>
             </div>
           )}

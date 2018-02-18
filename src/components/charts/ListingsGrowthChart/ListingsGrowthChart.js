@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import LineChart from '../LineChart/LineChart';
 
 export default class ListingsGrowthChart extends Component {
+  state = {};
+
   componentDidMount() {
     this.drawChart(this.props);
   }

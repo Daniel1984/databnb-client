@@ -18,6 +18,8 @@ function getPricesGroupedByRating(acc, { star_rating, availability }) {
 }
 
 export default class PriceByRatingChart extends Component {
+  state = {};
+
   componentDidMount() {
     this.drawChart(this.props);
   }

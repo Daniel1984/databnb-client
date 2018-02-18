@@ -15,6 +15,14 @@ function getBedrooms(bedrooms) {
 }
 
 export default class AreaQuickSummary extends Component {
+  state = {
+    highestPrice: 0,
+    lowestPrice: 0,
+    avgPrice: 0,
+    currency: '',
+    bedrooms: 0,
+  };
+
   componentDidMount() {
     this.updateQuickInfo(this.props);
   }

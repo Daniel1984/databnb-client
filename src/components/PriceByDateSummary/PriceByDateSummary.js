@@ -40,6 +40,8 @@ function getLabelsAndDataset(pricing) {
 }
 
 export default class PriceByDateSummary extends Component {
+  state = {};
+
   componentDidMount() {
     this.updateStateAndChart(this.props);
   }
@@ -98,7 +100,7 @@ export default class PriceByDateSummary extends Component {
                 onChange={e => this.setState({ selectedRating: e.target.value })}
                 value={selectedRating}
               >
-                {ratings.map(({ label, value }) => <option value={value}>{label}</option>)}
+                {ratings.map(({ label, value }) => <option key={label} value={value}>{label}</option>)}
               </Select>
             </div>
           )}
