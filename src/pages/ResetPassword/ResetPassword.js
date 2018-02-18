@@ -32,7 +32,7 @@ export default class ResetPassword extends Component {
 
     return (
       <SettingsPageContainer>
-        <Navbar  backTo="/" title="META BNB" />
+        <Navbar title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Reset Password">
             {!resetSuccess && (

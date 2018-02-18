@@ -42,7 +42,7 @@ export default class Signup extends Component {
 
     return (
       <SettingsPageContainer>
-        <Navbar  backTo="/" title="META BNB" />
+        <Navbar title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Sign Up">
             {registerSuccess && (

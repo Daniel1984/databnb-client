@@ -7,8 +7,8 @@ import styles from './Settings.scss';
 
 export default function Settings({ user, children }) {
   return (
-    <SettingsPageContainer title="Metabnb Account Settings">
-      <Navbar backTo="/" title="Settings" />
+    <SettingsPageContainer>
+      <Navbar title="Settings" />
       {!!user && (
         <div className={styles.contentWrapper}>
           <div className={styles.menu}>

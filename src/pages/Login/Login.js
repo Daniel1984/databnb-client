@@ -41,7 +41,7 @@ export default class Login extends Component {
 
     return (
       <SettingsPageContainer>
-        <Navbar  backTo="/" title="META BNB" />
+        <Navbar title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Login">
             <form className={styles.form} onSubmit={this.login}>

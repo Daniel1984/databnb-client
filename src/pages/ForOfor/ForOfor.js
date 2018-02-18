@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar/Navbar';
 export default function ForOfor() {
   return (
     <SettingsPageContainer>
-      <Navbar  backTo="/" title="META BNB" />
+      <Navbar title="META BNB" />
       <div className={styles.cardContainer}>
         <Card title="404 :(">
           <div className={styles.message}>

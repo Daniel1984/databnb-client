@@ -33,7 +33,7 @@ export default class ChangePassword extends Component {
 
     return (
       <SettingsPageContainer>
-        <Navbar  backTo="/" title="META BNB" />
+        <Navbar title="META BNB" />
         <div className={styles.cardContainer}>
           <Card title="Change Password">
             <form className={styles.form} onSubmit={this.submitNewPassword}>

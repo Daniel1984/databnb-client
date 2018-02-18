@@ -9,7 +9,7 @@ export default function RegistrationThankYou({ location }) {
   const { email } = parse(location.search.substr(1));
   return (
     <SettingsPageContainer>
-      <Navbar  backTo="/" title="META BNB" />
+      <Navbar title="META BNB" />
       <div className={styles.cardContainer}>
         <Card title="Thank you for registering with Metabnb!">
           <div className={styles.message}>
