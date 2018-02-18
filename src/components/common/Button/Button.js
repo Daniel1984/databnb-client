@@ -2,13 +2,17 @@ import React from 'react';
 import classnames from 'classnames';
 import styles from './Button.scss';
 
-export default function Button({ onClick, disabled, children, className, type }) {
+export default function Button({ onClick, children, success, block, lg, ...rest }) {
   return (
     <button
-      type={type}
-      className={classnames([styles.root, className && className])}
+      className={classnames([
+        styles.root,
+        success && styles.success,
+        block && styles.block,
+        lg && styles.large
+      ])}
       onClick={(e) => onClick(e)}
-      disabled={disabled}
+      {...rest}
     >
       {children}
     </button>

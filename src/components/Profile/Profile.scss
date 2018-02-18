@@ -1,0 +1,12 @@
+@import '../../shared/variables.scss';
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 2.5rem;
+  font-weight: $fontRegular;
+}

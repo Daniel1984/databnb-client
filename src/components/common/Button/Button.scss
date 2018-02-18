@@ -2,7 +2,7 @@
 
 .root {
   margin: 0;
-  padding: 11px;
+  padding: 11px 20px;
   border-radius: 2px;
   border: 0;
   color: #fff;
@@ -25,5 +25,21 @@
     &:hover {
       background-color: $colorPrimary;
     }
+  }
+
+  &.success {
+    background-color: $colorAccent;
+
+    &:hover {
+      background-color: darken($colorAccent, 10%);
+    }
+  }
+
+  &.block {
+    width: 100%;
+  }
+
+  &.large {
+    padding: 15px;
   }
 }

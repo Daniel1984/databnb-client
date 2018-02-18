@@ -52,7 +52,7 @@ export default class ChangePassword extends Component {
                 </div>
               )}
               <div className={styles.inputContainer}>
-                <Button className={styles.submitBtn} onClick={this.submitNewPassword}>
+                <Button success block lg onClick={this.submitNewPassword}>
                   Change password
                 </Button>
               </div>

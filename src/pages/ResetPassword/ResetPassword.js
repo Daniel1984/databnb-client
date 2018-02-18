@@ -52,7 +52,7 @@ export default class ResetPassword extends Component {
                   </div>
                 )}
                 <div className={styles.inputContainer}>
-                  <Button className={styles.submitBtn} onClick={this.requestPasswordReset}>
+                  <Button success block lg onClick={this.requestPasswordReset}>
                     Reset my password
                   </Button>
                 </div>

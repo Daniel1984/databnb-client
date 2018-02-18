@@ -79,7 +79,7 @@ export default class Signup extends Component {
                   </div>
                 )}
                 <div className={styles.inputContainer}>
-                  <Button className={styles.submitBtn} onClick={this.submitNewUser}>
+                  <Button success lg block onClick={this.submitNewUser}>
                     Sign Up
                   </Button>
                 </div>

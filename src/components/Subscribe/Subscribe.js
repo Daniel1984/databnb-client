@@ -56,7 +56,7 @@ export default class Subscribe extends Component {
     const { btnText, btnEnabled, hasError, hasSuccess, email } = this.state;
 
     return (
-      <div className={styles.root}>
+      <div>
         <div className={styles.title}>
           Please subscribe to find out when you can use our platform to increase your airbnb income
         </div>
@@ -69,7 +69,7 @@ export default class Subscribe extends Component {
             />
           </div>
           <div className={styles.formControl}>
-            <Button onClick={this.subscribe} disabled={!btnEnabled}>
+            <Button disabled={!btnEnabled}>
               {btnText}
             </Button>
           </div>
