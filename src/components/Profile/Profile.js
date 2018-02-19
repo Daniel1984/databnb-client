@@ -2,14 +2,32 @@ import React, { Component } from 'react';
 import format from 'date-fns/format';
 import Settings from '../../components/Settings/Settings';
 import { Card, Button } from '../../components/common';
+import { ConfirmDeactivateProfile } from '../modals';
 import styles from './Profile.scss';
 
 export default class Profile extends Component {
+  state = {
+    confirmDeactivateModalOpened: false,
+  };
+
+  closeConfirmDeactiveModal = () => {
+    this.setState({ confirmDeactivateModalOpened: false })
+  }
+
+  openConfirmDeactiveModal = () => {
+    this.setState({ confirmDeactivateModalOpened: true })
+  }
+
   render() {
     const { user } = this.props;
-    console.log(user)
+    const { confirmDeactivateModalOpened } = this.state;
+
     return (
       <Settings user={user}>
+        <ConfirmDeactivateProfile
+          opened={confirmDeactivateModalOpened}
+          onClose={this.closeConfirmDeactiveModal}
+        />
         {!!user && (
           <div>
             <div className={styles.card}>
@@ -38,7 +56,7 @@ export default class Profile extends Component {
                   <div className={styles.title}>
                     Deactivate account
                   </div>
-                  <Button>
+                  <Button onClick={this.openConfirmDeactiveModal}>
                     Deactivate account
                   </Button>
                 </div>

@@ -22,10 +22,7 @@
   &:disabled {
     opacity: 0.7;
     cursor: default;
-
-    &:hover {
-      background-color: $colorPrimary;
-    }
+    pointer-events: none;
   }
 
   &.success {
