@@ -2,5 +2,6 @@
 
 .root {
   min-height: 100%;
+  position: relative;
   background: linear-gradient($colorBackgroundDark, $colorBackgroundLight);
 }

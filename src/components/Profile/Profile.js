@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import format from 'date-fns/format';
 import Settings from '../../components/Settings/Settings';
 import { Card, Button } from '../../components/common';
-import { ConfirmDeactivateProfile } from '../modals';
+import { ConfirmDeactivateProfile, EditProfile } from '../modals';
 import styles from './Profile.scss';
 
 export default class Profile extends Component {
   state = {
     confirmDeactivateModalOpened: false,
+    editProfileModalOpened: false,
   };
 
   closeConfirmDeactiveModal = () => {
@@ -18,15 +19,27 @@ export default class Profile extends Component {
     this.setState({ confirmDeactivateModalOpened: true })
   }
 
+  closeEditProfileModal = () => {
+    this.setState({ editProfileModalOpened: false })
+  }
+
+  openEditProfileModal = () => {
+    this.setState({ editProfileModalOpened: true })
+  }
+
   render() {
     const { user } = this.props;
-    const { confirmDeactivateModalOpened } = this.state;
+    const { confirmDeactivateModalOpened, editProfileModalOpened } = this.state;
 
     return (
       <Settings user={user}>
         <ConfirmDeactivateProfile
           opened={confirmDeactivateModalOpened}
           onClose={this.closeConfirmDeactiveModal}
+        />
+        <EditProfile
+          opened={editProfileModalOpened}
+          onClose={this.closeEditProfileModal}
         />
         {!!user && (
           <div>
@@ -36,7 +49,7 @@ export default class Profile extends Component {
                   <div className={styles.title}>
                     {user.email.split('@')[0]}
                   </div>
-                  <Button success>
+                  <Button success onClick={this.openEditProfileModal}>
                     Edit
                   </Button>
                 </div>
@@ -56,7 +69,7 @@ export default class Profile extends Component {
                   <div className={styles.title}>
                     Deactivate account
                   </div>
-                  <Button onClick={this.openConfirmDeactiveModal}>
+                  <Button onClick={this.openConfirmDeactiveModal} danger>
                     Deactivate account
                   </Button>
                 </div>

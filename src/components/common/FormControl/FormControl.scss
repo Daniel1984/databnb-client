@@ -1,0 +1,32 @@
+.root {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.labelContainer {
+  margin: 10px 10px 10px 0;
+  width: 100px;
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+
+  .vertical & {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+.input {
+  flex: 1;
+
+  .vertical & {
+    width: 100%;
+  }
+}
+
+.vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}

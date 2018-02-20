@@ -1,22 +1,25 @@
 @import '../../../shared/variables.scss';
 
 .root {
-  min-width: 200px;
+  min-width: 190px;
   margin: 0;
   padding: 11px 20px;
   border-radius: 2px;
   border: 0;
   color: #fff;
   font-size: 1.1rem;
-  background-color: $colorPrimary;
   cursor: pointer;
   outline: 0;
   transition: all 0.2s linear;
   text-align: center;
 
-  &:hover {
-    transition: all 0.2s linear;
-    background-color: darken($colorPrimary, 10%);
+  &.danger {
+    background-color: $colorPrimary;
+
+    &:hover {
+      transition: all 0.2s linear;
+      background-color: darken($colorPrimary, 10%);
+    }
   }
 
   &:disabled {
@@ -30,6 +33,17 @@
 
     &:hover {
       background-color: darken($colorAccent, 10%);
+    }
+  }
+
+  &.regular {
+    padding: 9px 20px;
+    color: $colorText;
+    border: 2px solid $colorText;
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 
