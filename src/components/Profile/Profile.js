@@ -38,6 +38,7 @@ export default class Profile extends Component {
           onClose={this.closeConfirmDeactiveModal}
         />
         <EditProfile
+          user={user}
           opened={editProfileModalOpened}
           onClose={this.closeEditProfileModal}
         />

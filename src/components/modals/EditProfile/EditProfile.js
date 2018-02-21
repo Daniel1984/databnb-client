@@ -9,6 +9,7 @@ import config from '../../../../config';
 export class EditProfile extends Component {
   state = {
     saveButtonDisabled: false,
+    ...this.props.user
   };
 
   saveAccount = (e) => {
@@ -25,13 +26,19 @@ export class EditProfile extends Component {
       });
   }
 
+  saveProfile = () => {
+    console.log(this.state);
+  }
+
   oninputChange = (e) => {
-    console.log(e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   render() {
     const { opened, onClose } = this.props;
-    const { saveButtonDisabled } = this.state;
+    const { saveButtonDisabled, email, address, fullName, telephoneNumber } = this.state;
 
     return (
       <Modal open={opened} onClose={onClose} little>
@@ -42,7 +49,9 @@ export class EditProfile extends Component {
           <FormControl label="Email:" vertical>
             <Input
               thickLines
+              name="email"
               type="email"
+              value={email}
               placeholder="Email Address"
               onChange={this.oninputChange}
             />
@@ -50,7 +59,9 @@ export class EditProfile extends Component {
           <FormControl label="Full name:" vertical>
             <Input
               thickLines
+              name="fullName"
               type="text"
+              value={fullName}
               placeholder="Full name"
               onChange={this.oninputChange}
             />
@@ -58,6 +69,8 @@ export class EditProfile extends Component {
           <FormControl label="Address:" vertical>
             <Input
               thickLines
+              name="address"
+              value={address}
               type="text"
               placeholder="Address"
               onChange={this.oninputChange}
@@ -66,13 +79,15 @@ export class EditProfile extends Component {
           <FormControl label="Phone number:" vertical>
             <Input
               thickLines
+              value={telephoneNumber}
+              name="telephoneNumber"
               type="phone"
               placeholder="Phone number"
               onChange={this.oninputChange}
             />
           </FormControl>
           <div className={styles.footer}>
-            <Button success>
+            <Button success onClick={this.saveProfile}>
               Save
             </Button>
             <Button regular onClick={onClose}>

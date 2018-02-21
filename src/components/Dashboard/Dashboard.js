@@ -110,7 +110,7 @@ export default class Dashboard extends Component {
         </div>
 
         <div className={styles.formControl}>
-          <Button onClick={this.getPricingInfo} disabled={!btnEnabled}>
+          <Button danger onClick={this.getPricingInfo} disabled={!btnEnabled}>
             {btnText}
           </Button>
         </div>
