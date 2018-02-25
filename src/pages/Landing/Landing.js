@@ -4,6 +4,7 @@ import Heading from '../../components/Heading/Heading';
 import PlatformFeatures from '../../components/PlatformFeatures/PlatformFeatures';
 import PricingResults from '../../components/PricingResults/PricingResults';
 import PricingBlock from '../../components/PricingBlock/PricingBlock';
+import About from '../../components/About/About';
 import Footer from '../../components/Footer/Footer';
 import SuccessStories from '../../components/SuccessStories/SuccessStories';
 import socketio from '../../shared/socket';
@@ -43,6 +44,7 @@ export default class Landing extends Component {
             Unfortunately there's no <b>{bedrooms} bedroom</b> listings in <b>{address}</b> area
           </div>
         )}
+        <About />
         <PlatformFeatures />
         <PricingBlock />
         <SuccessStories />
