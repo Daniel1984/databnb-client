@@ -69,7 +69,7 @@ export default class Subscribe extends Component {
             />
           </div>
           <div className={styles.formControl}>
-            <Button disabled={!btnEnabled}>
+            <Button danger disabled={!btnEnabled} onClick={this.subscribe}>
               {btnText}
             </Button>
           </div>
