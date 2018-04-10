@@ -28,6 +28,14 @@ export class EditProfile extends Component {
 
   saveProfile = () => {
     console.log(this.state);
+    fetch(`${config.apiUrl}/me/${this.state._id}`, { method: 'PUT', body: this.state })
+      .then((res) => {
+        this.props.onClose();
+      })
+      .catch(({ err }) => {
+        this.setState({ saveButtonDisabled: false });
+        alert('Oops. Something went wrong. Please try again later');
+      });
   }
 
   oninputChange = (e) => {

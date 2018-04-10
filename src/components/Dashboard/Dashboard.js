@@ -19,7 +19,7 @@ export default class Dashboard extends Component {
   };
 
   componentDidMount() {
-    // this.getUserInfo();
+    this.getUserInfo();
 
     socket.get().on('listings', ({ listings }) => {
       const { latlng, bedrooms, address } = this.state;
@@ -114,7 +114,7 @@ export default class Dashboard extends Component {
           </Button>
         </div>
 
-        {/* <AuthControls user={user} /> */}
+        <AuthControls user={user} />
 
         {!!listings.length && (
           <div className={styles.quickSummary}>
