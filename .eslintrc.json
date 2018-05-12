@@ -34,5 +34,8 @@
   "env": {
     "browser": true,
     "jest": true
+  },
+  "globals": {
+    "google": true
   }
 }

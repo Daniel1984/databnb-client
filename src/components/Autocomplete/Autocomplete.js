@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Autocomplete.scss';
 
 export default class Autocomplete extends Component {
+  static propTypes = {
+    updateParentState: PropTypes.func.isRequired,
+    formDisabled: PropTypes.bool.isRequired,
+  };
+
   componentDidMount() {
     const autoCompleteForm = new google.maps.places.Autocomplete(this.placesEl, {
-      types: ['geocode']
+      types: ['geocode'],
     });
 
     autoCompleteForm.addListener('place_changed', () => {
@@ -36,7 +42,9 @@ export default class Autocomplete extends Component {
 
     return (
       <input
-        ref={el => this.placesEl = el}
+        ref={(el) => {
+          this.placesEl = el;
+        }}
         className={styles.input}
         placeholder="Type in your address"
         disabled={formDisabled}
