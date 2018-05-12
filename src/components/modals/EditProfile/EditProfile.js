@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, withFormik } from 'formik';
+import pick from 'lodash/fp/pick';
+import flow from 'lodash/fp/flow';
 import { Button, Input, FormControl } from '../../common';
-import fetch from '../../../shared/fetch';
+import axios from '../../../shared/axios';
 import config from '../../../../config';
 import styles from './EditProfile.scss';
 
@@ -88,10 +90,24 @@ function ProfileEditForm({
 }
 
 const EditProfileModal = withFormik({
-  mapPropsToValues: ({ user = {}, onClose }) => ({
-    ...user,
-    onClose,
-  }),
+  mapPropsToValues: ({ user = {}, onClose }) => {
+    // formic/react does not like null values
+    const assignEmptiStringForNullValues = (fields) => {
+      Object.keys(fields).forEach((key) => {
+        fields[key] = fields[key] || '';
+      });
+
+      return fields;
+    };
+
+    return {
+      ...flow(
+        pick(['email', 'fullName', 'address', 'telephoneNumber', '_id']),
+        assignEmptiStringForNullValues
+      )(user),
+      onClose,
+    };
+  },
 
   validate(props) {
     console.log('validating props ', props);
@@ -101,7 +117,7 @@ const EditProfileModal = withFormik({
   handleSubmit: (values, { setSubmitting, setFieldError, setErrors }) => {
     setSubmitting(false);
     console.log('submitting = ', values);
-    fetch(`${config.apiUrl}/me/${values._id}`, { method: 'PUT', body: values })
+    axios.post(`${config.apiUrl}/me/${values._id}`, { body: values })
       .then(values.onClose)
       .catch(() => {
         alert('Oops. Something went wrong. Please try again later');

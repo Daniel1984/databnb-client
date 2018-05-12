@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Profile from '../../components/Profile/Profile';
 import Billing from '../../components/Billing/Billing';
 import Reports from '../../components/Reports/Reports';
-import fetch from '../../shared/fetch';
+import axios from '../../shared/axios';
 import config from '../../../config';
 import styles from './Settings.scss';
 
@@ -13,7 +13,7 @@ export default class Settings extends Component {
   };
 
   componentDidMount() {
-    fetch(`${config.apiUrl}/me`)
+    axios.get(`${config.apiUrl}/me`)
       .then(user => this.setState({ user }))
       .catch(() => this.props.history.push('/login'));
   }

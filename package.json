@@ -8,6 +8,7 @@
     "lint": "eslint src"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "bugsnag-js": "^4.0.3",
     "chart.js": "^2.7.2",
@@ -16,8 +17,9 @@
     "formik": "^0.11.11",
     "gravatar": "^1.6.0",
     "leaflet-heatmap": "^1.0.0",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.1",
-    "qs": "^6.5.1",
+    "qs": "^6.5.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-responsive-modal": "^3.0.1",

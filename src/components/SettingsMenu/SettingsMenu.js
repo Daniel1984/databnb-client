@@ -1,22 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import fetch from '../../shared/fetch';
-import config from '../../../config';
 import { Gravatar } from '../common';
 import styles from './SettingsMenu.scss';
 
 const settingsMenuLinks = [
   {
     href: '/settings/profile',
-    name: 'Profile'
+    name: 'Profile',
   },
   {
     href: '/settings/billing',
-    name: 'Billing'
+    name: 'Billing',
   },
   {
     href: '/settings/reports',
-    name: 'Reports'
+    name: 'Reports',
   },
 ];
 

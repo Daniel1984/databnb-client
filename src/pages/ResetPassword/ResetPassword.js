@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styles from './ResetPassword.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
-import fetch from '../../shared/fetch';
+import axios from '../../shared/axios';
 import config from '../../../config';
 import Navbar from '../../components/Navbar/Navbar';
+import styles from './ResetPassword.scss';
 
 export default class ResetPassword extends Component {
   state = {
@@ -18,7 +18,7 @@ export default class ResetPassword extends Component {
 
   requestPasswordReset = (e) => {
     e.preventDefault();
-    fetch(`${config.apiUrl}/request-password-reset`, { method: 'POST', body: this.state })
+    axios.post(`${config.apiUrl}/request-password-reset`, { body: this.state })
       .then(() => {
         this.setState({ resetError: null, resetSuccess: true });
       })
@@ -52,7 +52,7 @@ export default class ResetPassword extends Component {
                   </div>
                 )}
                 <div className={styles.inputContainer}>
-                  <Button success block lg onClick={this.requestPasswordReset}>
+                  <Button kind="success" onClick={this.requestPasswordReset}>
                     Reset my password
                   </Button>
                 </div>

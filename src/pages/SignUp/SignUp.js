@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './SignUp.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
-import fetch from '../../shared/fetch';
+import axios from '../../shared/axios';
 import config from '../../../config';
 import Navbar from '../../components/Navbar/Navbar';
 
@@ -22,7 +22,7 @@ export default class Signup extends Component {
 
   submitNewUser = (e) => {
     e.preventDefault();
-    fetch(`${config.apiUrl}/register`, { method: 'POST', body: this.state })
+    axios.post(`${config.apiUrl}/register`, { body: this.state })
       .then(() => {
         this.setState({
           registerSuccess: true,
@@ -79,7 +79,7 @@ export default class Signup extends Component {
                   </div>
                 )}
                 <div className={styles.inputContainer}>
-                  <Button success lg block onClick={this.submitNewUser}>
+                  <Button kind="success" onClick={this.submitNewUser}>
                     Sign Up
                   </Button>
                 </div>

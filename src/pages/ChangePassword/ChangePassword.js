@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { parse } from 'qs';
-import styles from './ChangePassword.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
-import fetch from '../../shared/fetch';
+import axios from '../../shared/axios';
 import config from '../../../config';
 import Navbar from '../../components/Navbar/Navbar';
+import styles from './ChangePassword.scss';
 
 export default class ChangePassword extends Component {
   state = {
@@ -19,7 +19,7 @@ export default class ChangePassword extends Component {
   submitNewPassword = (e) => {
     e.preventDefault();
     const { token } = parse(this.props.location.search.substr(1));
-    fetch(`${config.apiUrl}/change-password`, { method: 'POST', body: { ...this.state, token } })
+    axios.post(`${config.apiUrl}/change-password`, { body: { ...this.state, token } })
       .then(({ email }) => {
         this.props.history.push(`/login?email=${email}`);
       })
@@ -52,7 +52,7 @@ export default class ChangePassword extends Component {
                 </div>
               )}
               <div className={styles.inputContainer}>
-                <Button success block lg onClick={this.submitNewPassword}>
+                <Button kind="success" onClick={this.submitNewPassword}>
                   Change password
                 </Button>
               </div>
@@ -60,6 +60,6 @@ export default class ChangePassword extends Component {
           </Card>
         </div>
       </SettingsPageContainer>
-    )
+    );
   }
 }

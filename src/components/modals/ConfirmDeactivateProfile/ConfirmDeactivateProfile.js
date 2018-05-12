@@ -3,7 +3,7 @@ import Modal from 'react-responsive-modal';
 import { withRouter } from 'react-router-dom';
 import styles from './ConfirmDeactivateProfile.scss';
 import { Button } from '../../common';
-import fetch from '../../../shared/fetch';
+import axios from '../../../shared/axios';
 import config from '../../../../config';
 
 export class ConfirmDeactivateProfile extends Component {
@@ -15,7 +15,7 @@ export class ConfirmDeactivateProfile extends Component {
     e.preventDefault();
     this.setState({ deactivateButtonDisabled: true });
 
-    fetch(`${config.apiUrl}/deactivate-account`, { method: 'POST', body: {} })
+    axios.post(`${config.apiUrl}/deactivate-account`, { body: {} })
       .then((res) => {
         this.props.onClose();
         sessionStorage.clear();

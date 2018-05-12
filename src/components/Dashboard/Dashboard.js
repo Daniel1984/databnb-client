@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './Dashboard.scss';
 import { Select, Button } from '../common';
 import socket from '../../shared/socket';
-import fetch from '../../shared/fetch';
+import axios from '../../shared/axios';
 import config from '../../../config';
 import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary';
 import AuthControls from '../AuthControls/AuthControls';
@@ -26,7 +26,7 @@ export default class Dashboard extends Component {
       this.setState({
         formDisabled: false,
         btnText: 'Calculate',
-        listings
+        listings,
       });
       this.props.updateParentState({ listings, latlng, address, bedrooms, fetchedListings: true });
     });
@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
   }
 
   getUserInfo() {
-    fetch(`${config.apiUrl}/me`)
+    axios.get(`${config.apiUrl}/me`)
       .then(user => this.setState({ user }))
       .catch(() => this.setState({ user: null }));
   }
@@ -109,7 +109,7 @@ export default class Dashboard extends Component {
         </div>
 
         <div className={styles.formControl}>
-          <Button danger onClick={this.getPricingInfo} disabled={!btnEnabled}>
+          <Button kind="danger" onClick={this.getPricingInfo} disabled={!btnEnabled}>
             {btnText}
           </Button>
         </div>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { parse } from 'qs';
-import styles from './Login.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import Navbar from '../../components/Navbar/Navbar';
-import fetch from '../../shared/fetch';
+import axios from '../../shared/axios';
 import config from '../../../config';
+import styles from './Login.scss';
 
 export default class Login extends Component {
   state = {
@@ -23,7 +23,7 @@ export default class Login extends Component {
 
   login = (e) => {
     e.preventDefault();
-    fetch(`${config.apiUrl}/login`, { method: 'POST', body: this.state })
+    axios.post(`${config.apiUrl}/login`, { body: this.state })
       .then(({ token }) => {
         sessionStorage.setItem('auth-token', token);
         this.props.history.push('/');
@@ -69,7 +69,7 @@ export default class Login extends Component {
                 </div>
               )}
               <div className={styles.inputContainer}>
-                <Button success lg block onClick={this.login}>Log In</Button>
+                <Button kind="success" onClick={this.login}>Log In</Button>
               </div>
             </form>
             <div className={styles.inputContainer}>
@@ -78,7 +78,7 @@ export default class Login extends Component {
           </Card>
         </div>
         <div className={styles.signupHelper}>
-          Don't have an account? <Link className={styles.signupLink} to="/signup">Sign Up</Link>
+          Don`t have an account? <Link className={styles.signupLink} to="/signup">Sign Up</Link>
         </div>
       </SettingsPageContainer>
     );
