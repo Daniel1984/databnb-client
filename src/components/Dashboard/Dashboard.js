@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './Dashboard.scss';
+import PropTypes from 'prop-types';
 import { Select, Button } from '../common';
 import socket from '../../shared/socket';
 import axios from '../../shared/axios';
@@ -7,15 +7,20 @@ import config from '../../../config';
 import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary';
 import AuthControls from '../AuthControls/AuthControls';
 import Autocomplete from '../Autocomplete/Autocomplete';
+import styles from './Dashboard.scss';
 
 export default class Dashboard extends Component {
+  static propTypes = {
+    updateParentState: PropTypes.func.isRequired,
+  };
+
   state = {
     btnEnabled: false,
     formDisabled: false,
     bedrooms: 2,
     btnText: 'Calculate',
     listings: [],
-    user: null
+    user: null,
   };
 
   componentDidMount() {
@@ -23,17 +28,30 @@ export default class Dashboard extends Component {
 
     socket.get().on('listings', ({ listings }) => {
       const { latlng, bedrooms, address } = this.state;
+
       this.setState({
         formDisabled: false,
         btnText: 'Calculate',
         listings,
       });
-      this.props.updateParentState({ listings, latlng, address, bedrooms, fetchedListings: true });
+
+      this.props.updateParentState({
+        listings,
+        latlng,
+        address,
+        bedrooms,
+        fetchedListings: true,
+      });
     });
 
     socket.get().on('listing', ({ listing }) => {
       this.setState({ listings: [...this.state.listings, ...listing] }, () => {
-        const { latlng, bedrooms, address, listings } = this.state;
+        const {
+          latlng,
+          bedrooms,
+          address,
+          listings,
+        } = this.state;
 
         this.props.updateParentState({
           listings,
@@ -81,7 +99,15 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { bedrooms, btnText, btnEnabled, formDisabled, listings, address, user } = this.state;
+    const {
+      bedrooms,
+      btnText,
+      btnEnabled,
+      formDisabled,
+      listings,
+      address,
+      user,
+    } = this.state;
 
     return (
       <div className={styles.root}>

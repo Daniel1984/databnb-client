@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from '../../shared/axios';
-import { Button, Input } from '../common';
+import { Button, RawInput } from '../common';
 import config from '../../../config';
 import styles from './Subscribe.scss';
 
 function validEmail(email) {
+  // eslint-disable-next-line
   const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(email);
 }
@@ -68,7 +69,7 @@ export default class Subscribe extends Component {
         </div>
         <div className={styles.formContainer}>
           <div className={styles.formControl}>
-            <Input
+            <RawInput
               value={email}
               placeholder="Type in your address"
               onKeyUp={this.setEmailValue}

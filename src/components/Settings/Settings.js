@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
 import SettingsMenu from '../../components/SettingsMenu/SettingsMenu';
 import { SettingsPageContainer } from '../../components/common';
 import styles from './Settings.scss';
+
+Settings.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 export default function Settings({ user, children }) {
   return (

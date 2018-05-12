@@ -1,19 +1,20 @@
 import React from 'react';
-import styles from './QuickSummaryBlock.scss';
-import AvailabilityByPriceSummary from '../AvailabilityByPriceSummary/AvailabilityByPriceSummary';
+import PropTypes from 'prop-types';
 import AvailabilityByRatingSummary from '../AvailabilityByRatingSummary/AvailabilityByRatingSummary';
 import PriceByDateSummary from '../PriceByDateSummary/PriceByDateSummary';
-
 import {
   RatingChart,
   ListingsGrowthChart,
-  PriceByDistanceChart,
   PriceByRatingChart,
 } from '../charts';
-
 import { Summary } from '../common';
+import styles from './QuickSummaryBlock.scss';
 
-export default function QuickSummaryBlock({ listings, latlng, address }) {
+QuickSummaryBlock.propTypes = {
+  listings: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
+
+export default function QuickSummaryBlock({ listings }) {
   return (
     <div>
       <div className={styles.quickSummaryTitle}>
