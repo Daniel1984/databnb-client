@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import classnames from 'classnames'
-import Map from '../Map/Map';
-import styles from './AreaQuickSummary.scss';
+import PropTypes from 'prop-types';
 import LocationIcon from '../../assets/icons/location.svg';
 import BedIcon from '../../assets/icons/bed3.svg';
 import MinIncomeIcon from '../../assets/icons/graph-4.svg';
 import AvgIncomeIcon from '../../assets/icons/graph-5.svg';
 import MaxIncomeIcon from '../../assets/icons/graph-3.svg';
+import styles from './AreaQuickSummary.scss';
 
 function getBedrooms(bedrooms) {
-  return bedrooms.sort().map((bedroom, i) => {
-    return `${!bedroom ? 'studio' : bedroom}${i !== bedrooms.length - 1 ? ', ' : ''}`
-  });
+  return bedrooms.sort().map((bedroom, i) => (
+    `${!bedroom ? 'studio' : bedroom}${i !== bedrooms.length - 1 ? ', ' : ''}`
+  ));
 }
 
 export default class AreaQuickSummary extends Component {
+  static propTypes = {
+    listings: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    address: PropTypes.string.isRequired,
+  };
+
   state = {
     highestPrice: 0,
     lowestPrice: 0,
@@ -33,7 +37,7 @@ export default class AreaQuickSummary extends Component {
 
   updateQuickInfo({ listings }) {
     const { prices, currency, bedrooms } = listings.reduce((acc, { currentDayPrice, currency, bedrooms }) => {
-      acc.prices = [...acc.prices, currentDayPrice],
+      acc.prices = [...acc.prices, currentDayPrice];
       acc.currency = currency;
 
       if (acc.bedrooms.indexOf(bedrooms) === -1) {
@@ -59,7 +63,13 @@ export default class AreaQuickSummary extends Component {
 
   render() {
     const { listings, address } = this.props;
-    const { highestPrice, lowestPrice, avgPrice, currency, bedrooms = [] } = this.state;
+    const {
+      highestPrice,
+      lowestPrice,
+      avgPrice,
+      currency,
+      bedrooms = [],
+    } = this.state;
 
     return (
       <div className={styles.root}>
@@ -67,15 +77,15 @@ export default class AreaQuickSummary extends Component {
           Properties nearby: {listings.length || '--'}
         </div>
         <div className={styles.subInfoRow}>
-          <img className={styles.icon} src={LocationIcon} />
+          <img alt="Location" className={styles.icon} src={LocationIcon} />
           <div className={styles.titleMuted}>{address || '--'}</div>
         </div>
         <div className={styles.subInfoRow}>
-          <img className={styles.icon} src={BedIcon} />
+          <img alt="Bed" className={styles.icon} src={BedIcon} />
           <div className={styles.titleMuted}>Bedroom count {bedrooms.length ? getBedrooms(bedrooms) : '--'}</div>
         </div>
         <div className={styles.subInfoRow}>
-          <img className={styles.icon} src={MaxIncomeIcon} />
+          <img alt="Maximum income" className={styles.icon} src={MaxIncomeIcon} />
           <div className={styles.titleMuted}>
             Highest daily rate
             <strong className={styles.green}> {highestPrice || '--'} </strong>
@@ -83,7 +93,7 @@ export default class AreaQuickSummary extends Component {
           </div>
         </div>
         <div className={styles.subInfoRow}>
-          <img className={styles.icon} src={MinIncomeIcon} />
+          <img alt="Minimum income" className={styles.icon} src={MinIncomeIcon} />
           <div className={styles.titleMuted}>
             Lowest daily rate
             <strong className={styles.red}> {lowestPrice || '--'} </strong>
@@ -91,7 +101,7 @@ export default class AreaQuickSummary extends Component {
           </div>
         </div>
         <div className={styles.subInfoRow}>
-          <img className={styles.icon} src={AvgIncomeIcon} />
+          <img alt="Average income" className={styles.icon} src={AvgIncomeIcon} />
           <div className={styles.titleMuted}>
             Average daily rate
             <strong className={styles.green}> {avgPrice || '--'} </strong>
