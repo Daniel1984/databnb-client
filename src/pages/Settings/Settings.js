@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Route } from "react-router-dom";
-import styles from './Settings.scss';
+import { Route } from 'react-router-dom';
 import Profile from '../../components/Profile/Profile';
 import Billing from '../../components/Billing/Billing';
 import Reports from '../../components/Reports/Reports';
 import fetch from '../../shared/fetch';
 import config from '../../../config';
+import styles from './Settings.scss';
 
 export default class Settings extends Component {
   state = {

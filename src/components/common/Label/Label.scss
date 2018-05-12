@@ -1,0 +1,25 @@
+@import '../../../shared/variables.scss';
+
+.root {
+  width: 100px;
+  margin: 10px 10px 5px 0;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: $fontMedium;
+  text-transform: uppercase;
+  text-align: right;
+  color: $colorTextDarkest;
+  cursor: pointer;
+}
+
+.vertical {
+  width: auto;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.capitalised {
+  text-transform: capitalize;
+}

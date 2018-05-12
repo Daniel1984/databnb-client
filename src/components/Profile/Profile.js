@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import format from 'date-fns/format';
+import Modal from 'react-responsive-modal';
 import Settings from '../../components/Settings/Settings';
 import { Card, Button } from '../../components/common';
 import { ConfirmDeactivateProfile, EditProfile } from '../modals';
@@ -11,20 +12,13 @@ export default class Profile extends Component {
     editProfileModalOpened: false,
   };
 
-  closeConfirmDeactiveModal = () => {
-    this.setState({ confirmDeactivateModalOpened: false })
+  toggleConfirmDeactiveModal = () => {
+    this.setState({ confirmDeactivateModalOpened: !this.state.confirmDeactivateModalOpened });
   }
 
-  openConfirmDeactiveModal = () => {
-    this.setState({ confirmDeactivateModalOpened: true })
-  }
-
-  closeEditProfileModal = () => {
-    this.setState({ editProfileModalOpened: false })
-  }
-
-  openEditProfileModal = () => {
-    this.setState({ editProfileModalOpened: true })
+  toggleEditProfileModal = (e) => {
+    e.preventDefault();
+    this.setState({ editProfileModalOpened: !this.state.editProfileModalOpened });
   }
 
   render() {
@@ -35,13 +29,14 @@ export default class Profile extends Component {
       <Settings user={user}>
         <ConfirmDeactivateProfile
           opened={confirmDeactivateModalOpened}
-          onClose={this.closeConfirmDeactiveModal}
+          onClose={this.toggleConfirmDeactiveModal}
         />
-        <EditProfile
-          user={user}
-          opened={editProfileModalOpened}
-          onClose={this.closeEditProfileModal}
-        />
+        <Modal open={editProfileModalOpened} onClose={this.toggleEditProfileModal} little>
+          <EditProfile
+            user={user}
+            onClose={this.toggleEditProfileModal}
+          />
+        </Modal>
         {!!user && (
           <div>
             <div className={styles.card}>
@@ -50,7 +45,7 @@ export default class Profile extends Component {
                   <div className={styles.title}>
                     {user.email.split('@')[0]}
                   </div>
-                  <Button success onClick={this.openEditProfileModal}>
+                  <Button kind="success" onClick={this.toggleEditProfileModal}>
                     Edit
                   </Button>
                 </div>
@@ -70,7 +65,7 @@ export default class Profile extends Component {
                   <div className={styles.title}>
                     Deactivate account
                   </div>
-                  <Button onClick={this.openConfirmDeactiveModal} danger>
+                  <Button onClick={this.toggleConfirmDeactiveModal} kind="danger">
                     Deactivate account
                   </Button>
                 </div>
