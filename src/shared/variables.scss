@@ -1,4 +1,4 @@
-$colorPrimary: orangered;
+$colorPrimary: rgb(237, 28, 36);
 $colorDanger: rgb(204, 0, 0);
 $colorAccent: #15CD72;
 $lineColor: #c7c7c7;
@@ -18,7 +18,7 @@ $fontMedium: 500;
 $fontBold: 700;
 $fontBlack: 800;
 
-$ctaDanger: rgb(237, 28, 36);
+$ctaDanger: $colorPrimary;
 $ctaSuccess: rgb(27, 185, 52);
 $ctaDefault: rgb(175, 183, 194);
 $ctaDisabled: rgb( 243, 245, 249);

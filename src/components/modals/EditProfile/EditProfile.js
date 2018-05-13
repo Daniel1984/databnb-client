@@ -36,7 +36,6 @@ function ProfileEditForm({
   isSubmitting,
   errors,
 }) {
-  console.log(values);
   return (
     <div className={styles.root}>
       <div className={styles.title}>
@@ -116,7 +115,6 @@ const EditProfileModal = withFormik({
 
   handleSubmit: (values, { setSubmitting, setFieldError, setErrors }) => {
     setSubmitting(false);
-    console.log('submitting = ', values);
     axios.post(`${config.apiUrl}/me/${values._id}`, { body: values })
       .then(values.onClose)
       .catch(() => {
