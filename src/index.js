@@ -1,5 +1,6 @@
 import React from 'react';
 import bugsnag from 'bugsnag-js';
+import 'reset-css'; // eslint-disable-line
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { render } from 'react-dom';
 import Landing from './pages/Landing/Landing';
@@ -10,6 +11,7 @@ import ChangePassword from './pages/ChangePassword/ChangePassword';
 import ForOfor from './pages/ForOfor/ForOfor';
 import RegistrationThankYou from './pages/RegistrationThankYou/RegistrationThankYou';
 import Settings from './pages/Settings/Settings';
+import './index.scss';
 
 bugsnag('48900f3e09cc8859e1e9220b2439f97a');
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import Profile from '../../components/Profile/Profile';
 import Billing from '../../components/Billing/Billing';
@@ -8,14 +9,26 @@ import config from '../../../config';
 import styles from './Settings.scss';
 
 export default class Settings extends Component {
+  static propTypes = {
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }).isRequired,
+    match: PropTypes.shape({
+      url: PropTypes.string,
+    }).isRequired,
+  };
+
   state = {
     user: null,
   };
 
-  componentDidMount() {
-    axios.get(`${config.apiUrl}/me`)
-      .then(user => this.setState({ user }))
-      .catch(() => this.props.history.push('/login'));
+  componentDidMount = async () => {
+    try {
+      const { data: user } = await axios.get(`${config.apiUrl}/me`);
+      this.setState({ user });
+    } catch (error) {
+      this.props.history.push('/login');
+    }
   }
 
   render() {

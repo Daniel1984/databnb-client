@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './SignUp.scss';
 import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
 import axios from '../../shared/axios';
 import config from '../../../config';
 import Navbar from '../../components/Navbar/Navbar';
+import styles from './SignUp.scss';
 
 export default class Signup extends Component {
   state = {
@@ -16,7 +16,7 @@ export default class Signup extends Component {
 
   oninputChange = (e) => {
     this.setState({
-      [e.target.type]: e.target.value
+      [e.target.type]: e.target.value,
     });
   }
 
@@ -32,7 +32,7 @@ export default class Signup extends Component {
       .catch(({ err }) => {
         this.setState({
           registerError: err,
-          password: ''
+          password: '',
         });
       });
   }
