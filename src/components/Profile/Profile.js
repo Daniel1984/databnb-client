@@ -27,10 +27,13 @@ export default class Profile extends Component {
 
     return (
       <Settings user={user}>
-        <ConfirmDeactivateProfile
-          opened={confirmDeactivateModalOpened}
-          onClose={this.toggleConfirmDeactiveModal}
-        />
+        <Modal open={confirmDeactivateModalOpened} onClose={this.toggleConfirmDeactiveModal} little>
+          <ConfirmDeactivateProfile
+            opened={confirmDeactivateModalOpened}
+            onClose={this.toggleConfirmDeactiveModal}
+          />
+        </Modal>
+
         <Modal open={editProfileModalOpened} onClose={this.toggleEditProfileModal} little>
           <EditProfile
             user={user}

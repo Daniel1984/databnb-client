@@ -36,6 +36,7 @@
     "jest": true
   },
   "globals": {
-    "google": true
+    "google": true,
+    "L": true
   }
 }

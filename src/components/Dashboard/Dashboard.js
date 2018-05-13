@@ -76,14 +76,13 @@ export default class Dashboard extends Component {
     });
   }
 
-  componentWillReceiveProps() {
-    // this.getUserInfo();
-  }
-
-  getUserInfo() {
-    axios.get(`${config.apiUrl}/me`)
-      .then(user => this.setState({ user }))
-      .catch(() => this.setState({ user: null }));
+  getUserInfo = async () => {
+    try {
+      const { data: user } = await axios.get(`${config.apiUrl}/me`);
+      this.setState({ user });
+    } catch (error) {
+      this.setState({ user: null });
+    }
   }
 
   getPricingInfo = () => {
