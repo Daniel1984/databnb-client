@@ -22,11 +22,7 @@ InnerLoginForm.propTypes = {
   errors: PropTypes.shape({}).isRequired,
 };
 
-function InnerLoginForm({
-  errors,
-  handleSubmit,
-  isSubmitting,
-}) {
+function InnerLoginForm({ errors, handleSubmit, isSubmitting }) {
   const hasError = !!Object.keys(errors).length;
   return (
     <SettingsPageContainer>
