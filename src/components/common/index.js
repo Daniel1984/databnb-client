@@ -1,5 +1,5 @@
 export { default as Select } from './Select/Select';
-export { default as Checkbox } from './Checkbox/Checkbox';
+export { default as FancyCheckbox } from './FancyCheckbox/FancyCheckbox';
 export { default as Summary } from './Summary/Summary';
 export { default as Button } from './Button/Button';
 export { default as Input } from './Input/Input';

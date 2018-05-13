@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import styles from './PricingBlock.scss';
-import { Checkbox } from '../common';
+import { FancyCheckbox } from '../common';
 import Subscribe from '../Subscribe/Subscribe';
 
 class PricingBlock extends Component {
@@ -18,7 +18,8 @@ class PricingBlock extends Component {
         <div className={styles.subTitle}>Billed {yearly ? 'Yearly' : 'Monthly' }</div>
 
         <div className={styles.checkbox}>
-          <Checkbox
+          <FancyCheckbox
+            htmlFor="pricing-plan"
             label="Month / Year"
             onChange={e => this.setState({ yearly: e.target.checked })}
           />
