@@ -18,20 +18,19 @@ export class ConfirmDeactivateProfile extends Component {
     deactivateButtonDisabled: false,
   };
 
-  deactivateAccount = (e) => {
+  deactivateAccount = async (e) => {
     e.preventDefault();
     this.setState({ deactivateButtonDisabled: true });
 
-    axios.post(`${config.apiUrl}/deactivate-account`, { body: {} })
-      .then(() => {
-        this.props.onClose();
-        sessionStorage.clear();
-        this.props.history.push('/signup');
-      })
-      .catch(() => {
-        this.setState({ deactivateButtonDisabled: false });
-        alert('Oops. Something went wrong. Please try again later');
-      });
+    try {
+      await axios.post(`${config.apiUrl}/deactivate-account`, {});
+      this.props.onClose();
+      sessionStorage.clear();
+      this.props.history.push('/signup');
+    } catch (error) {
+      this.setState({ deactivateButtonDisabled: false });
+      alert('Oops. Something went wrong. Please try again later');
+    }
   }
 
   render() {
@@ -44,11 +43,15 @@ export class ConfirmDeactivateProfile extends Component {
           Are you sure you want to deactivate your account?
         </div>
         <div className={styles.footer}>
-          <Button onClick={this.deactivateAccount} disabled={deactivateButtonDisabled} danger>
-            {deactivateButtonDisabled ? 'Loading...' : 'Deactivate'}
-          </Button>
-          <Button success onClick={onClose}>
+          <Button onClick={onClose}>
             Cancel
+          </Button>
+          <Button
+            onClick={this.deactivateAccount}
+            disabled={deactivateButtonDisabled}
+            kind="danger"
+          >
+            {deactivateButtonDisabled ? 'Loading...' : 'Deactivate'}
           </Button>
         </div>
       </div>

@@ -74,8 +74,7 @@ export default withFormik({
     try {
       const { password, history, location } = values;
       const { token } = parse(location.search.substr(1));
-      const { data: email } = await axios.post(`${config.apiUrl}/change-password`, { password, token });
-      console.log('email = ', email);
+      const { data: { email } } = await axios.post(`${config.apiUrl}/change-password`, { password, token });
       history.push(`/login?email=${email}`);
     } catch ({ response: { data } }) {
       values.password = '';

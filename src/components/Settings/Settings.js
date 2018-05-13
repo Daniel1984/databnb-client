@@ -7,8 +7,12 @@ import { SettingsPageContainer } from '../../components/common';
 import styles from './Settings.scss';
 
 Settings.propTypes = {
-  user: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({}),
   children: PropTypes.node.isRequired,
+};
+
+Settings.defaultProps = {
+  user: null,
 };
 
 export default function Settings({ user, children }) {

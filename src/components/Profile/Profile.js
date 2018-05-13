@@ -9,7 +9,11 @@ import styles from './Profile.scss';
 
 export default class Profile extends Component {
   static propTypes = {
-    user: PropTypes.shape({}).isRequired,
+    user: PropTypes.shape({}),
+  };
+
+  static defaultProps = {
+    user: null,
   };
 
   state = {

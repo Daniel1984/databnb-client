@@ -42,7 +42,7 @@ function ProfileEditForm({
         Edit profile
       </div>
       <Form onSubmit={handleSubmit}>
-        <FormControl label="Email:" vertical htmlFor="email">
+        <FormControl vertical htmlFor="email">
           <Input
             id="email"
             thickLines
@@ -76,11 +76,11 @@ function ProfileEditForm({
           />
         </FormControl>
         <div className={styles.footer}>
-          <Button type="submit" kind="success" disabled={isSubmitting}>
-            Save
-          </Button>
           <Button onClick={values.onClose}>
             Cancel
+          </Button>
+          <Button type="submit" kind="success" disabled={isSubmitting}>
+            Save
           </Button>
         </div>
       </Form>

@@ -1,96 +1,114 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
+import { Form, withFormik } from 'formik';
+import {
+  Input,
+  Button,
+  Card,
+  SettingsPageContainer,
+  FormControl,
+  FormInputError,
+} from '../../components/common';
 import axios from '../../shared/axios';
 import config from '../../../config';
 import Navbar from '../../components/Navbar/Navbar';
 import styles from './SignUp.scss';
 
-export default class Signup extends Component {
-  state = {
+InnerSignupForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({}).isRequired,
+  values: PropTypes.shape({
+    successMsg: PropTypes.string,
+  }).isRequired,
+};
+
+function InnerSignupForm({
+  values,
+  errors,
+  handleSubmit,
+  isSubmitting,
+}) {
+  const hasError = !!Object.keys(errors).length;
+
+  return (
+    <SettingsPageContainer>
+      <Navbar title="META BNB" />
+      <div className={styles.cardContainer}>
+        <Card title="Sign Up">
+          {!values.successMsg && (
+            <Form className={styles.form} onSubmit={handleSubmit}>
+              <FormControl>
+                <Input
+                  thickLines
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                />
+              </FormControl>
+
+              <FormControl>
+                <Input
+                  thickLines
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
+              </FormControl>
+
+              <FormControl>
+                <Button disabled={hasError || isSubmitting} kind="success" type="submit">
+                  Sign Up
+                </Button>
+              </FormControl>
+              <FormInputError>{errors.error}</FormInputError>
+            </Form>
+          )}
+
+          {!!values.successMsg && (
+            <div className={styles.successContainer}>
+              <div className={styles.successTitle}>Congratulations!</div>
+              <div className={styles.successMsg}>
+                {values.successMsg}
+              </div>
+            </div>
+          )}
+        </Card>
+      </div>
+      <div className={styles.signupHelper}>
+        Already have an account? <Link className={styles.signupLink} to="/login">Log In</Link>
+      </div>
+    </SettingsPageContainer>
+  );
+}
+
+export default withFormik({
+  mapPropsToValues: () => ({
     email: '',
     password: '',
-    registerError: null,
-    registerSuccess: false,
-  };
+    successMsg: '',
+  }),
 
-  oninputChange = (e) => {
-    this.setState({
-      [e.target.type]: e.target.value,
-    });
-  }
+  validate({ email, password }) {
+    const errors = {};
 
-  submitNewUser = (e) => {
-    e.preventDefault();
-    axios.post(`${config.apiUrl}/register`, { body: this.state })
-      .then(() => {
-        this.setState({
-          registerSuccess: true,
-          registerError: null,
-        });
-      })
-      .catch(({ err }) => {
-        this.setState({
-          registerError: err,
-          password: '',
-        });
-      });
-  }
+    if (!email || !password) {
+      errors.error = 'All fields required';
+    }
 
-  render() {
-    const { registerError, registerSuccess, email, password } = this.state;
+    return {};
+  },
 
-    return (
-      <SettingsPageContainer>
-        <Navbar title="META BNB" />
-        <div className={styles.cardContainer}>
-          <Card title="Sign Up">
-            {registerSuccess && (
-              <div className={styles.successContainer}>
-                <div className={styles.successTitle}>Congratulations!</div>
-                <div className={styles.successMsg}>
-                  Now all that is left is to confirm your email address and enjoy the ride ;)
-                </div>
-              </div>
-            )}
-            {!registerSuccess && (
-              <form className={styles.formContainer} onSubmit={this.submitNewUser}>
-                <div className={styles.inputContainer}>
-                  <Input
-                    thickLines
-                    type="email"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={this.oninputChange}
-                  />
-                </div>
-                <div className={styles.inputContainer}>
-                  <Input
-                    thickLines
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={this.oninputChange}
-                  />
-                </div>
-                {!!registerError && (
-                  <div className={styles.inputContainer}>
-                    <div className={styles.error}>{registerError}</div>
-                  </div>
-                )}
-                <div className={styles.inputContainer}>
-                  <Button kind="success" onClick={this.submitNewUser}>
-                    Sign Up
-                  </Button>
-                </div>
-              </form>
-            )}
-          </Card>
-        </div>
-        <div className={styles.signupHelper}>
-        Already have an account? <Link className={styles.signupLink} to="/login">Log In</Link>
-        </div>
-      </SettingsPageContainer>
-    );
-  }
-}
+  handleSubmit: async (values, { setSubmitting, setFieldError, setFieldValue }) => {
+    setSubmitting(false);
+
+    try {
+      const { email, password } = values;
+      await axios.post(`${config.apiUrl}/register`, { email, password });
+      setFieldValue('successMsg', 'Now all that is left is to confirm your email address and enjoy the ride ;)');
+    } catch ({ response: { data } }) {
+      setFieldError('error', data.err);
+    }
+  },
+})(InnerSignupForm);
