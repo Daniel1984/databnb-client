@@ -1,9 +1,20 @@
 import React from 'react';
-import styles from './Heading.scss';
+import PropTypes from 'prop-types';
 import Map from '../Map/Map';
 import Dashboard from '../Dashboard/Dashboard';
+import styles from './Heading.scss';
 
-function Heading({ latlng, listings, updateParentState }) {
+Heading.propTypes = {
+  latlng: PropTypes.shape({}),
+  listings: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  updateParentState: PropTypes.func.isRequired,
+};
+
+Heading.defaultProps = {
+  latlng: undefined,
+};
+
+export default function Heading({ latlng, listings, updateParentState }) {
   return (
     <div className={styles.root}>
       <div className={styles.mapCol}>
@@ -29,5 +40,3 @@ function Heading({ latlng, listings, updateParentState }) {
     </div>
   );
 }
-
-export default Heading;

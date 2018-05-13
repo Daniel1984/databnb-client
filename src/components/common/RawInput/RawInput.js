@@ -1,23 +1,19 @@
 import React from 'react';
-import { Field } from 'formik';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import styles from './Input.scss';
+import styles from './RawInput.scss';
 
-Input.propTypes = {
+RawInput.propTypes = {
   thickLines: PropTypes.bool,
-  type: PropTypes.string,
 };
 
-Input.defaultProps = {
-  type: 'text',
+RawInput.defaultProps = {
   thickLines: false,
 };
 
-export default function Input({ thickLines, type, ...rest }) {
+export default function RawInput({ thickLines, ...rest }) {
   return (
-    <Field
-      type={type}
+    <input
       className={classnames([styles.root, thickLines && styles.thickLines])}
       {...rest}
     />

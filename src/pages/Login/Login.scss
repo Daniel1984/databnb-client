@@ -1,11 +1,5 @@
 @import '../../shared/variables.scss';
 
-.inputContainer {
-  width: 100%;
-  margin: 10px 0;
-  text-align: center;
-}
-
 .signupHelper {
   color: #fff;
   margin-top: 20px;
@@ -21,6 +15,8 @@
   color: #0069ff;
   text-decoration: none;
   font-size: 1.1rem;
+  text-align: center;
+  display: block;
 }
 
 .cardContainer {
@@ -29,12 +25,12 @@
   justify-content: center;
 }
 
-.error {
-  color: $colorDanger;
-}
-
 .form {
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  button {
+    width: 100%;
+  }
 }

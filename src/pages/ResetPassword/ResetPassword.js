@@ -1,74 +1,99 @@
-import React, { Component } from 'react';
-import styles from './ResetPassword.scss';
-import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
-import fetch from '../../shared/fetch';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Form, withFormik } from 'formik';
+import {
+  Input,
+  Button,
+  Card,
+  SettingsPageContainer,
+  FormControl,
+  FormInputError,
+} from '../../components/common';
+import axios from '../../shared/axios';
 import config from '../../../config';
 import Navbar from '../../components/Navbar/Navbar';
+import styles from './ResetPassword.scss';
 
-export default class ResetPassword extends Component {
-  state = {
-    email: '',
-    resetError: false,
-    resetSuccess: false,
-  };
+InnerResetPasswordForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({}).isRequired,
+  values: PropTypes.shape({
+    successMsg: PropTypes.string,
+  }).isRequired,
+};
 
-  onEmailChange = (e) => {
-    this.setState({ email: e.target.value });
-  }
+function InnerResetPasswordForm({
+  values,
+  errors,
+  handleSubmit,
+  isSubmitting,
+}) {
+  const hasError = !!Object.keys(errors).length;
 
-  requestPasswordReset = (e) => {
-    e.preventDefault();
-    fetch(`${config.apiUrl}/request-password-reset`, { method: 'POST', body: this.state })
-      .then(() => {
-        this.setState({ resetError: null, resetSuccess: true });
-      })
-      .catch(({ err }) => {
-        this.setState({ resetError: err });
-      });
-  }
+  return (
+    <SettingsPageContainer>
+      <Navbar title="META BNB" />
+      <div className={styles.cardContainer}>
+        <Card title="Reset Password">
+          {!values.successMsg && (
+            <Form className={styles.form} onSubmit={handleSubmit}>
+              <FormControl>
+                <Input
+                  thickLines
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                />
+              </FormControl>
+              <FormControl>
+                <Button disabled={hasError || isSubmitting} kind="success" type="submit">
+                  Reset my password
+                </Button>
+              </FormControl>
+              <FormInputError>{errors.email}</FormInputError>
+            </Form>
+          )}
 
-  render() {
-    const { resetSuccess, resetError, email } = this.state;
-
-    return (
-      <SettingsPageContainer>
-        <Navbar title="META BNB" />
-        <div className={styles.cardContainer}>
-          <Card title="Reset Password">
-            {!resetSuccess && (
-              <form className={styles.form} onSubmit={this.requestPasswordReset}>
-                <div className={styles.inputContainer}>
-                  <Input
-                    thickLines
-                    type="email"
-                    value={email}
-                    placeholder="Email Address"
-                    onChange={this.onEmailChange}
-                  />
-                </div>
-                {!!resetError && (
-                  <div className={styles.inputContainer}>
-                    <div className={styles.error}>{resetError}</div>
-                  </div>
-                )}
-                <div className={styles.inputContainer}>
-                  <Button success block lg onClick={this.requestPasswordReset}>
-                    Reset my password
-                  </Button>
-                </div>
-              </form>
-            )}
-            {resetSuccess && (
-              <div className={styles.successContainer}>
-                <div className={styles.successTitle}>Done!</div>
-                <div className={styles.successMsg}>
-                  Reset password instructions were sent to your email address.
-                </div>
+          {!!values.successMsg && (
+            <div className={styles.successContainer}>
+              <div className={styles.successTitle}>Done!</div>
+              <div className={styles.successMsg}>
+                {values.successMsg}
               </div>
-            )}
-          </Card>
-        </div>
-      </SettingsPageContainer>
-    );
-  }
+            </div>
+          )}
+        </Card>
+      </div>
+    </SettingsPageContainer>
+  );
 }
+
+export default withFormik({
+  mapPropsToValues: () => ({
+    email: '',
+    successMsg: '',
+  }),
+
+  validate({ email }) {
+    const errors = {};
+
+    if (!email) {
+      errors.email = 'Email is required';
+    }
+
+    return {};
+  },
+
+  handleSubmit: async (values, { setSubmitting, setFieldError, setFieldValue }) => {
+    setSubmitting(false);
+
+    try {
+      const { email } = values;
+      const { data: { msg } } = await axios.post(`${config.apiUrl}/request-password-reset`, { email });
+      setFieldValue('successMsg', msg);
+    } catch ({ response: { data } }) {
+      setFieldError('email', data.err);
+    }
+  },
+})(InnerResetPasswordForm);

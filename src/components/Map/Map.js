@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import HeatMapLayer from 'leaflet-heatmap';
-import styles from './Map.scss';
 import customHouseMarkerIcon from '../../shared/customHouseMarkerIcon';
-import HouseImg from '../../assets/house3.png';
-import HouseImgShadow from '../../assets/house3_shadow.png';
+import styles from './Map.scss';
 
 function getGroupedByDatePrices(listings) {
   return listings.reduce((acc, { lat, lng, availability }) => {
@@ -24,7 +22,7 @@ function getGroupedByDatePrices(listings) {
 
 const heatmapCfg = {
   radius: 0.001,
-  maxOpacity: .6,
+  maxOpacity: 0.6,
   scaleRadius: true,
   // if set to false the heatmap uses the global maximum for colorization
   // if activated: uses the data maximum within the current map boundaries
@@ -32,7 +30,7 @@ const heatmapCfg = {
   useLocalExtrema: true,
   latField: 'lat',
   lngField: 'lng',
-  valueField: 'price'
+  valueField: 'price',
 };
 
 class Map extends Component {
@@ -51,12 +49,12 @@ class Map extends Component {
     this.updateMap(this.props);
   }
 
-  componentWillUnmount() {
-    this.map.remove();
-  }
-
   componentWillReceiveProps(newProps) {
     this.updateMap(newProps);
+  }
+
+  componentWillUnmount() {
+    this.map.remove();
   }
 
   updateMap({ listings }) {
@@ -69,11 +67,20 @@ class Map extends Component {
     }
 
     if (listings.length) {
-      const { markers, bounds } = listings.reduce((acc, { lat, lng, currentDayPrice, currency, id }) => {
-        acc.markers.push(
+      const { markers, bounds } = listings.reduce((acc, {
+        lat,
+        lng,
+        currentDayPrice,
+        currency,
+        id,
+      }) => {
+        acc.markers.push((
           L.marker([lat, lng], { icon: customHouseMarkerIcon })
-            .bindPopup(`${currentDayPrice} ${currency}/night <br /> <a target="_blank" href="http://airbnb.com/rooms/${id}">View Property</a>`)
-        );
+            .bindPopup((
+              // eslint-disable-next-line
+              `${currentDayPrice} ${currency}/night <br /> <a target="_blank" href="http://airbnb.com/rooms/${id}">View Property</a>`
+            ))
+        ));
 
         acc.bounds.push([lat, lng]);
 
@@ -98,7 +105,12 @@ class Map extends Component {
   render() {
     return (
       <div className={styles.root}>
-        <div ref={el => this.mapEl = el} className={styles.map}></div>
+        <div
+          ref={(el) => {
+            this.mapEl = el;
+          }}
+          className={styles.map}
+        />
       </div>
     );
   }

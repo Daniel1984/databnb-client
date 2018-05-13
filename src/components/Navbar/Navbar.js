@@ -1,14 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styles from './Navbar.scss';
 import LeftArrowIcon from '../../assets/icons/left-arrow.svg';
+import styles from './Navbar.scss';
 
-export default function Navbar({ title, children, history }) {
+Navbar.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
+};
+
+Navbar.defaultProps = {
+  children: undefined,
+};
+
+export default function Navbar({ title, children }) {
   return (
     <div className={styles.root}>
       <div className={styles.leftCta}>
         <Link to="/">
-          <img className={styles.backIcon} src={LeftArrowIcon} />
+          <img alt="Icon go back" className={styles.backIcon} src={LeftArrowIcon} />
         </Link>
       </div>
 

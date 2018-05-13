@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import styles from './Subscribe.scss';
-import { Button, Input } from '../common';
+import axios from '../../shared/axios';
+import { Button, RawInput } from '../common';
 import config from '../../../config';
+import styles from './Subscribe.scss';
 
 function validEmail(email) {
-  const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  // eslint-disable-next-line
+  const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(email);
 }
-
-const isSuccessfulStatusCode = code => code >= 200 && code < 400;
 
 export default class Subscribe extends Component {
   state = {
@@ -19,32 +19,8 @@ export default class Subscribe extends Component {
     hasSuccess: false,
   };
 
-  subscribe = (e) => {
-    const { email } = this.state;
-
-    if (validEmail(email)) {
-      fetch(`${config.apiUrl}/subscribe`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      }).then((response) => {
-        if (!isSuccessfulStatusCode(response.status)) {
-          this.setState({ hasError: true });
-          return;
-        }
-
-        this.setState({
-          hasSuccess: true,
-          email: '',
-        });
-      });
-    } else {
-      this.setState({ hasError: true });
-    }
-  }
-
   setEmailValue = (e) => {
+    console.log('hohoho', e.target.value)
     this.setState({
       email: e.target.value,
       hasError: false,
@@ -52,8 +28,35 @@ export default class Subscribe extends Component {
     });
   }
 
+  subscribe = async () => {
+    const { email } = this.state;
+
+    if (validEmail(email)) {
+      try {
+        await axios.post(`${config.apiUrl}/subscribe`, { email });
+        this.setState({
+          hasError: false,
+          hasSuccess: true,
+        });
+      } catch (error) {
+        this.setState({
+          hasError: true,
+          hasSuccess: false,
+        });
+      }
+    } else {
+      this.setState({ hasError: true });
+    }
+  }
+
   render() {
-    const { btnText, btnEnabled, hasError, hasSuccess, email } = this.state;
+    const {
+      btnText,
+      btnEnabled,
+      hasError,
+      hasSuccess,
+      email,
+    } = this.state;
 
     return (
       <div>
@@ -62,14 +65,14 @@ export default class Subscribe extends Component {
         </div>
         <div className={styles.formContainer}>
           <div className={styles.formControl}>
-            <Input
+            <RawInput
               value={email}
               placeholder="Type in your address"
-              onKeyUp={this.setEmailValue}
+              onChange={this.setEmailValue}
             />
           </div>
           <div className={styles.formControl}>
-            <Button danger disabled={!btnEnabled} onClick={this.subscribe}>
+            <Button kind="danger" disabled={!btnEnabled} onClick={this.subscribe}>
               {btnText}
             </Button>
           </div>

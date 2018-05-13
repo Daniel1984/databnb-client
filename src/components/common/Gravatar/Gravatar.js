@@ -4,7 +4,7 @@ import styles from './Gravatar.scss';
 
 export default class Gravatar extends Component {
   state = {
-    gravatarUrl: null
+    gravatarUrl: null,
   };
 
   componentDidMount() {
@@ -25,6 +25,6 @@ export default class Gravatar extends Component {
 
     return (
       <div className={styles.logo} style={{ backgroundImage: `url(${gravatarUrl})` }} />
-    )
+    );
   }
 }

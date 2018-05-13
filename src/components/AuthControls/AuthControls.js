@@ -1,7 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styles from './AuthControls.scss';
 import { Gravatar } from '../common';
+import styles from './AuthControls.scss';
+
+AuthControls.propTypes = {
+  user: PropTypes.shape({}),
+};
+
+AuthControls.defaultProps = {
+  user: null,
+};
 
 export default function AuthControls({ user }) {
   return (

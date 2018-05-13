@@ -1,86 +1,98 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { parse } from 'qs';
-import styles from './Login.scss';
-import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
+import { Form, withFormik } from 'formik';
+import {
+  Input,
+  Button,
+  Card,
+  SettingsPageContainer,
+  FormControl,
+  FormInputError,
+} from '../../components/common';
 import Navbar from '../../components/Navbar/Navbar';
-import fetch from '../../shared/fetch';
+import axios from '../../shared/axios';
 import config from '../../../config';
+import styles from './Login.scss';
 
-export default class Login extends Component {
-  state = {
-    email: parse(this.props.location.search.substr(1)).email,
-    password: '',
-    loginError: null,
-    loginSuccess: false,
-  };
+InnerLoginForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({}).isRequired,
+};
 
-  oninputChange = (e) => {
-    this.setState({
-      [e.target.type]: e.target.value
-    });
-  }
-
-  login = (e) => {
-    e.preventDefault();
-    fetch(`${config.apiUrl}/login`, { method: 'POST', body: this.state })
-      .then(({ token }) => {
-        sessionStorage.setItem('auth-token', token);
-        this.props.history.push('/');
-      })
-      .catch(({ err }) => {
-        this.setState({
-          loginError: err,
-          password: ''
-        });
-      });
-  }
-
-  render() {
-    const { email, password, loginError } = this.state;
-
-    return (
-      <SettingsPageContainer>
-        <Navbar title="META BNB" />
-        <div className={styles.cardContainer}>
-          <Card title="Login">
-            <form className={styles.form} onSubmit={this.login}>
-              <div className={styles.inputContainer}>
-                <Input
-                  thickLines
-                  type="email"
-                  value={email}
-                  placeholder="Email Address"
-                  onChange={this.oninputChange}
-                />
-              </div>
-              <div className={styles.inputContainer}>
-                <Input
-                  thickLines
-                  type="password"
-                  value={password}
-                  placeholder="Password"
-                  onChange={this.oninputChange}
-                />
-              </div>
-              {!!loginError && (
-                <div className={styles.inputContainer}>
-                  <div className={styles.error}>{loginError}</div>
-                </div>
-              )}
-              <div className={styles.inputContainer}>
-                <Button success lg block onClick={this.login}>Log In</Button>
-              </div>
-            </form>
-            <div className={styles.inputContainer}>
-              <Link className={styles.forgotPassLink} to="/reset-password">Forgot password?</Link>
-            </div>
-          </Card>
-        </div>
-        <div className={styles.signupHelper}>
-          Don't have an account? <Link className={styles.signupLink} to="/signup">Sign Up</Link>
-        </div>
-      </SettingsPageContainer>
-    );
-  }
+function InnerLoginForm({ errors, handleSubmit, isSubmitting }) {
+  const hasError = !!Object.keys(errors).length;
+  return (
+    <SettingsPageContainer>
+      <Navbar title="META BNB" />
+      <div className={styles.cardContainer}>
+        <Card title="Login">
+          <Form className={styles.form} onSubmit={handleSubmit}>
+            <FormControl>
+              <Input
+                thickLines
+                type="email"
+                name="email"
+                placeholder="Email Address"
+              />
+            </FormControl>
+            <FormControl>
+              <Input
+                thickLines
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+            </FormControl>
+            <FormControl>
+              <Button disabled={hasError || isSubmitting} type="submit" kind="success">Log In</Button>
+            </FormControl>
+            <FormInputError>{errors.loginError}</FormInputError>
+            <FormControl>
+              <Link className={styles.forgotPassLink} to="/reset-password">
+                Forgot password?
+              </Link>
+            </FormControl>
+          </Form>
+        </Card>
+      </div>
+      <div className={styles.signupHelper}>
+        Don`t have an account? <Link className={styles.signupLink} to="/signup">Sign Up</Link>
+      </div>
+    </SettingsPageContainer>
+  );
 }
+
+export default withFormik({
+  mapPropsToValues: ({ location, history }) => ({
+    email: parse(location.search.substr(1)).email || '',
+    password: '',
+    history,
+  }),
+
+  validate({ email, password }) {
+    const errors = {};
+
+    if (!email || !password) {
+      errors.loginError = 'All fields required';
+    }
+
+    return {};
+  },
+
+  handleSubmit: async (values, { setSubmitting, setFieldError }) => {
+    setSubmitting(false);
+
+    try {
+      const { email, password, history } = values;
+      const { data: { token } } = await axios.post(`${config.apiUrl}/login`, { email, password });
+      sessionStorage.setItem('auth-token', token);
+      history.push('/');
+    } catch ({ response: { data } }) {
+      values.password = '';
+      setFieldError('loginError', data.err);
+    }
+  },
+})(InnerLoginForm);

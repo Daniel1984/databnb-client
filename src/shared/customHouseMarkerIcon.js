@@ -1,7 +1,7 @@
 import HouseImg from '../assets/house3.png';
 import HouseImgShadow from '../assets/house3_shadow.png';
 
-const houseIcon = L.icon({
+const houseIcon = L.icon({ // eslint-disable-line  no-undef
   iconUrl: HouseImg,
   shadowUrl: HouseImgShadow,
   iconSize: [35, 35],

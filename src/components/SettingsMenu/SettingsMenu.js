@@ -1,24 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import fetch from '../../shared/fetch';
-import config from '../../../config';
 import { Gravatar } from '../common';
 import styles from './SettingsMenu.scss';
 
 const settingsMenuLinks = [
   {
     href: '/settings/profile',
-    name: 'Profile'
+    name: 'Profile',
   },
   {
     href: '/settings/billing',
-    name: 'Billing'
+    name: 'Billing',
   },
   {
     href: '/settings/reports',
-    name: 'Reports'
+    name: 'Reports',
   },
 ];
+
+SettingsMenu.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }).isRequired,
+};
 
 export default function SettingsMenu({ user }) {
   return (

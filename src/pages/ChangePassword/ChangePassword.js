@@ -1,65 +1,84 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { parse } from 'qs';
-import styles from './ChangePassword.scss';
-import { Input, Button, Card, SettingsPageContainer } from '../../components/common';
-import fetch from '../../shared/fetch';
+import { Form, withFormik } from 'formik';
+import {
+  Input,
+  Button,
+  Card,
+  SettingsPageContainer,
+  FormControl,
+  FormInputError,
+} from '../../components/common';
+import axios from '../../shared/axios';
 import config from '../../../config';
 import Navbar from '../../components/Navbar/Navbar';
+import styles from './ChangePassword.scss';
 
-export default class ChangePassword extends Component {
-  state = {
-    password: '',
-    changePassError: null,
-  };
+InnerChangePasswordForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({}).isRequired,
+};
 
-  onPasswordChange = (e) => {
-    this.setState({ password: e.target.value });
-  }
+function InnerChangePasswordForm({ errors, handleSubmit, isSubmitting }) {
+  const hasError = !!Object.keys(errors).length;
 
-  submitNewPassword = (e) => {
-    e.preventDefault();
-    const { token } = parse(this.props.location.search.substr(1));
-    fetch(`${config.apiUrl}/change-password`, { method: 'POST', body: { ...this.state, token } })
-      .then(({ email }) => {
-        this.props.history.push(`/login?email=${email}`);
-      })
-      .catch(({ err }) => {
-        this.setState({ changePassError: err });
-      });
-  }
-
-  render() {
-    const { password, changePassError, email } = this.state;
-
-    return (
-      <SettingsPageContainer>
-        <Navbar title="META BNB" />
-        <div className={styles.cardContainer}>
-          <Card title="Change Password">
-            <form className={styles.form} onSubmit={this.submitNewPassword}>
-              <div className={styles.inputContainer}>
-                <Input
-                  thickLines
-                  type="password"
-                  value={password}
-                  placeholder="New password"
-                  onChange={this.onPasswordChange}
-                />
-              </div>
-              {!!changePassError && (
-                <div className={styles.inputContainer}>
-                  <div className={styles.error}>{changePassError}</div>
-                </div>
-              )}
-              <div className={styles.inputContainer}>
-                <Button success block lg onClick={this.submitNewPassword}>
-                  Change password
-                </Button>
-              </div>
-            </form>
-          </Card>
-        </div>
-      </SettingsPageContainer>
-    )
-  }
+  return (
+    <SettingsPageContainer>
+      <Navbar title="META BNB" />
+      <div className={styles.cardContainer}>
+        <Card title="Change Password">
+          <Form className={styles.form} onSubmit={handleSubmit}>
+            <FormControl>
+              <Input
+                thickLines
+                type="password"
+                name="password"
+                placeholder="New password"
+              />
+            </FormControl>
+            <FormControl>
+              <Button disabled={hasError || isSubmitting} kind="success" type="submit">
+                Change password
+              </Button>
+            </FormControl>
+            <FormInputError>{errors.error}</FormInputError>
+          </Form>
+        </Card>
+      </div>
+    </SettingsPageContainer>
+  );
 }
+
+export default withFormik({
+  mapPropsToValues: ({ history, location }) => ({
+    password: '',
+    history,
+    location,
+  }),
+
+  validate({ password }) {
+    const errors = {};
+
+    if (!password) {
+      errors.error = 'All fields required';
+    }
+
+    return {};
+  },
+
+  handleSubmit: async (values, { setSubmitting, setFieldError }) => {
+    setSubmitting(false);
+
+    try {
+      const { password, history, location } = values;
+      const { token } = parse(location.search.substr(1));
+      const { data: { email } } = await axios.post(`${config.apiUrl}/change-password`, { password, token });
+      history.push(`/login?email=${email}`);
+    } catch ({ response: { data } }) {
+      values.password = '';
+      setFieldError('error', data.err);
+    }
+  },
+})(InnerChangePasswordForm);

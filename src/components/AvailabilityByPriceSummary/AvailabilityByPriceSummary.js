@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import format from 'date-fns/format'
-import styles from './AvailabilityByPriceSummary.scss';
+import format from 'date-fns/format';
 import { AvailabilityChart } from '../charts';
 import { Select } from '../common';
+import styles from './AvailabilityByPriceSummary.scss';
 
 function extractAvailabilityData({ availability }) {
   return Object.keys(availability).reduce((acc, key) => {
@@ -17,14 +17,14 @@ function extractAvailabilityData({ availability }) {
     const occupiedTimesPerMonth = availabilitiesPerMonth.filter(available => !available).length;
 
     const occupancyAndPrice = {
-      occupancyPercentage: occupiedTimesPerMonth * 100 / availabilitiesPerMonth.length,
+      occupancyPercentage: (occupiedTimesPerMonth * 100) / availabilitiesPerMonth.length,
       monthlyPrice: nativeAdjustedPriceTotal || nativePriceTotal,
     };
 
     acc[key] = occupancyAndPrice;
     return acc;
   }, {});
-};
+}
 
 function putSameDateAvailabilitiesInGroups(acc, availability) {
   Object.keys(availability).forEach((key) => {
@@ -32,7 +32,7 @@ function putSameDateAvailabilitiesInGroups(acc, availability) {
   });
 
   return acc;
-};
+}
 
 export default class AvailabilityByPriceSummary extends Component {
   componentDidMount() {
@@ -49,7 +49,7 @@ export default class AvailabilityByPriceSummary extends Component {
       .reduce(putSameDateAvailabilitiesInGroups, {});
 
     const availableDates = Object.keys(groupedAvailabilities)
-      .map((date) => ({
+      .map(date => ({
         label: date.replace(/-/, ' '),
         value: date,
       }))

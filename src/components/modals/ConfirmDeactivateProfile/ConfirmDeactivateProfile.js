@@ -1,52 +1,60 @@
 import React, { Component } from 'react';
-import Modal from 'react-responsive-modal';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import styles from './ConfirmDeactivateProfile.scss';
 import { Button } from '../../common';
-import fetch from '../../../shared/fetch';
+import axios from '../../../shared/axios';
 import config from '../../../../config';
+import styles from './ConfirmDeactivateProfile.scss';
 
 export class ConfirmDeactivateProfile extends Component {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
     deactivateButtonDisabled: false,
   };
 
-  deactivateAccount = (e) => {
+  deactivateAccount = async (e) => {
     e.preventDefault();
     this.setState({ deactivateButtonDisabled: true });
 
-    fetch(`${config.apiUrl}/deactivate-account`, { method: 'POST', body: {} })
-      .then((res) => {
-        this.props.onClose();
-        sessionStorage.clear();
-        this.props.history.push('/signup');
-      })
-      .catch(({ err }) => {
-        this.setState({ deactivateButtonDisabled: false });
-        alert('Oops. Something went wrong. Please try again later');
-      });
+    try {
+      await axios.post(`${config.apiUrl}/deactivate-account`, {});
+      this.props.onClose();
+      sessionStorage.clear();
+      this.props.history.push('/signup');
+    } catch (error) {
+      this.setState({ deactivateButtonDisabled: false });
+      alert('Oops. Something went wrong. Please try again later');
+    }
   }
 
   render() {
-    const { opened, onClose } = this.props;
+    const { onClose } = this.props;
     const { deactivateButtonDisabled } = this.state;
 
     return (
-      <Modal open={opened} onClose={onClose} little>
-        <div className={styles.root}>
-          <div className={styles.title}>
-            Are you sure you want to deactivate your account?
-          </div>
-          <div className={styles.footer}>
-            <Button onClick={this.deactivateAccount} disabled={deactivateButtonDisabled} danger>
-              {deactivateButtonDisabled ? 'Loading...' : 'Deactivate'}
-            </Button>
-            <Button success onClick={onClose}>
-              Cancel
-            </Button>
-          </div>
+      <div className={styles.root}>
+        <div className={styles.title}>
+          Are you sure you want to deactivate your account?
         </div>
-      </Modal>
+        <div className={styles.footer}>
+          <Button onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            onClick={this.deactivateAccount}
+            disabled={deactivateButtonDisabled}
+            kind="danger"
+          >
+            {deactivateButtonDisabled ? 'Loading...' : 'Deactivate'}
+          </Button>
+        </div>
+      </div>
     );
   }
 }

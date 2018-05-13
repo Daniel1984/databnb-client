@@ -4,29 +4,35 @@ import TrophyIcon from '../../assets/icons/trophy.svg';
 import MoneyBagIcon from '../../assets/icons/money-bag.svg';
 import styles from './PlatformFeatures.scss';
 
-function PlatformFeatures() {
+const content = [
+  {
+    Icon: HourGlassIcon,
+    alt: 'Sand watch icon',
+    msg: 'Value your time! Let us handle the calculations',
+  },
+  {
+    Icon: TrophyIcon,
+    alt: 'Trophy icon',
+    msg: 'Be the first to know when the market changes and adjust accordingly',
+  },
+  {
+    Icon: MoneyBagIcon,
+    alt: 'Money bag icon',
+    msg: 'Increase your rental income in matter of days',
+  },
+];
+
+export default function PlatformFeatures() {
   return (
     <div className={styles.root}>
-      <div className={styles.column}>
-        <img className={styles.icon} src={HourGlassIcon} />
-        <div className={styles.msg}>
-          Value your time! Let us handle the calculations
+      {content.map(({ alt, Icon, msg }) => (
+        <div className={styles.column} key={alt}>
+          <img alt={alt} className={styles.icon} src={Icon} />
+          <div className={styles.msg}>
+            {msg}
+          </div>
         </div>
-      </div>
-      <div className={styles.column}>
-        <img className={styles.icon} src={TrophyIcon} />
-        <div className={styles.msg}>
-          Be the first to know when the market changes and adjust accordingly
-        </div>
-      </div>
-      <div className={styles.column}>
-        <img className={styles.icon} src={MoneyBagIcon} />
-        <div className={styles.msg}>
-          Increase your rental income in matter of days
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
-
-export default PlatformFeatures;

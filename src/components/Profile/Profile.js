@@ -1,30 +1,33 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import format from 'date-fns/format';
+import Modal from 'react-responsive-modal';
 import Settings from '../../components/Settings/Settings';
 import { Card, Button } from '../../components/common';
 import { ConfirmDeactivateProfile, EditProfile } from '../modals';
 import styles from './Profile.scss';
 
 export default class Profile extends Component {
+  static propTypes = {
+    user: PropTypes.shape({}),
+  };
+
+  static defaultProps = {
+    user: null,
+  };
+
   state = {
     confirmDeactivateModalOpened: false,
     editProfileModalOpened: false,
   };
 
-  closeConfirmDeactiveModal = () => {
-    this.setState({ confirmDeactivateModalOpened: false })
+  toggleConfirmDeactiveModal = () => {
+    this.setState({ confirmDeactivateModalOpened: !this.state.confirmDeactivateModalOpened });
   }
 
-  openConfirmDeactiveModal = () => {
-    this.setState({ confirmDeactivateModalOpened: true })
-  }
-
-  closeEditProfileModal = () => {
-    this.setState({ editProfileModalOpened: false })
-  }
-
-  openEditProfileModal = () => {
-    this.setState({ editProfileModalOpened: true })
+  toggleEditProfileModal = (e) => {
+    e.preventDefault();
+    this.setState({ editProfileModalOpened: !this.state.editProfileModalOpened });
   }
 
   render() {
@@ -33,15 +36,19 @@ export default class Profile extends Component {
 
     return (
       <Settings user={user}>
-        <ConfirmDeactivateProfile
-          opened={confirmDeactivateModalOpened}
-          onClose={this.closeConfirmDeactiveModal}
-        />
-        <EditProfile
-          user={user}
-          opened={editProfileModalOpened}
-          onClose={this.closeEditProfileModal}
-        />
+        <Modal open={confirmDeactivateModalOpened} onClose={this.toggleConfirmDeactiveModal} little>
+          <ConfirmDeactivateProfile
+            opened={confirmDeactivateModalOpened}
+            onClose={this.toggleConfirmDeactiveModal}
+          />
+        </Modal>
+
+        <Modal open={editProfileModalOpened} onClose={this.toggleEditProfileModal} little>
+          <EditProfile
+            user={user}
+            onClose={this.toggleEditProfileModal}
+          />
+        </Modal>
         {!!user && (
           <div>
             <div className={styles.card}>
@@ -50,7 +57,7 @@ export default class Profile extends Component {
                   <div className={styles.title}>
                     {user.email.split('@')[0]}
                   </div>
-                  <Button success onClick={this.openEditProfileModal}>
+                  <Button kind="success" onClick={this.toggleEditProfileModal}>
                     Edit
                   </Button>
                 </div>
@@ -70,7 +77,7 @@ export default class Profile extends Component {
                   <div className={styles.title}>
                     Deactivate account
                   </div>
-                  <Button onClick={this.openConfirmDeactiveModal} danger>
+                  <Button onClick={this.toggleConfirmDeactiveModal} kind="danger">
                     Deactivate account
                   </Button>
                 </div>

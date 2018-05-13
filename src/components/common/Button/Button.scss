@@ -1,57 +1,62 @@
 @import '../../../shared/variables.scss';
 
-.root {
-  min-width: 190px;
-  margin: 0;
-  padding: 11px 20px;
-  border-radius: 2px;
-  border: 0;
-  color: #fff;
-  font-size: 1.1rem;
-  cursor: pointer;
-  outline: 0;
-  transition: all 0.2s linear;
-  text-align: center;
+@mixin buttonStates($color) {
+  &:hover {
+    background-color: lighten($color, 7%);
+  }
 
-  &.danger {
-    background-color: $colorPrimary;
-
-    &:hover {
-      transition: all 0.2s linear;
-      background-color: darken($colorPrimary, 10%);
-    }
+  &:active {
+    background-color: darken($color, 7%);
   }
 
   &:disabled {
-    opacity: 0.7;
-    cursor: default;
-    pointer-events: none;
-  }
+    background-color: $color;
+    cursor: not-allowed;
+    opacity: .6;
 
-  &.success {
-    background-color: $colorAccent;
-
-    &:hover {
-      background-color: darken($colorAccent, 10%);
+    &:hover,
+    &:active {
+      background-color: $color;
     }
   }
+}
 
-  &.regular {
-    padding: 9px 20px;
-    color: $colorText;
-    border: 2px solid $colorText;
+.root {
+  padding: 14px 20px;
+  margin: 0;
+  border: 0;
+  font-weight: $fontMedium;
+  font-size: 12px;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color $transitionMedium linear;
+}
+
+.success {
+  background-color: $ctaSuccess;
+  @include buttonStates($ctaSuccess);
+}
+
+.danger {
+  background-color: $ctaDanger;
+  @include buttonStates($ctaDanger);
+}
+
+.default {
+  background-color: $ctaDefault;
+  @include buttonStates($ctaDefault);
+}
+
+.link {
+  color: $colorTextLight;
+  background-color: transparent;
+
+  &:hover {
     background-color: transparent;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  &.block {
-    width: 100%;
-  }
-
-  &.large {
-    padding: 15px;
+    color: $colorTextDarkest;
   }
 }

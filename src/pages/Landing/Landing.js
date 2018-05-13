@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './Landing.scss';
 import Heading from '../../components/Heading/Heading';
 import PlatformFeatures from '../../components/PlatformFeatures/PlatformFeatures';
 import PricingResults from '../../components/PricingResults/PricingResults';
@@ -8,11 +7,11 @@ import About from '../../components/About/About';
 import Footer from '../../components/Footer/Footer';
 import SuccessStories from '../../components/SuccessStories/SuccessStories';
 import socketio from '../../shared/socket';
+import styles from './Landing.scss';
 
 export default class Landing extends Component {
   state = {
     latlng: null,
-    city: null,
     bedrooms: 0,
     listings: [],
     address: '',
@@ -28,12 +27,22 @@ export default class Landing extends Component {
   }
 
   render() {
-    const { latlng, listings, address, bedrooms, fetchedListings } = this.state;
+    const {
+      latlng,
+      listings,
+      address,
+      bedrooms,
+      fetchedListings,
+    } = this.state;
 
     return (
       <div>
         <div className={styles.spacer} />
-        <Heading listings={listings} latlng={latlng} updateParentState={state => this.updateState(state)} />
+        <Heading
+          listings={listings}
+          latlng={latlng}
+          updateParentState={state => this.updateState(state)}
+        />
         <PricingResults
           latlng={latlng}
           listings={listings}
@@ -41,7 +50,7 @@ export default class Landing extends Component {
         />
         {(fetchedListings && !listings.length) && (
           <div className={styles.noListings}>
-            Unfortunately there's no <b>{bedrooms} bedroom</b> listings in <b>{address}</b> area
+            Unfortunately there`s no <b>{bedrooms} bedroom</b> listings in <b>{address}</b> area
           </div>
         )}
         <About />

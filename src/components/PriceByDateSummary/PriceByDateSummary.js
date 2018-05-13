@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import format from 'date-fns/format';
-import styles from './PriceByDateSummary.scss';
 import { Select } from '../common';
 import LineChart from '../charts/LineChart/LineChart';
+import styles from './PriceByDateSummary.scss';
 
 function getGroupedByDatePrices(listings) {
-  return listings.reduce((acc, { star_rating, availability }) => {
-    acc[star_rating] = acc[star_rating] || [];
+  return listings.reduce((acc, { star_rating: starRating, availability }) => {
+    acc[starRating] = acc[starRating] || [];
 
-    const prices = Object.keys(availability).map((key) => ({
+    const prices = Object.keys(availability).map(key => ({
       date: key,
       price: availability[key].nativePriceTotal,
     }));
 
-    acc[star_rating] = [...acc[star_rating], ...prices];
+    acc[starRating] = [...acc[starRating], ...prices];
 
     return acc;
   }, {});
@@ -53,7 +53,7 @@ export default class PriceByDateSummary extends Component {
   updateStateAndChart({ listings }) {
     const pricingByRating = getGroupedByDateAvgPrices(getGroupedByDatePrices(listings));
 
-    const ratings = Object.keys(pricingByRating).map((rating) => ({
+    const ratings = Object.keys(pricingByRating).map(rating => ({
       label: rating === 'null' ? 'Unrated' : `${rating} stars`,
       value: rating,
     }));
@@ -100,7 +100,11 @@ export default class PriceByDateSummary extends Component {
                 onChange={e => this.setState({ selectedRating: e.target.value })}
                 value={selectedRating}
               >
-                {ratings.map(({ label, value }) => <option key={label} value={value}>{label}</option>)}
+                {ratings.map(({ label, value }) => (
+                  <option key={label} value={value}>
+                    {label}
+                  </option>
+                ))}
               </Select>
             </div>
           )}
