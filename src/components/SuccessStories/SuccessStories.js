@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './SuccessStories.scss'
+import styles from './SuccessStories.scss';
 
 export default function SuccessStories() {
   return (

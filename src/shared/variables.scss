@@ -1,5 +1,5 @@
 $colorPrimary: rgb(237, 28, 36);
-$colorDanger: rgb(204, 0, 0);
+$colorDanger: $colorPrimary;
 $colorAccent: #15CD72;
 $lineColor: #c7c7c7;
 $colorText: #676767;
@@ -22,7 +22,6 @@ $ctaDanger: $colorPrimary;
 $ctaSuccess: rgb(27, 185, 52);
 $ctaDefault: rgb(175, 183, 194);
 $ctaDisabled: rgb( 243, 245, 249);
-$colorDanger: rgb(212, 57, 0);
 $inputOutline: rgb(46, 162, 248);
 
 $transitionFast: .1s;

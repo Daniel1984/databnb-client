@@ -6,7 +6,11 @@ import styles from './Navbar.scss';
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+Navbar.defaultProps = {
+  children: undefined,
 };
 
 export default function Navbar({ title, children }) {

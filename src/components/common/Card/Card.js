@@ -5,7 +5,7 @@ import styles from './Card.scss';
 
 Card.propTypes = {
   title: PropTypes.string,
-  flex: PropTypes.string,
+  flex: PropTypes.bool,
   children: PropTypes.node.isRequired,
 };
 
