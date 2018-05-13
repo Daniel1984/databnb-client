@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import styles from './PricingBlock.scss';
 import { FancyCheckbox } from '../common';
 import Subscribe from '../Subscribe/Subscribe';
+import styles from './PricingBlock.scss';
 
 class PricingBlock extends Component {
   state = {

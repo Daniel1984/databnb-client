@@ -33,6 +33,11 @@
 }
 
 .formControl {
+  > button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   @media (max-width: $screenSm) {
     > input {
       width: 100%;

@@ -10,8 +10,6 @@ function validEmail(email) {
   return regex.test(email);
 }
 
-const isSuccessfulStatusCode = code => code >= 200 && code < 400;
-
 export default class Subscribe extends Component {
   state = {
     btnText: 'Subscribe',
@@ -22,6 +20,7 @@ export default class Subscribe extends Component {
   };
 
   setEmailValue = (e) => {
+    console.log('hohoho', e.target.value)
     this.setState({
       email: e.target.value,
       hasError: false,
@@ -29,25 +28,22 @@ export default class Subscribe extends Component {
     });
   }
 
-  subscribe = () => {
+  subscribe = async () => {
     const { email } = this.state;
 
     if (validEmail(email)) {
-      axios.post(`${config.apiUrl}/subscribe`, {
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      }).then((response) => {
-        if (!isSuccessfulStatusCode(response.status)) {
-          this.setState({ hasError: true });
-          return;
-        }
-
+      try {
+        await axios.post(`${config.apiUrl}/subscribe`, { email });
         this.setState({
+          hasError: false,
           hasSuccess: true,
-          email: '',
         });
-      });
+      } catch (error) {
+        this.setState({
+          hasError: true,
+          hasSuccess: false,
+        });
+      }
     } else {
       this.setState({ hasError: true });
     }
@@ -72,7 +68,7 @@ export default class Subscribe extends Component {
             <RawInput
               value={email}
               placeholder="Type in your address"
-              onKeyUp={this.setEmailValue}
+              onChange={this.setEmailValue}
             />
           </div>
           <div className={styles.formControl}>

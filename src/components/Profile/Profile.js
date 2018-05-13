@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import format from 'date-fns/format';
 import Modal from 'react-responsive-modal';
 import Settings from '../../components/Settings/Settings';
@@ -7,6 +8,10 @@ import { ConfirmDeactivateProfile, EditProfile } from '../modals';
 import styles from './Profile.scss';
 
 export default class Profile extends Component {
+  static propTypes = {
+    user: PropTypes.shape({}).isRequired,
+  };
+
   state = {
     confirmDeactivateModalOpened: false,
     editProfileModalOpened: false,

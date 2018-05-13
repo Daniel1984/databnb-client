@@ -22,11 +22,11 @@ const content = [
   },
 ];
 
-function PlatformFeatures() {
+export default function PlatformFeatures() {
   return (
     <div className={styles.root}>
       {content.map(({ alt, Icon, msg }) => (
-        <div className={styles.column}>
+        <div className={styles.column} key={alt}>
           <img alt={alt} className={styles.icon} src={Icon} />
           <div className={styles.msg}>
             {msg}
@@ -36,5 +36,3 @@ function PlatformFeatures() {
     </div>
   );
 }
-
-export default PlatformFeatures;
