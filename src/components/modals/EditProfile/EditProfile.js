@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, withFormik } from 'formik';
 import pick from 'lodash/fp/pick';
 import flow from 'lodash/fp/flow';
-import { Button, Input, FormControl } from '../../common';
+import { Button, Input, FormControl, FormInputError } from '../../common';
 import axios from '../../../shared/axios';
 import config from '../../../../config';
 import styles from './EditProfile.scss';
@@ -36,6 +36,8 @@ function ProfileEditForm({
   isSubmitting,
   errors,
 }) {
+  const hasError = !!Object.keys(errors).length;
+
   return (
     <div className={styles.root}>
       <div className={styles.title}>
@@ -75,11 +77,12 @@ function ProfileEditForm({
             placeholder="Phone number"
           />
         </FormControl>
+        <FormInputError>{errors.error}</FormInputError>
         <div className={styles.footer}>
           <Button onClick={values.onClose}>
             Cancel
           </Button>
-          <Button type="submit" kind="success" disabled={isSubmitting}>
+          <Button type="submit" kind="success" disabled={hasError || isSubmitting}>
             Save
           </Button>
         </div>
@@ -108,18 +111,26 @@ const EditProfileModal = withFormik({
     };
   },
 
-  validate(props) {
-    console.log('validating props ', props);
-    return {};
+  validate({ email }) {
+    const errors = {};
+
+    if (!email) {
+      errors.error = 'Email is required';
+    }
+
+    return errors;
   },
 
-  handleSubmit: (values, { setSubmitting, setFieldError, setErrors }) => {
+  handleSubmit: async (values, { setSubmitting, setFieldError }) => {
     setSubmitting(false);
-    axios.post(`${config.apiUrl}/me/${values._id}`, { body: values })
-      .then(values.onClose)
-      .catch(() => {
-        alert('Oops. Something went wrong. Please try again later');
-      });
+    const { onClose, _id } = values;
+
+    try {
+      await axios.put(`${config.apiUrl}/me/${_id}`, values);
+      onClose();
+    } catch (error) {
+      setFieldError('error', 'Oops. Something went wrong. Please try again later');
+    }
   },
 })(ProfileEditForm);
 

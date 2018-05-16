@@ -25,8 +25,10 @@ export default class Profile extends Component {
     this.setState({ confirmDeactivateModalOpened: !this.state.confirmDeactivateModalOpened });
   }
 
-  toggleEditProfileModal = (e) => {
-    e.preventDefault();
+  toggleEditProfileModal = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
     this.setState({ editProfileModalOpened: !this.state.editProfileModalOpened });
   }
 
