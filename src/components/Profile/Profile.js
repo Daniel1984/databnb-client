@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import format from 'date-fns/format';
 import Modal from 'react-responsive-modal';
@@ -52,7 +52,7 @@ export default class Profile extends Component {
           />
         </Modal>
         {!!user && (
-          <div>
+          <Fragment>
             <div className={styles.card}>
               <Card flex>
                 <div className={styles.headerRow}>
@@ -88,7 +88,7 @@ export default class Profile extends Component {
                 </div>
               </Card>
             </div>
-          </div>
+          </Fragment>
         )}
       </Settings>
     );

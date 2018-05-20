@@ -97,7 +97,7 @@ export default withFormik({
       errors.error = 'All fields required';
     }
 
-    return {};
+    return errors;
   },
 
   handleSubmit: async (values, { setSubmitting, setFieldError, setFieldValue }) => {

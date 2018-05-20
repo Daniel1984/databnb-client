@@ -17,6 +17,10 @@ const settingsMenuLinks = [
     href: '/settings/reports',
     name: 'Reports',
   },
+  {
+    href: '/settings/properties',
+    name: 'Properties',
+  },
 ];
 
 SettingsMenu.propTypes = {

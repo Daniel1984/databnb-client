@@ -79,7 +79,7 @@ export default withFormik({
       errors.loginError = 'All fields required';
     }
 
-    return {};
+    return errors;
   },
 
   handleSubmit: async (values, { setSubmitting, setFieldError }) => {

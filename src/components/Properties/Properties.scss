@@ -1,0 +1,23 @@
+@import '../../shared/variables.scss';
+
+.headerRow {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: $fontSemi;
+}
+
+.infoContainer {
+  line-height: 1.5;
+  color: $colorTextLight;
+}
+
+.cardContainer {
+  margin-bottom: 50px;
+  max-width: 800px;
+}

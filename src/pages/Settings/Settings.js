@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import Profile from '../../components/Profile/Profile';
 import Billing from '../../components/Billing/Billing';
 import Reports from '../../components/Reports/Reports';
+import Properties from '../../components/Properties/Properties';
 import axios from '../../shared/axios';
 import config from '../../../config';
 import styles from './Settings.scss';
@@ -40,6 +41,7 @@ export default class Settings extends Component {
         <Route path={`${match.url}/profile`} component={() => <Profile user={user} />} />
         <Route path={`${match.url}/billing`} component={() => <Billing user={user} />} />
         <Route path={`${match.url}/reports`} component={() => <Reports user={user} />} />
+        <Route path={`${match.url}/properties`} component={() => <Properties user={user} />} />
 
         {/* <Route
           exact

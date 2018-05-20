@@ -82,7 +82,7 @@ export default withFormik({
       errors.email = 'Email is required';
     }
 
-    return {};
+    return errors;
   },
 
   handleSubmit: async (values, { setSubmitting, setFieldError, setFieldValue }) => {
