@@ -9,3 +9,4 @@ export { default as SettingsPageContainer } from './SettingsPageContainer/Settin
 export { default as Gravatar } from './Gravatar/Gravatar';
 export { default as FormControl } from './FormControl/FormControl';
 export { default as FormInputError } from './FormInputError/FormInputError';
+export { default as SpinnerLoader } from './SpinnerLoader/SpinnerLoader';
