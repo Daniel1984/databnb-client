@@ -74,6 +74,14 @@ export default withFormik({
       errors.propertyLink = 'Property url is required';
     }
 
+    if (propertyLink) {
+      const match = propertyLink.match(/\/rooms\/(\d+)/);
+
+      if (!match || !match[1]) {
+        errors.propertyLink = 'Invalid airbnb property url';
+      }
+    }
+
     return errors;
   },
 

@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-responsive-modal';
 import Settings from '../../components/Settings/Settings';
-import { Card, Button } from '../../components/common';
 import { getUserProperties } from '../../api/userProperties';
-import { SpinnerLoader } from '../common';
+import { SpinnerLoader, Card, Button } from '../common';
 import AddNewProperty from './AddNewProperty/AddNewProperty';
+import PropertiesList from './PropertiesList/PropertiesList';
 import styles from './Properties.scss';
 
 export default class Properties extends Component {
@@ -81,6 +81,10 @@ export default class Properties extends Component {
           <div className={styles.listContainer}>
             {isLoading && (
               <SpinnerLoader />
+            )}
+
+            {properties.length && (
+              <PropertiesList properties={properties} />
             )}
           </div>
         </Fragment>
