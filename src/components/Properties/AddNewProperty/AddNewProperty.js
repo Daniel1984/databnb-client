@@ -38,11 +38,11 @@ function InnerAddNewPropertyForm({
           <Input
             thickLines
             type="text"
-            name="propertyLink"
+            name="propertyId"
             placeholder="Enter property url"
           />
         </FormControl>
-        <FormInputError>{errors.propertyLink}</FormInputError>
+        <FormInputError>{errors.propertyId}</FormInputError>
         <div className={styles.footer}>
           <Button
             onClick={(e) => {
@@ -63,22 +63,22 @@ function InnerAddNewPropertyForm({
 
 export default withFormik({
   mapPropsToValues: ({ onClose }) => ({
-    propertyLink: '',
+    propertyId: '',
     onClose,
   }),
 
-  validate({ propertyLink }) {
+  validate({ propertyId }) {
     const errors = {};
 
-    if (!propertyLink) {
-      errors.propertyLink = 'Property url is required';
+    if (!propertyId) {
+      errors.propertyId = 'Property url is required';
     }
 
-    if (propertyLink) {
-      const match = propertyLink.match(/\/rooms\/(\d+)/);
+    if (propertyId) {
+      const match = propertyId.match(/\/rooms\/(\d+)/);
 
       if (!match || !match[1]) {
-        errors.propertyLink = 'Invalid airbnb property url';
+        errors.propertyId = 'Invalid airbnb property url';
       }
     }
 
@@ -89,11 +89,11 @@ export default withFormik({
     setSubmitting(false);
 
     try {
-      const { onClose, propertyLink } = values;
+      const { onClose, propertyId } = values;
       onClose();
-      await axios.post(`${config.apiUrl}/property`, { propertyLink });
+      await axios.post(`${config.apiUrl}/property`, { propertyId: propertyId.match(/\/rooms\/(\d+)/)[1] });
     } catch ({ response: { data } }) {
-      setFieldError('propertyLink', data.err);
+      setFieldError('propertyId', data.err);
     }
   },
 })(InnerAddNewPropertyForm);
