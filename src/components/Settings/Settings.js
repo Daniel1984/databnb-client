@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Footer from '../../components/Footer/Footer';
-import Navbar from '../../components/Navbar/Navbar';
-import SettingsMenu from '../../components/SettingsMenu/SettingsMenu';
-import { SettingsPageContainer } from '../../components/common';
+import Footer from '../Footer/Footer';
+import Navbar from '../Navbar/Navbar';
+import { SettingsPageContainer } from '../common';
+import SettingsMenu from './SettingsMenu/SettingsMenu';
 import styles from './Settings.scss';
 
 Settings.propTypes = {
