@@ -6,16 +6,27 @@ import styles from './Button.scss';
 Button.propTypes = {
   kind: PropTypes.oneOf(['success', 'danger', 'default', 'link']),
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
   kind: 'default',
+  className: '',
 };
 
-export default function Button({ kind, children, ...rest }) {
+export default function Button({
+  kind,
+  className,
+  children,
+  ...rest
+}) {
   return (
     <button
-      className={classnames([styles.root, styles[kind]])}
+      className={classnames([
+        styles.root,
+        styles[kind],
+        className && className,
+      ])}
       {...rest}
     >
       {children}

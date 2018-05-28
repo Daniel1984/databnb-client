@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { subscribe } from 'unstated';
 import { Route } from 'react-router-dom';
 import Profile from '../../components/Profile/Profile';
 import Billing from '../../components/Billing/Billing';
@@ -42,12 +41,6 @@ export default class Settings extends Component {
         <Route path={`${match.url}/billing`} component={() => <Billing user={user} />} />
         <Route path={`${match.url}/reports`} component={() => <Reports user={user} />} />
         <Route path={`${match.url}/properties`} component={() => <Properties user={user} />} />
-
-        {/* <Route
-          exact
-          path={match.url}
-          render={() => <h3>Please select a topic.</h3>}
-        /> */}
       </div>
     );
   }

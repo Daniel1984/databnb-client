@@ -32,8 +32,11 @@ export default class Properties extends Component {
     this.setState({ isLoading: true });
 
     try {
-      const properties = await getUserProperties();
-      this.setState({ properties, isLoading: false });
+      const { data } = await getUserProperties();
+      this.setState({
+        properties: data,
+        isLoading: false,
+      });
     } catch (error) {
       this.setState({
         error: 'Oops. Something went wrong. Try again later',
@@ -55,7 +58,6 @@ export default class Properties extends Component {
       error,
       properties,
     } = this.state;
-
     return (
       <Settings user={user}>
         <Fragment>
@@ -73,8 +75,8 @@ export default class Properties extends Component {
                 </Button>
               </div>
               <div className={styles.infoContainer}>
-                Add properties to know how you`re doing in comparison to your nearest competitors.<br />
-                Setup alerts and notifications to tracking price changinges and adopt accordingly.
+                Add properties to know how you`re doing in comparison to your nearest competitors.
+                Setup alerts and notifications to tracking price changes and adapt accordingly.
               </div>
             </Card>
           </div>
@@ -83,7 +85,7 @@ export default class Properties extends Component {
               <SpinnerLoader />
             )}
 
-            {properties.length && (
+            {!!properties.length && (
               <PropertiesList properties={properties} />
             )}
           </div>

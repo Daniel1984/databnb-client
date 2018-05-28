@@ -8,10 +8,10 @@ import {
   SettingsPageContainer,
   FormControl,
   FormInputError,
+  Navbar,
 } from '../../components/common';
 import axios from '../../shared/axios';
 import config from '../../../config';
-import Navbar from '../../components/Navbar/Navbar';
 import styles from './ResetPassword.scss';
 
 InnerResetPasswordForm.propTypes = {

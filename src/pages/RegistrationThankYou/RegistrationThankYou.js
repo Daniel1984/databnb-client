@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { parse } from 'qs';
 import { Link } from 'react-router-dom';
-import { Card, SettingsPageContainer } from '../../components/common';
-import Navbar from '../../components/Navbar/Navbar';
+import { Card, SettingsPageContainer, Navbar } from '../../components/common';
 import styles from './RegistrationThankYou.scss';
 
 RegistrationThankYou.propTypes = {

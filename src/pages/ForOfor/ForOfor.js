@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, SettingsPageContainer } from '../../components/common';
-import Navbar from '../../components/Navbar/Navbar';
+import { Card, SettingsPageContainer, Navbar } from '../../components/common';
 import styles from './ForOfor.scss';
 
 export default function ForOfor() {

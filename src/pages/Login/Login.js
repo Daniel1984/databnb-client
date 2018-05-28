@@ -10,8 +10,8 @@ import {
   SettingsPageContainer,
   FormControl,
   FormInputError,
+  Navbar,
 } from '../../components/common';
-import Navbar from '../../components/Navbar/Navbar';
 import axios from '../../shared/axios';
 import config from '../../../config';
 import styles from './Login.scss';

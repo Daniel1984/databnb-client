@@ -1,3 +1,75 @@
-.root {
+@import '../../../shared/variables.scss';
 
+.root {
+  background-color: white;
+}
+
+.row {
+  margin: 0 20px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $lineColorLight;
+}
+
+.col {
+  padding: 10px;
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  &.rightAligned {
+    align-items: flex-end;
+  }
+}
+
+.img {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.title {
+  max-width: 270px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-transform: capitalize;
+  font-weight: $fontMedium;
+}
+
+.city {
+  color: $colorText;
+  font-size: 12px;
+}
+
+.property {
+  margin-bottom: 4px;
+  font-size: 14px;
+  display: flex;
+  color: $colorText;
+
+  > div {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.ovalBtn {
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  font-size: 18px;
+  line-height: 1;
 }

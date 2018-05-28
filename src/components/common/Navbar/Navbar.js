@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import LeftArrowIcon from '../../assets/icons/left-arrow.svg';
+import LeftArrowIcon from '../../../assets/icons/left-arrow.svg';
 import styles from './Navbar.scss';
 
 Navbar.propTypes = {

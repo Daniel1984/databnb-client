@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Footer from '../Footer/Footer';
-import Navbar from '../Navbar/Navbar';
-import { SettingsPageContainer } from '../common';
+import { SettingsPageContainer, Navbar } from '../common';
 import SettingsMenu from './SettingsMenu/SettingsMenu';
 import styles from './Settings.scss';
 

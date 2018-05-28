@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { Gravatar } from '../common';
+import { Gravatar } from '../../common';
 import styles from './SettingsMenu.scss';
 
 const settingsMenuLinks = [
