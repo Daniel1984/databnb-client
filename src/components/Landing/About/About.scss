@@ -1,0 +1,20 @@
+@import '../../../shared/variables.scss';
+
+.root {
+  padding: 40px 20px;
+  text-align: center;
+
+  @media screen and (max-width: $screenSm) {
+    padding: 20px 10px;
+  }
+}
+
+.message {
+  margin: 0;
+  font-weight: $fontSemi;
+  font-size: 1.5rem;
+
+  @media screen and (max-width: $screenSm) {
+    font-size: 1.3rem;
+  }
+}

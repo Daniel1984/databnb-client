@@ -3,7 +3,7 @@ import bugsnag from 'bugsnag-js';
 import 'reset-css'; // eslint-disable-line
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { render } from 'react-dom';
-import Landing from './pages/Landing/Landing';
+import Landing from './components/Landing/Landing';
 import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import ResetPassword from './pages/ResetPassword/ResetPassword';

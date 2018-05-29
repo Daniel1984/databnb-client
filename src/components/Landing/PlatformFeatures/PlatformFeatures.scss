@@ -1,0 +1,42 @@
+@import '../../../shared/variables.scss';
+
+.root {
+  margin: 60px auto;
+  max-width: 1000px;
+  display: flex;
+
+  @media (max-width: $screenSm) {
+    margin: 0;
+    padding-top: 30px;
+    flex-wrap: wrap;
+  }
+}
+
+.column {
+  padding: 20px;
+  min-width: 200px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid $lineColor;
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  @media (max-width: $screenSm) {
+    border-right: 0;
+  }
+}
+
+.icon {
+  width: 100px;
+}
+
+.msg {
+  margin-top: 20px;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 1.1rem;
+}

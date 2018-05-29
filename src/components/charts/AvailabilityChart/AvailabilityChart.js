@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
+import PropTypes from 'prop-types';
 import Chart from 'chart.js';
-import format from 'date-fns/format'
 
 export default class AvailabilityByPriceChart extends Component {
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+  };
+
   componentDidMount() {
-    const ctx = this.chartEl.getContext('2d');
+    const ctx = this.chartElRef.current.getContext('2d');
     this.ratingsChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -12,15 +16,15 @@ export default class AvailabilityByPriceChart extends Component {
         datasets: [{
           label: this.props.label,
           backgroundColor: 'rgb(253, 86, 34)',
-          data: []
-        }]
+          data: [],
+        }],
       },
       options: {
         responsive: true,
         title: {
           display: false,
-        }
-      }
+        },
+      },
     });
 
     this.drawChart(this.props);
@@ -30,6 +34,8 @@ export default class AvailabilityByPriceChart extends Component {
     this.drawChart(props);
   }
 
+  chartElRef = createRef();
+
   drawChart({ data, labels }) {
     this.ratingsChart.data.labels = labels;
     this.ratingsChart.data.datasets[0].data = data;
@@ -38,8 +44,8 @@ export default class AvailabilityByPriceChart extends Component {
 
   render() {
     return (
-      <canvas ref={el => this.chartEl = el} />
-    )
+      <canvas ref={this.chartElRef} />
+    );
   }
 }
 

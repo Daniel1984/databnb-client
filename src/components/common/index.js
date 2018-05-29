@@ -11,3 +11,4 @@ export { default as FormControl } from './FormControl/FormControl';
 export { default as FormInputError } from './FormInputError/FormInputError';
 export { default as SpinnerLoader } from './SpinnerLoader/SpinnerLoader';
 export { default as Navbar } from './Navbar/Navbar';
+export { default as Footer } from './Footer/Footer';

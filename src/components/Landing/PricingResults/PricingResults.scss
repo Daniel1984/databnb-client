@@ -1,0 +1,18 @@
+@import '../../../shared/variables.scss';
+
+.root {
+  border-bottom: 1px solid $lineColor;
+  max-height: 0px;
+  background-color: #fff;
+  overflow: hidden;
+  position: relative;
+
+  &.expanded {
+    transition: max-height 1s linear;
+    max-height: 8000px;
+
+    @media (max-width: $screenSm) {
+      max-height: 10000px;
+    }
+  }
+}

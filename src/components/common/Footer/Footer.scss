@@ -1,0 +1,14 @@
+@import '../../../shared/variables.scss';
+
+.root {
+  background-color: $colorBackgroundDark;
+  color: whitesmoke;
+  padding: 8px;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-transform: uppercase;
+  font-size: 12px;
+}
