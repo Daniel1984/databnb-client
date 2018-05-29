@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Autocomplete.scss';
 
@@ -9,7 +9,7 @@ export default class Autocomplete extends Component {
   };
 
   componentDidMount() {
-    const autoCompleteForm = new google.maps.places.Autocomplete(this.placesEl, {
+    const autoCompleteForm = new google.maps.places.Autocomplete(this.chartElRef.current, {
       types: ['geocode'],
     });
 
@@ -21,14 +21,14 @@ export default class Autocomplete extends Component {
         return;
       }
 
-      const latlng = place.geometry.location;
+      const { lat, lng } = place.geometry.location;
 
-      if (latlng.lat && latlng.lng) {
+      if (lat && lng) {
         this.props.updateParentState({
           address,
           latlng: {
-            lat: latlng.lat(),
-            lng: latlng.lng(),
+            lat: lat(),
+            lng: lng(),
           },
           btnEnabled: true,
         });
@@ -36,15 +36,14 @@ export default class Autocomplete extends Component {
     });
   }
 
+  chartElRef = createRef();
 
   render() {
     const { formDisabled } = this.props;
 
     return (
       <input
-        ref={(el) => {
-          this.placesEl = el;
-        }}
+        ref={this.chartElRef}
         className={styles.input}
         placeholder="Type in your address"
         disabled={formDisabled}

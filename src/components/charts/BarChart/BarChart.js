@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
+import PropTypes from 'prop-types';
 import Chart from 'chart.js';
 
 export default class BarChart extends Component {
+  static propTypes = {
+    type: PropTypes.string,
+  };
+
+  static defaultProps = {
+    type: 'bar',
+  };
+
   componentDidMount() {
-    const { type = 'bar' } = this.props;
-    const ctx = this.chartEl.getContext('2d');
+    const { type } = this.props;
+    const ctx = this.chartElRef.current.getContext('2d');
 
     this.barChart = new Chart(ctx, {
       type,
@@ -14,8 +23,8 @@ export default class BarChart extends Component {
           label: '',
           data: [],
           backgroundColor: [],
-        }]
-      }
+        }],
+      },
     });
 
     this.drawChart(this.props);
@@ -25,17 +34,24 @@ export default class BarChart extends Component {
     this.drawChart(props);
   }
 
-  drawChart({ labels, data, label, backgroundColor }) {
+  chartElRef = createRef();
+
+  drawChart({
+    labels,
+    data,
+    label,
+    backgroundColor = '',
+  }) {
     this.barChart.data.labels = labels;
     this.barChart.data.datasets[0].data = data;
     this.barChart.data.datasets[0].label = label;
-    backgroundColor && (this.barChart.data.datasets[0].backgroundColor = backgroundColor);
+    this.barChart.data.datasets[0].backgroundColor = backgroundColor;
     this.barChart.update();
   }
 
   render() {
     return (
-      <canvas ref={el => this.chartEl = el} />
-    )
+      <canvas ref={this.chartElRef} />
+    );
   }
 }
