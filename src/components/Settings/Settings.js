@@ -1,35 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SettingsPageContainer, Navbar, Footer } from '../common';
-import SettingsMenu from './SettingsMenu/SettingsMenu';
+import { Route } from 'react-router-dom';
+import Profile from '../Profile/Profile';
+import Billing from '../Billing/Billing';
+import Reports from '../Reports/Reports';
+import Properties from '../Properties/Properties';
+import axios from '../../shared/axios';
+import config from '../../../config';
 import styles from './Settings.scss';
 
-Settings.propTypes = {
-  user: PropTypes.shape({}),
-  children: PropTypes.node.isRequired,
-};
+export default class Settings extends Component {
+  static propTypes = {
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }).isRequired,
+    match: PropTypes.shape({
+      url: PropTypes.string,
+    }).isRequired,
+  };
 
-Settings.defaultProps = {
-  user: null,
-};
+  state = {
+    user: null,
+  };
 
-export default function Settings({ user, children }) {
-  return (
-    <SettingsPageContainer>
-      <Navbar title="Settings" />
-      {!!user && (
-        <div className={styles.contentWrapper}>
-          <div className={styles.menu}>
-            <SettingsMenu user={user} />
-          </div>
-          <div className={styles.content}>
-            {children}
-          </div>
-        </div>
-      )}
-      <div className={styles.footer}>
-        <Footer />
+  componentDidMount = async () => {
+    try {
+      const { data: user } = await axios.get(`${config.apiUrl}/me`);
+      this.setState({ user });
+    } catch (error) {
+      this.props.history.push('/login');
+    }
+  }
+
+  render() {
+    const { match } = this.props;
+    const { user } = this.state;
+    return (
+      <div className={styles.root}>
+        <Route path={`${match.url}/profile`} component={() => <Profile user={user} />} />
+        <Route path={`${match.url}/billing`} component={() => <Billing user={user} />} />
+        <Route path={`${match.url}/reports`} component={() => <Reports user={user} />} />
+        <Route path={`${match.url}/properties`} component={() => <Properties user={user} />} />
       </div>
-    </SettingsPageContainer>
-  );
+    );
+  }
 }

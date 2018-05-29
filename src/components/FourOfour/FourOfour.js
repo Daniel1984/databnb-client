@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, SettingsPageContainer, Navbar } from '../../components/common';
-import styles from './ForOfor.scss';
+import styles from './FourOfour.scss';
 
-export default function ForOfor() {
+export default function FourOfour() {
   return (
     <SettingsPageContainer>
       <Navbar title="META BNB" />
