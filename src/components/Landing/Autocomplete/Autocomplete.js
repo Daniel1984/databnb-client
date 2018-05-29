@@ -9,7 +9,7 @@ export default class Autocomplete extends Component {
   };
 
   componentDidMount() {
-    const autoCompleteForm = new google.maps.places.Autocomplete(this.chartElRef.current, {
+    const autoCompleteForm = new google.maps.places.Autocomplete(this.inputRef.current, {
       types: ['geocode'],
     });
 
@@ -36,14 +36,14 @@ export default class Autocomplete extends Component {
     });
   }
 
-  chartElRef = createRef();
+  inputRef = createRef();
 
   render() {
     const { formDisabled } = this.props;
 
     return (
       <input
-        ref={this.chartElRef}
+        ref={this.inputRef}
         className={styles.input}
         placeholder="Type in your address"
         disabled={formDisabled}

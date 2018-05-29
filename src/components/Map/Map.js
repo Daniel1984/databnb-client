@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import HeatMapLayer from 'leaflet-heatmap';
 import customHouseMarkerIcon from '../../shared/customHouseMarkerIcon';
 import styles from './Map.scss';
@@ -37,7 +37,7 @@ class Map extends Component {
   componentDidMount() {
     this.heatmapLayer = new HeatMapLayer(heatmapCfg);
 
-    this.map = L.map(this.mapEl, {
+    this.map = L.map(this.mapElRef.current, {
       scrollWheelZoom: false,
       layers: [this.heatmapLayer],
     });
@@ -56,6 +56,8 @@ class Map extends Component {
   componentWillUnmount() {
     this.map.remove();
   }
+
+  mapElRef = createRef();
 
   updateMap({ listings }) {
     if (this.markersLayer) {
@@ -105,12 +107,7 @@ class Map extends Component {
   render() {
     return (
       <div className={styles.root}>
-        <div
-          ref={(el) => {
-            this.mapEl = el;
-          }}
-          className={styles.map}
-        />
+        <div ref={this.mapElRef} className={styles.map} />
       </div>
     );
   }
