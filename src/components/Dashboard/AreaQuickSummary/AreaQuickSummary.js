@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LocationIcon from '../../assets/icons/location.svg';
-import BedIcon from '../../assets/icons/bed3.svg';
-import MinIncomeIcon from '../../assets/icons/graph-4.svg';
-import AvgIncomeIcon from '../../assets/icons/graph-5.svg';
-import MaxIncomeIcon from '../../assets/icons/graph-3.svg';
+import LocationIcon from '../../../assets/icons/location.svg';
+import BedIcon from '../../../assets/icons/bed3.svg';
+import MinIncomeIcon from '../../../assets/icons/graph-4.svg';
+import AvgIncomeIcon from '../../../assets/icons/graph-5.svg';
+import MaxIncomeIcon from '../../../assets/icons/graph-3.svg';
 import styles from './AreaQuickSummary.scss';
 
 function getBedrooms(bedrooms) {

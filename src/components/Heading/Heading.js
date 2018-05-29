@@ -24,7 +24,10 @@ export default function Heading({ latlng, listings, updateParentState }) {
               <h1 className={styles.header}>Free Airbnb Income Calculator</h1>
               <div>Find how much your property could earn on airbnb or any other short term rental platform.</div>
               <br />
-              <div>Quickly adopt to market changes by following our recommendations. Increase occupancy and income.</div>
+              <div>
+                Quickly adopt to market changes by following our recommendations.
+                Increase occupancy and income.
+              </div>
             </div>
           </div>
         )}

@@ -4,9 +4,9 @@ import { Select, Button } from '../common';
 import socket from '../../shared/socket';
 import axios from '../../shared/axios';
 import config from '../../../config';
-import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary';
-import AuthControls from '../AuthControls/AuthControls';
-import Autocomplete from '../Autocomplete/Autocomplete';
+import AreaQuickSummary from './AreaQuickSummary/AreaQuickSummary';
+import Autocomplete from './Autocomplete/Autocomplete';
+import AuthControls from './AuthControls/AuthControls';
 import styles from './Dashboard.scss';
 
 export default class Dashboard extends Component {
