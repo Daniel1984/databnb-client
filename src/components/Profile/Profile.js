@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import format from 'date-fns/format';
 import Modal from 'react-responsive-modal';
-import Settings from '../../components/Settings/Settings';
+import SettingsContainer from '../Settings/SettingsContainer/SettingsContainer';
 import { Card, Button } from '../../components/common';
 import { ConfirmDeactivateProfile, EditProfile } from '../modals';
 import styles from './Profile.scss';
@@ -37,7 +37,7 @@ export default class Profile extends Component {
     const { confirmDeactivateModalOpened, editProfileModalOpened } = this.state;
 
     return (
-      <Settings user={user}>
+      <SettingsContainer user={user}>
         <Modal open={confirmDeactivateModalOpened} onClose={this.toggleConfirmDeactiveModal} little>
           <ConfirmDeactivateProfile
             opened={confirmDeactivateModalOpened}
@@ -90,7 +90,7 @@ export default class Profile extends Component {
             </div>
           </Fragment>
         )}
-      </Settings>
+      </SettingsContainer>
     );
   }
 }

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { render } from 'react-dom';
 import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
-import SignUp from './pages/SignUp/SignUp';
+import SignUp from './components/SignUp/SignUp';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import FourOfour from './components/FourOfour/FourOfour';

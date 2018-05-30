@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Settings from '../../components/Settings/Settings';
-import { Card } from '../../components/common';
+import SettingsContainer from '../Settings/SettingsContainer/SettingsContainer';
+import { Card } from '../common';
 import ToolsIcon from '../../assets/icons/tools.svg';
 import styles from './Reports.scss';
 
@@ -11,10 +11,10 @@ Reports.propTypes = {
 
 export default function Reports({ user }) {
   return (
-    <Settings user={user}>
+    <SettingsContainer user={user}>
       <Card flex>
         <img alt="Tools icon" className={styles.icon} src={ToolsIcon} />
       </Card>
-    </Settings>
+    </SettingsContainer>
   );
 }

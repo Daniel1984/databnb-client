@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-responsive-modal';
-import Settings from '../../components/Settings/Settings';
+import SettingsContainer from '../Settings/SettingsContainer/SettingsContainer';
 import { getUserProperties } from '../../api/userProperties';
 import { SpinnerLoader, Card, Button } from '../common';
 import AddNewProperty from './AddNewProperty/AddNewProperty';
@@ -59,7 +59,7 @@ export default class Properties extends Component {
       properties,
     } = this.state;
     return (
-      <Settings user={user}>
+      <SettingsContainer user={user}>
         <Fragment>
           <Modal open={addNewPropertyModalOpened} onClose={this.toggleAddPropertyModal} little>
             <AddNewProperty onClose={this.toggleAddPropertyModal} />
@@ -90,7 +90,7 @@ export default class Properties extends Component {
             )}
           </div>
         </Fragment>
-      </Settings>
+      </SettingsContainer>
     );
   }
 }
