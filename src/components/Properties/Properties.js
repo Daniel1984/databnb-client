@@ -9,14 +9,6 @@ import PropertiesList from './PropertiesList/PropertiesList';
 import styles from './Properties.scss';
 
 export default class Properties extends Component {
-  static propTypes = {
-    user: PropTypes.shape({}),
-  };
-
-  static defaultProps = {
-    user: null,
-  };
-
   state = {
     addNewPropertyModalOpened: false,
     properties: [],
@@ -59,7 +51,7 @@ export default class Properties extends Component {
       properties,
     } = this.state;
     return (
-      <SettingsContainer user={user}>
+      <SettingsContainer>
         <Fragment>
           <Modal open={addNewPropertyModalOpened} onClose={this.toggleAddPropertyModal} little>
             <AddNewProperty onClose={this.toggleAddPropertyModal} />

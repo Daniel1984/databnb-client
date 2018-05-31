@@ -5,8 +5,6 @@ import Profile from '../Profile/Profile';
 import Billing from '../Billing/Billing';
 import Reports from '../Reports/Reports';
 import Properties from '../Properties/Properties';
-import axios from '../../shared/axios';
-import config from '../../../config';
 import styles from './Settings.scss';
 
 export default class Settings extends Component {
@@ -19,28 +17,15 @@ export default class Settings extends Component {
     }).isRequired,
   };
 
-  state = {
-    user: null,
-  };
-
-  componentDidMount = async () => {
-    try {
-      const { data: user } = await axios.get(`${config.apiUrl}/me`);
-      this.setState({ user });
-    } catch (error) {
-      this.props.history.push('/login');
-    }
-  }
 
   render() {
     const { match } = this.props;
-    const { user } = this.state;
     return (
       <div className={styles.root}>
-        <Route path={`${match.url}/profile`} component={() => <Profile user={user} />} />
-        <Route path={`${match.url}/billing`} component={() => <Billing user={user} />} />
-        <Route path={`${match.url}/reports`} component={() => <Reports user={user} />} />
-        <Route path={`${match.url}/properties`} component={() => <Properties user={user} />} />
+        <Route path={`${match.url}/profile`} component={Profile} />
+        <Route path={`${match.url}/billing`} component={Billing} />
+        <Route path={`${match.url}/reports`} component={Reports} />
+        <Route path={`${match.url}/properties`} component={Properties} />
       </div>
     );
   }
