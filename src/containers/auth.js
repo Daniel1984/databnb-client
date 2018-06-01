@@ -16,6 +16,12 @@ export class AuthProvider extends Component {
 
   state = initialState;
 
+  componentDidMount() {
+    if (this.isAuthenticated()) {
+      this.getProfile();
+    }
+  }
+
   getAuthToken = async (paylaod) => {
     try {
       const { data: { token } } = await login(paylaod);
@@ -36,7 +42,7 @@ export class AuthProvider extends Component {
   }
 
   isAuthenticated = () => (
-    !!sessionStorage.setItem('auth-token')
+    !!sessionStorage.getItem('auth-token')
   )
 
   clearAuthData = () => {

@@ -5,7 +5,6 @@ export const login = ({ email, password }) => (
   axios.post(`${config.apiUrl}/login`, { email, password })
 );
 
-
 export const getProfile = () => (
   axios.get(`${config.apiUrl}/me`)
 );
