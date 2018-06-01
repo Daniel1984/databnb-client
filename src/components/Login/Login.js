@@ -12,8 +12,7 @@ import {
   FormInputError,
   Navbar,
 } from '../../components/common';
-import axios from '../../shared/axios';
-import config from '../../../config';
+import { withAuthContainer } from '../../containers/auth';
 import styles from './Login.scss';
 
 InnerLoginForm.propTypes = {
@@ -65,11 +64,18 @@ function InnerLoginForm({ errors, handleSubmit, isSubmitting }) {
   );
 }
 
-export default withFormik({
-  mapPropsToValues: ({ location, history }) => ({
+const LoginForm = withFormik({
+  mapPropsToValues: ({
+    location,
+    history,
+    loginError,
+    getAuthToken,
+  }) => ({
     email: parse(location.search.substr(1)).email || '',
     password: '',
     history,
+    loginError,
+    getAuthToken,
   }),
 
   validate({ email, password }) {
@@ -83,16 +89,22 @@ export default withFormik({
   },
 
   handleSubmit: async (values, { setSubmitting, setFieldError }) => {
-    setSubmitting(false);
-
     try {
-      const { email, password, history } = values;
-      const { data: { token } } = await axios.post(`${config.apiUrl}/login`, { email, password });
-      sessionStorage.setItem('auth-token', token);
+      const {
+        email,
+        password,
+        history,
+        getAuthToken,
+      } = values;
+
+      await getAuthToken({ email, password });
       history.push('/');
     } catch ({ response: { data } }) {
+      setSubmitting(false);
       values.password = '';
       setFieldError('loginError', data.err);
     }
   },
 })(InnerLoginForm);
+
+export default withAuthContainer(LoginForm);

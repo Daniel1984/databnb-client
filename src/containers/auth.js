@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { requestAuth } from '../api/auth';
+import { login, getProfile, updateProfile } from '../api/auth';
+
 const { Provider, Consumer } = React.createContext();
 
 const initialState = {
   user: null,
-  authToken,
+  error: null,
 };
 
-export class AuthContainer extends Container {
+export class AuthProvider extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   };
@@ -17,25 +18,55 @@ export class AuthContainer extends Container {
 
   getAuthToken = async (paylaod) => {
     try {
-      const authData = await requestAuth(paylaod);
-      this.setState({ authData });
-    } catch ({ response: { data } }) {
-      this.setState({ ...initialState, error: data });
+      const { data: { token } } = await login(paylaod);
+      sessionStorage.setItem('auth-token', token);
+    } catch (error) {
+      throw error;
     }
   }
 
-  clearAuthData() {
-    this.setState({ ...initialState });
+  getProfile = async () => {
+    this.setState({ error: false });
+    try {
+      const { data: user } = await getProfile();
+      this.setState({ user });
+    } catch (error) {
+      this.setState({ error: true });
+    }
+  }
+
+  isAuthenticated = () => (
+    !!sessionStorage.setItem('auth-token')
+  )
+
+  clearAuthData = () => {
+    sessionStorage.removeItem('auth-token');
+  }
+
+  updateProfile = async (payload) => {
+    this.setState({ error: false });
+    try {
+      await updateProfile(payload);
+    } catch (error) {
+      this.setState({ error: true });
+    }
   }
 
   render() {
-    <Provider
-      getAuthToken={this.getAuthToken}
-      clearAuthData={this.clearAuthData}
-      {...this.state}
-    >
-      {this.props.children}
-    </Provider>
+    return (
+      <Provider
+        value={{
+          getProfile: this.getProfile,
+          updateProfile: this.updateProfile,
+          getAuthToken: this.getAuthToken,
+          clearAuthData: this.clearAuthData,
+          isAuthenticated: this.isAuthenticated,
+          ...this.state,
+        }}
+      >
+        {this.props.children}
+      </Provider>
+    );
   }
 }
 
