@@ -1,9 +1,11 @@
 import React, { Component, createRef } from 'react';
 import Chart from 'chart.js';
 
+const chartElRef = createRef();
+
 export default class LineChart extends Component {
   componentDidMount() {
-    const ctx = this.chartElRef.current.getContext('2d');
+    const ctx = chartElRef.current.getContext('2d');
     this.lineChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -25,8 +27,6 @@ export default class LineChart extends Component {
     this.drawChart(props);
   }
 
-  chartElRef = createRef();
-
   drawChart({ labels, data, label }) {
     this.lineChart.data.labels = labels;
     this.lineChart.data.datasets[0].data = data;
@@ -36,7 +36,7 @@ export default class LineChart extends Component {
 
   render() {
     return (
-      <canvas ref={this.chartElRef} />
+      <canvas ref={chartElRef} />
     );
   }
 }

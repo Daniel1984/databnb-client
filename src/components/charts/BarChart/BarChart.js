@@ -2,6 +2,8 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js';
 
+const chartElRef = createRef();
+
 export default class BarChart extends Component {
   static propTypes = {
     type: PropTypes.string,
@@ -13,7 +15,7 @@ export default class BarChart extends Component {
 
   componentDidMount() {
     const { type } = this.props;
-    const ctx = this.chartElRef.current.getContext('2d');
+    const ctx = chartElRef.current.getContext('2d');
 
     this.barChart = new Chart(ctx, {
       type,
@@ -34,8 +36,6 @@ export default class BarChart extends Component {
     this.drawChart(props);
   }
 
-  chartElRef = createRef();
-
   drawChart({
     labels,
     data,
@@ -51,7 +51,7 @@ export default class BarChart extends Component {
 
   render() {
     return (
-      <canvas ref={this.chartElRef} />
+      <canvas ref={chartElRef} />
     );
   }
 }
