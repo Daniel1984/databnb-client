@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import Profile from '../Profile/Profile';
@@ -7,26 +7,19 @@ import Reports from '../Reports/Reports';
 import Properties from '../Properties/Properties';
 import styles from './Settings.scss';
 
-export default class Settings extends Component {
-  static propTypes = {
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }).isRequired,
-    match: PropTypes.shape({
-      url: PropTypes.string,
-    }).isRequired,
-  };
+Settings.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string,
+  }).isRequired,
+};
 
-
-  render() {
-    const { match } = this.props;
-    return (
-      <div className={styles.root}>
-        <Route path={`${match.url}/profile`} component={Profile} />
-        <Route path={`${match.url}/billing`} component={Billing} />
-        <Route path={`${match.url}/reports`} component={Reports} />
-        <Route path={`${match.url}/properties`} component={Properties} />
-      </div>
-    );
-  }
+export default function Settings({ match: { url } }) {
+  return (
+    <div className={styles.root}>
+      <Route path={`${url}/profile`} component={Profile} />
+      <Route path={`${url}/billing`} component={Billing} />
+      <Route path={`${url}/reports`} component={Reports} />
+      <Route path={`${url}/properties`} component={Properties} />
+    </div>
+  );
 }

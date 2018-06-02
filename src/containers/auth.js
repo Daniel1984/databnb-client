@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { login, getProfile, updateProfile } from '../api/auth';
+import { login, getProfile } from '../api/auth';
 
 const { Provider, Consumer } = React.createContext();
 
 const initialState = {
   user: null,
-  error: null,
 };
 
 export class AuthProvider extends Component {
@@ -19,6 +18,8 @@ export class AuthProvider extends Component {
   componentDidMount() {
     if (this.isAuthenticated()) {
       this.getProfile();
+    } else if (!(/login/gi).test(window.location.href)) {
+      window.location.href = '/login';
     }
   }
 
@@ -33,12 +34,10 @@ export class AuthProvider extends Component {
   }
 
   getProfile = async () => {
-    this.setState({ error: false });
     try {
       const { data: user } = await getProfile();
       this.setState({ user });
     } catch (error) {
-      this.setState({ error: true });
       this.clearAuthData();
     }
   }
@@ -50,15 +49,6 @@ export class AuthProvider extends Component {
   clearAuthData = () => {
     sessionStorage.removeItem('auth-token');
     this.setState({ user: null });
-  }
-
-  updateProfile = async (payload) => {
-    this.setState({ error: false });
-    try {
-      await updateProfile(payload);
-    } catch (error) {
-      this.setState({ error: true });
-    }
   }
 
   render() {

@@ -5,9 +5,25 @@ import Modal from 'react-responsive-modal';
 import SettingsContainer from '../Settings/SettingsContainer/SettingsContainer';
 import { Card, Button } from '../../components/common';
 import { ConfirmDeactivateProfile, EditProfile } from '../modals';
+import { withAuthContainer } from '../../containers/auth';
 import styles from './Profile.scss';
 
-export default class Profile extends Component {
+export class Profile extends Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      email: PropTypes.string,
+      createdAt: PropTypes.string,
+      fullName: PropTypes.string,
+      address: PropTypes.string,
+      telephoneNumber: PropTypes.string,
+      plan: PropTypes.string,
+    }),
+  };
+
+  static defaultProps = {
+    user: null,
+  };
+
   state = {
     confirmDeactivateModalOpened: false,
     editProfileModalOpened: false,
@@ -28,7 +44,7 @@ export default class Profile extends Component {
     const { user } = this.props;
     const { confirmDeactivateModalOpened, editProfileModalOpened } = this.state;
 
-    return (
+    return user ? (
       <SettingsContainer>
         <Modal open={confirmDeactivateModalOpened} onClose={this.toggleConfirmDeactiveModal} little>
           <ConfirmDeactivateProfile
@@ -78,6 +94,8 @@ export default class Profile extends Component {
           </div>
         </Fragment>
       </SettingsContainer>
-    );
+    ) : null;
   }
 }
+
+export default withAuthContainer(Profile);

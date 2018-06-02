@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { withAuthContainer } from '../../../containers/auth';
 import { Gravatar } from '../../common';
 import styles from './SettingsMenu.scss';
 
@@ -26,11 +27,15 @@ const settingsMenuLinks = [
 SettingsMenu.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string,
-  }).isRequired,
+  }),
 };
 
-export default function SettingsMenu({ user }) {
-  return (
+SettingsMenu.defaultProps = {
+  user: null,
+};
+
+export function SettingsMenu({ user }) {
+  return user ? (
     <div className={styles.root}>
       <div className={styles.heading}>
         <div className={styles.gravatarHalo}>
@@ -55,5 +60,7 @@ export default function SettingsMenu({ user }) {
         ))}
       </nav>
     </div>
-  );
+  ) : null;
 }
+
+export default withAuthContainer(SettingsMenu);
