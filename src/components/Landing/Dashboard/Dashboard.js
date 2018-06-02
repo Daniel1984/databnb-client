@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Select, Button } from '../../common';
 import socket from '../../../shared/socket';
-import axios from '../../../shared/axios';
-import config from '../../../../config';
 import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import AuthControls from '../AuthControls/AuthControls';
@@ -20,12 +18,9 @@ export default class Dashboard extends Component {
     bedrooms: 2,
     btnText: 'Calculate',
     listings: [],
-    user: null,
   };
 
   componentDidMount() {
-    this.getUserInfo();
-
     socket.get().on('listings', ({ listings }) => {
       const { latlng, bedrooms, address } = this.state;
 
@@ -76,15 +71,6 @@ export default class Dashboard extends Component {
     });
   }
 
-  getUserInfo = async () => {
-    try {
-      const { data: user } = await axios.get(`${config.apiUrl}/me`);
-      this.setState({ user });
-    } catch (error) {
-      this.setState({ user: null });
-    }
-  }
-
   getPricingInfo = () => {
     this.props.updateParentState({ fetchedListings: false });
     this.setState({
@@ -105,7 +91,6 @@ export default class Dashboard extends Component {
       formDisabled,
       listings,
       address,
-      user,
     } = this.state;
 
     return (
@@ -139,7 +124,7 @@ export default class Dashboard extends Component {
           </Button>
         </div>
 
-        <AuthControls user={user} />
+        <AuthControls />
 
         {!!listings.length && (
           <div className={styles.quickSummary}>

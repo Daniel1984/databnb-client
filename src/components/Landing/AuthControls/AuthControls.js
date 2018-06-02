@@ -2,17 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Gravatar } from '../../common';
+import { withAuthContainer } from '../../../containers/auth';
 import styles from './AuthControls.scss';
 
 AuthControls.propTypes = {
   user: PropTypes.shape({}),
+  clearAuthData: PropTypes.func.isRequired,
 };
 
 AuthControls.defaultProps = {
   user: null,
 };
 
-export default function AuthControls({ user }) {
+export function AuthControls({ user, clearAuthData }) {
   return (
     <div className={styles.authControls}>
       {!user && (
@@ -31,7 +33,7 @@ export default function AuthControls({ user }) {
             <Link to="/settings/profile" className={styles.settingsBtn}>Settings</Link>
             <Link
               className={styles.logoutBtn}
-              onClick={() => sessionStorage.clear()}
+              onClick={() => clearAuthData()}
               to="/"
             >
               Logout
@@ -42,3 +44,5 @@ export default function AuthControls({ user }) {
     </div>
   );
 }
+
+export default withAuthContainer(AuthControls);

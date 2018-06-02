@@ -26,6 +26,7 @@ export class AuthProvider extends Component {
     try {
       const { data: { token } } = await login(paylaod);
       sessionStorage.setItem('auth-token', token);
+      this.getProfile();
     } catch (error) {
       throw error;
     }
@@ -38,6 +39,7 @@ export class AuthProvider extends Component {
       this.setState({ user });
     } catch (error) {
       this.setState({ error: true });
+      this.clearAuthData();
     }
   }
 
@@ -47,6 +49,7 @@ export class AuthProvider extends Component {
 
   clearAuthData = () => {
     sessionStorage.removeItem('auth-token');
+    this.setState({ user: null });
   }
 
   updateProfile = async (payload) => {
