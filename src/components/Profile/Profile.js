@@ -9,6 +9,7 @@ import styles from './Profile.scss';
 
 export class Profile extends Component {
   static propTypes = {
+    getProfile: PropTypes.func.isRequired,
     user: PropTypes.shape({
       email: PropTypes.string,
       createdAt: PropTypes.string,
@@ -40,7 +41,7 @@ export class Profile extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, getProfile } = this.props;
     const { confirmDeactivateModalOpened, editProfileModalOpened } = this.state;
 
     return user ? (
@@ -53,7 +54,11 @@ export class Profile extends Component {
         </Modal>
 
         <Modal open={editProfileModalOpened} onClose={this.toggleEditProfileModal} little>
-          <EditProfile onClose={this.toggleEditProfileModal} />
+          <EditProfile
+            user={user}
+            closeEditProfileModal={this.toggleEditProfileModal}
+            fetchProfileDetaild={getProfile}
+          />
         </Modal>
         <div className={styles.card}>
           <Card flex>

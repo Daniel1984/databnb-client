@@ -10,7 +10,8 @@ import styles from './EditProfile.scss';
 
 ProfileEditForm.propTypes = {
   values: PropTypes.shape({
-    onClose: PropTypes.func.isRequired,
+    closeEditProfileModal: PropTypes.func.isRequired,
+    fetchProfileDetaild: PropTypes.func.isRequired,
     email: PropTypes.string,
     address: PropTypes.string,
     fullName: PropTypes.string,
@@ -79,7 +80,7 @@ function ProfileEditForm({
         </FormControl>
         <FormInputError>{errors.error}</FormInputError>
         <div className={styles.footer}>
-          <Button onClick={values.onClose}>
+          <Button onClick={values.closeEditProfileModal}>
             Cancel
           </Button>
           <Button type="submit" kind="success" disabled={hasError || isSubmitting}>
@@ -92,7 +93,7 @@ function ProfileEditForm({
 }
 
 const EditProfileModal = withFormik({
-  mapPropsToValues: ({ user = {}, onClose }) => {
+  mapPropsToValues: ({ user = {}, closeEditProfileModal, fetchProfileDetaild }) => {
     // formic/react does not like null values
     const assignEmptiStringForNullValues = (fields) => {
       Object.keys(fields).forEach((key) => {
@@ -107,7 +108,8 @@ const EditProfileModal = withFormik({
         pick(['email', 'fullName', 'address', 'telephoneNumber', '_id']),
         assignEmptiStringForNullValues
       )(user),
-      onClose,
+      closeEditProfileModal,
+      fetchProfileDetaild,
     };
   },
 
@@ -123,11 +125,12 @@ const EditProfileModal = withFormik({
 
   handleSubmit: async (values, { setSubmitting, setFieldError }) => {
     setSubmitting(false);
-    const { onClose, _id } = values;
+    const { closeEditProfileModal, fetchProfileDetaild, _id } = values;
 
     try {
       await axios.put(`${config.apiUrl}/me/${_id}`, values);
-      onClose();
+      closeEditProfileModal();
+      fetchProfileDetaild();
     } catch (error) {
       setFieldError('error', 'Oops. Something went wrong. Please try again later');
     }
