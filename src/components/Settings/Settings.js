@@ -24,10 +24,12 @@ export default function Settings({ match: { url } }) {
           <SettingsMenu />
         </div>
         <div className={styles.content}>
-          <Route path={`${url}/profile`} component={Profile} />
-          <Route path={`${url}/billing`} component={Billing} />
-          <Route path={`${url}/reports`} component={Reports} />
-          <Route path={`${url}/properties`} component={Properties} />
+          <div className={styles.innerContent}>
+            <Route path={`${url}/profile`} component={Profile} />
+            <Route path={`${url}/billing`} component={Billing} />
+            <Route path={`${url}/reports`} component={Reports} />
+            <Route path={`${url}/properties`} component={Properties} />
+          </div>
         </div>
       </div>
       <div className={styles.footer}>
