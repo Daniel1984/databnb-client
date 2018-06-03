@@ -1,4 +1,4 @@
-@import '../../shared/variables.scss';
+@import '../../../shared/variables.scss';
 
 .headerRow {
   margin-bottom: 20px;
@@ -17,6 +17,6 @@
   color: $colorTextLight;
 }
 
-.card {
-  margin-bottom: 50px;
+.listContainer {
+  margin-top: 50px;
 }

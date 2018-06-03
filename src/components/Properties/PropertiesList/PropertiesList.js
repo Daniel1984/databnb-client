@@ -47,7 +47,7 @@ export default function PropertiesList({ properties }) {
             </div>
           </div>
           <div className={classnames([styles.col, styles.rightAligned])}>
-            <Link to={`/property/${property._id}`}>
+            <Link to={`/settings/properties/${property._id}`}>
               <Button
                 kind="success"
                 className={styles.ovalBtn}

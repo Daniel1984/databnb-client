@@ -5,6 +5,8 @@ import Profile from '../Profile/Profile';
 import Billing from '../Billing/Billing';
 import Reports from '../Reports/Reports';
 import Properties from '../Properties/Properties';
+import { SettingsPageContainer, Navbar, Footer } from '../common';
+import SettingsMenu from './SettingsMenu/SettingsMenu';
 import styles from './Settings.scss';
 
 Settings.propTypes = {
@@ -15,11 +17,22 @@ Settings.propTypes = {
 
 export default function Settings({ match: { url } }) {
   return (
-    <div className={styles.root}>
-      <Route path={`${url}/profile`} component={Profile} />
-      <Route path={`${url}/billing`} component={Billing} />
-      <Route path={`${url}/reports`} component={Reports} />
-      <Route path={`${url}/properties`} component={Properties} />
-    </div>
+    <SettingsPageContainer>
+      <Navbar title="Settings" />
+      <div className={styles.wrapper}>
+        <div className={styles.menu}>
+          <SettingsMenu />
+        </div>
+        <div className={styles.content}>
+          <Route path={`${url}/profile`} component={Profile} />
+          <Route path={`${url}/billing`} component={Billing} />
+          <Route path={`${url}/reports`} component={Reports} />
+          <Route path={`${url}/properties`} component={Properties} />
+        </div>
+      </div>
+      <div className={styles.footer}>
+        <Footer />
+      </div>
+    </SettingsPageContainer>
   );
 }

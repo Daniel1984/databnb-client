@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SettingsPageContainer, Navbar } from '../../components/common';
+import { SettingsPageContainer, Navbar } from '../../../components/common';
 import styles from './Property.scss';
 
 // Property.propTypes = {
@@ -10,9 +10,6 @@ import styles from './Property.scss';
 export default function Property({ propertyId }) {
   console.log('gt hete')
   return (
-    <SettingsPageContainer>
-      <Navbar title="Property" />
-      <div>property</div>
-    </SettingsPageContainer>
+    <div>property</div>
   );
 }
