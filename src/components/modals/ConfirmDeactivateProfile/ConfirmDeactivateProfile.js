@@ -25,7 +25,7 @@ export class ConfirmDeactivateProfile extends Component {
     try {
       await axios.post(`${config.apiUrl}/deactivate-account`, {});
       this.props.onClose();
-      sessionStorage.clear();
+      localStorage.clear();
       this.props.history.push('/signup');
     } catch (error) {
       this.setState({ deactivateButtonDisabled: false });

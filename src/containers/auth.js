@@ -18,7 +18,7 @@ export class AuthProvider extends Component {
   componentDidMount() {
     if (this.isAuthenticated()) {
       this.getProfile();
-    } else if (!(/login/gi).test(window.location.href)) {
+    } else if (!(/login/gi).test(window.location.href) && window.location.pathname !== '/') {
       window.location.href = '/login';
     }
   }
@@ -26,7 +26,7 @@ export class AuthProvider extends Component {
   getAuthToken = async (paylaod) => {
     try {
       const { data: { token } } = await login(paylaod);
-      sessionStorage.setItem('auth-token', token);
+      localStorage.setItem('auth-token', token);
       this.getProfile();
     } catch (error) {
       throw error;
@@ -43,11 +43,11 @@ export class AuthProvider extends Component {
   }
 
   isAuthenticated = () => (
-    !!sessionStorage.getItem('auth-token')
+    !!localStorage.getItem('auth-token')
   )
 
   clearAuthData = () => {
-    sessionStorage.removeItem('auth-token');
+    localStorage.removeItem('auth-token');
     this.setState({ user: null });
   }
 

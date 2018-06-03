@@ -1,52 +1,31 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-responsive-modal';
-import { getUserProperties } from '../../../api/userProperties';
+import { withPropertiesContainer } from '../../../containers/Properties';
 import { SpinnerLoader, Card, Button } from '../../common';
 import AddNewProperty from '../AddNewProperty/AddNewProperty';
 import PropertiesList from '../PropertiesList/PropertiesList';
 import styles from './PropertySettings.scss';
 
-export default class PropertySettings extends Component {
-  state = {
-    addNewPropertyModalOpened: false,
-    properties: [],
-    error: null,
-    isLoading: true,
+export class PropertySettings extends Component {
+  static propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
+    properties: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   };
 
-  componentDidMount() {
-    this.loadUserProperties();
-  }
-
-  loadUserProperties = async () => {
-    this.setState({ isLoading: true });
-
-    try {
-      const { data } = await getUserProperties();
-      this.setState({
-        properties: data,
-        isLoading: false,
-      });
-    } catch (error) {
-      this.setState({
-        error: 'Oops. Something went wrong. Try again later',
-        isLoading: false,
-        properties: [],
-      });
-    }
-  }
+  state = {
+    addNewPropertyModalOpened: false,
+  };
 
   toggleAddPropertyModal = () => {
     this.setState({ addNewPropertyModalOpened: !this.state.addNewPropertyModalOpened });
   }
 
   render() {
-    const {
-      addNewPropertyModalOpened,
-      isLoading,
-      error,
-      properties,
-    } = this.state;
+    const { addNewPropertyModalOpened } = this.state;
+    const { isLoading, error, properties } = this.props;
+
     return (
       <Fragment>
         <Modal open={addNewPropertyModalOpened} onClose={this.toggleAddPropertyModal} little>
@@ -79,3 +58,5 @@ export default class PropertySettings extends Component {
     );
   }
 }
+
+export default withPropertiesContainer(PropertySettings);

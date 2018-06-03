@@ -12,7 +12,7 @@ import {
   FormInputError,
   Navbar,
 } from '../../components/common';
-import { withAuthContainer } from '../../containers/auth';
+import { withAuthContainer } from '../../containers/Auth';
 import styles from './Login.scss';
 
 InnerLoginForm.propTypes = {

@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import Modal from 'react-responsive-modal';
 import { Card, Button } from '../../components/common';
 import { ConfirmDeactivateProfile, EditProfile } from '../modals';
-import { withAuthContainer } from '../../containers/auth';
+import { withAuthContainer } from '../../containers/Auth';
 import styles from './Profile.scss';
 
 export class Profile extends Component {

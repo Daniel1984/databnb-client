@@ -12,7 +12,7 @@ import FourOfour from './components/FourOfour/FourOfour';
 import RegistrationThankYou from './components/RegistrationThankYou/RegistrationThankYou';
 import Settings from './components/Settings/Settings';
 // import Property from './components/Property/Property';
-import { AuthProvider } from './containers/auth';
+import { AuthProvider } from './containers/Auth';
 import './index.scss';
 
 // bugsnag('48900f3e09cc8859e1e9220b2439f97a');

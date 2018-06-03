@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Gravatar } from '../../common';
-import { withAuthContainer } from '../../../containers/auth';
+import { withAuthContainer } from '../../../containers/Auth';
 import styles from './AuthControls.scss';
 
 AuthControls.propTypes = {

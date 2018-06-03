@@ -3,7 +3,7 @@ import axios from 'axios';
 const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use((instance) => {
-  const token = sessionStorage.getItem('auth-token');
+  const token = localStorage.getItem('auth-token');
 
   if (token) {
     instance.headers['x-access-token'] = token;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { withAuthContainer } from '../../../containers/auth';
+import { withAuthContainer } from '../../../containers/Auth';
 import { Gravatar } from '../../common';
 import styles from './SettingsMenu.scss';
 
