@@ -13,12 +13,15 @@ Settings.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string,
   }).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
 };
 
-export default function Settings({ match: { url } }) {
+export default function Settings({ match: { url }, history: { goBack } }) {
   return (
     <SettingsPageContainer>
-      <Navbar title="Settings" />
+      <Navbar title="Settings" goBack={goBack} />
       <div className={styles.wrapper}>
         <div className={styles.menu}>
           <SettingsMenu />
