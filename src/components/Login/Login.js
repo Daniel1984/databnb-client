@@ -19,13 +19,21 @@ InnerLoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   errors: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
 };
 
-function InnerLoginForm({ errors, handleSubmit, isSubmitting }) {
+function InnerLoginForm({
+  errors,
+  handleSubmit,
+  isSubmitting,
+  history: { goBack },
+}) {
   const hasError = !!Object.keys(errors).length;
   return (
     <SettingsPageContainer>
-      <Navbar title="META BNB" />
+      <Navbar title="META BNB" goBack={goBack} />
       <div className={styles.cardContainer}>
         <Card title="Login">
           <Form className={styles.form} onSubmit={handleSubmit}>

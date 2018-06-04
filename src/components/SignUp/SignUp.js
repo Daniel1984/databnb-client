@@ -21,6 +21,7 @@ InnerSignupForm.propTypes = {
   errors: PropTypes.shape({}).isRequired,
   values: PropTypes.shape({
     successMsg: PropTypes.string,
+    goBack: PropTypes.func,
   }).isRequired,
 };
 
@@ -34,7 +35,7 @@ function InnerSignupForm({
 
   return (
     <SettingsPageContainer>
-      <Navbar title="META BNB" />
+      <Navbar title="META BNB" goBack={values.goBack} />
       <div className={styles.cardContainer}>
         <Card title="Sign Up">
           {!values.successMsg && (
@@ -84,10 +85,11 @@ function InnerSignupForm({
 }
 
 export default withFormik({
-  mapPropsToValues: () => ({
+  mapPropsToValues: ({ history: { goBack } }) => ({
     email: '',
     password: '',
     successMsg: '',
+    goBack,
   }),
 
   validate({ email, password }) {

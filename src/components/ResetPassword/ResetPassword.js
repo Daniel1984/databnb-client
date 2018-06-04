@@ -20,6 +20,7 @@ InnerResetPasswordForm.propTypes = {
   errors: PropTypes.shape({}).isRequired,
   values: PropTypes.shape({
     successMsg: PropTypes.string,
+    goBack: PropTypes.func,
   }).isRequired,
 };
 
@@ -33,7 +34,7 @@ function InnerResetPasswordForm({
 
   return (
     <SettingsPageContainer>
-      <Navbar title="META BNB" />
+      <Navbar title="META BNB" goBack={values.goBack} />
       <div className={styles.cardContainer}>
         <Card title="Reset Password">
           {!values.successMsg && (
@@ -70,9 +71,10 @@ function InnerResetPasswordForm({
 }
 
 export default withFormik({
-  mapPropsToValues: () => ({
+  mapPropsToValues: ({ history: { goBack } }) => ({
     email: '',
     successMsg: '',
+    goBack,
   }),
 
   validate({ email }) {

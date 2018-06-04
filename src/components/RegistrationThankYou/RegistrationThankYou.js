@@ -9,14 +9,17 @@ RegistrationThankYou.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
 };
 
-export default function RegistrationThankYou({ location }) {
+export default function RegistrationThankYou({ location, history: { goBack } }) {
   const { email } = parse(location.search.substr(1));
 
   return (
     <SettingsPageContainer>
-      <Navbar title="META BNB" />
+      <Navbar title="META BNB" goBack={goBack} />
       <div className={styles.cardContainer}>
         <Card title="Thank you for registering with Metabnb!">
           <div className={styles.message}>
