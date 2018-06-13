@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Map from '../../Map/Map';
+import PropertiesMap from '../../PropertiesMap/PropertiesMap';
 import Dashboard from '../Dashboard/Dashboard';
 import styles from './Heading.scss';
 
@@ -33,7 +33,7 @@ export default function Heading({ latlng, listings, updateParentState }) {
         )}
         {!!listings.length && (
           <div className={styles.mapContainer}>
-            <Map latlng={latlng} listings={listings} />
+            <PropertiesMap latlng={latlng} listings={listings} />
           </div>
         )}
       </div>
