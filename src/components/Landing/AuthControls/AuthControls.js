@@ -30,7 +30,7 @@ export function AuthControls({ user, clearAuthData }) {
             <Gravatar email={user.email} size={200} />
           </div>
           <div className={styles.ctaContainer}>
-            <Link to="/settings/profile" className={styles.settingsBtn}>Settings</Link>
+            <Link to="/settings/profile" className={styles.settingsBtn}>Account</Link>
             <Link
               className={styles.logoutBtn}
               onClick={() => clearAuthData()}

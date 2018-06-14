@@ -7,8 +7,10 @@ const { Provider, Consumer } = React.createContext();
 const initialState = {
   properties: [],
   selectedProperty: null,
-  error: '',
-  isLoading: false,
+  errorGettingProperties: '',
+  errorGettingProperty: '',
+  isLoadingProperties: false,
+  isLoadingProperty: false,
 };
 
 export class PropertiesProvider extends Component {
@@ -24,8 +26,8 @@ export class PropertiesProvider extends Component {
 
   getPropertyById = async (id) => {
     this.setState({
-      isLoading: true,
-      error: '',
+      isLoadingProperty: false,
+      errorGettingProperty: '',
     });
 
     try {
@@ -36,7 +38,7 @@ export class PropertiesProvider extends Component {
       });
     } catch (error) {
       this.setState({
-        error: 'Oops. Something went wrong. Try again later',
+        errorGettingProperty: 'Oops. Something went wrong. Try again later',
         isLoading: false,
         selectedProperty: null,
       });
@@ -45,21 +47,21 @@ export class PropertiesProvider extends Component {
 
   loadUserProperties = async () => {
     this.setState({
-      isLoading: true,
-      error: '',
+      isLoadingProperties: true,
+      errorGettingProperties: '',
     });
 
     try {
       const { data } = await getUserProperties();
       this.setState({
         properties: data,
-        isLoading: false,
-        error: '',
+        isLoadingProperties: false,
+        errorGettingProperties: '',
       });
     } catch (error) {
       this.setState({
-        error: 'Oops. Something went wrong. Try again later',
-        isLoading: false,
+        errorGettingProperties: 'Oops. Something went wrong. Try again later',
+        isLoadingProperties: false,
         properties: [],
       });
     }

@@ -19,11 +19,12 @@ $fontMedium: 500;
 $fontBold: 700;
 $fontBlack: 800;
 
+$inputOutline: rgb(46, 162, 248);
 $ctaDanger: $colorPrimary;
 $ctaSuccess: rgb(27, 185, 52);
 $ctaDefault: rgb(175, 183, 194);
 $ctaDisabled: rgb( 243, 245, 249);
-$inputOutline: rgb(46, 162, 248);
+$ctaInfo: $inputOutline;
 
 $transitionFast: .1s;
 $transitionMedium: .2s;

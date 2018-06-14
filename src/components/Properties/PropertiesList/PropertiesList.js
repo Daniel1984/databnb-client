@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import BedIcon from 'react-icons/lib/fa/bed';
 import HomeIcon from 'react-icons/lib/fa/home';
 import GuestIcon from 'react-icons/lib/md/person';
-import EditIcon from 'react-icons/lib/fa/edit';
+import EditIcon from 'react-icons/lib/io/edit';
+import DeleteIcon from 'react-icons/lib/md/delete-forever';
+import RefreshIcon from 'react-icons/lib/io/android-refresh';
 import { Button } from '../../common';
 import styles from './PropertiesList.scss';
 
@@ -47,9 +49,26 @@ export default function PropertiesList({ properties }) {
             </div>
           </div>
           <div className={classnames([styles.col, styles.rightAligned])}>
+            <Button
+              kind="danger"
+              title="Remove listing"
+              className={styles.ovalBtn}
+              onClick={() => console.log('dddd')}
+            >
+              <DeleteIcon />
+            </Button>
+            <Button
+              kind="success"
+              title="Refresh listing data"
+              className={styles.ovalBtn}
+              onClick={() => console.log('dddd')}
+            >
+              <RefreshIcon />
+            </Button>
             <Link to={`/settings/properties/${property._id}`}>
               <Button
-                kind="success"
+                title="Edit listing notifications"
+                kind="info"
                 className={styles.ovalBtn}
                 onClick={() => console.log('dddd')}
               >

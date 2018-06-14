@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import styles from './Button.scss';
 
 Button.propTypes = {
-  kind: PropTypes.oneOf(['success', 'danger', 'default', 'link']),
+  kind: PropTypes.oneOf(['success', 'danger', 'default', 'link', 'info']),
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };

@@ -51,6 +51,11 @@
   @include buttonStates($ctaDefault);
 }
 
+.info {
+  background-color: $ctaInfo;
+  @include buttonStates($ctaInfo);
+}
+
 .link {
   color: $colorTextLight;
   background-color: transparent;

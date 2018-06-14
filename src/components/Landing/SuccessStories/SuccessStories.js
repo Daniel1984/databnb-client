@@ -30,7 +30,7 @@ export default function SuccessStories() {
 
             <div className={styles.storyBlock}>
               <div className={styles.storyLabel}>Income increase:</div>
-              <div className={styles.storyValue}>37.5%</div>
+              <div className={styles.storyValue}>17.5%</div>
             </div>
           </div>
         </div>

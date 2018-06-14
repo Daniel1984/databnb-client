@@ -53,7 +53,7 @@ function InnerAddNewPropertyForm({
             Cancel
           </Button>
           <Button disabled={hasError || isSubmitting} kind="success" type="submit">
-            Submit
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </Button>
         </div>
       </Form>
@@ -62,9 +62,10 @@ function InnerAddNewPropertyForm({
 }
 
 export default withFormik({
-  mapPropsToValues: ({ onClose }) => ({
+  mapPropsToValues: ({ onClose, onAddPropertySuccess }) => ({
     propertyId: '',
     onClose,
+    onAddPropertySuccess,
   }),
 
   validate({ propertyId }) {
@@ -86,13 +87,14 @@ export default withFormik({
   },
 
   handleSubmit: async (values, { setSubmitting, setFieldError }) => {
-    setSubmitting(false);
+    setSubmitting(true);
 
     try {
-      const { onClose, propertyId } = values;
-      onClose();
+      const { onAddPropertySuccess, propertyId } = values;
       await axios.post(`${config.apiUrl}/property`, { propertyId: propertyId.match(/\/rooms\/(\d+)/)[1] });
+      onAddPropertySuccess();
     } catch ({ response: { data } }) {
+      setSubmitting(false);
       setFieldError('propertyId', data.err);
     }
   },
