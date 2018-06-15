@@ -28,7 +28,6 @@ export class Property extends Component {
 
   render() {
     const { selectedProperty, isLoadingProperty, errorGettingProperty } = this.props;
-    console.log(isLoadingProperty)
 
     return (
       <Fragment>
