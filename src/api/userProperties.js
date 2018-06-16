@@ -9,3 +9,7 @@ export const getUserProperties = () => (
 export const getUserProperty = id => (
   axios.get(`${config.apiUrl}/property/${id}`)
 );
+
+export const removeUserFromProperty = id => (
+  axios.put(`${config.apiUrl}/property/removeUser/${id}`)
+);

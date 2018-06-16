@@ -52,9 +52,7 @@ export class Property extends Component {
                 <Popup>
                   <div
                     className={styles.heroImage}
-                    style={{
-                      backgroundImage: `url(${selectedProperty.picture_url})`,
-                    }}
+                    style={{ backgroundImage: `url(${selectedProperty.picture_url})` }}
                   />
                 </Popup>
               </Marker>

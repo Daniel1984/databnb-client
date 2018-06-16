@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { login, getProfile } from '../api/auth';
+import { login, getProfile } from '../api/user';
 
 const { Provider, Consumer } = React.createContext();
 

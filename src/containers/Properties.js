@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getUserProperties, getUserProperty } from '../api/userProperties';
+import { getUserProperties, getUserProperty, removeUserFromProperty } from '../api/userProperties';
 
 const { Provider, Consumer } = React.createContext();
 
@@ -9,8 +9,10 @@ const initialState = {
   selectedProperty: null,
   errorGettingProperties: '',
   errorGettingProperty: '',
+  errorDeletingProperty: '',
   isLoadingProperties: false,
   isLoadingProperty: false,
+  isDeletingProperty: false,
 };
 
 export class PropertiesProvider extends Component {
@@ -56,7 +58,6 @@ export class PropertiesProvider extends Component {
       this.setState({
         properties: data,
         isLoadingProperties: false,
-        errorGettingProperties: '',
       });
     } catch (error) {
       this.setState({
@@ -67,12 +68,30 @@ export class PropertiesProvider extends Component {
     }
   }
 
+  deleteUserProperty = async (id) => {
+    this.setState({
+      isDeletingProperty: true,
+      errorDeletingProperty: '',
+    });
+
+    try {
+      await removeUserFromProperty(id);
+      this.setState({ isDeletingProperty: false });
+    } catch (error) {
+      this.setState({
+        errorDeletingProperty: 'Oops. Something went wrong. Try again later',
+        isDeletingProperty: false,
+      });
+    }
+  }
+
   render() {
     return (
       <Provider
         value={{
           loadUserProperties: this.loadUserProperties,
           getPropertyById: this.getPropertyById,
+          deleteUserProperty: this.deleteUserProperty,
           ...this.state,
         }}
       >
