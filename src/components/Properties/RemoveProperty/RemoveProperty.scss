@@ -1,0 +1,23 @@
+@import '../../../shared/variables.scss';
+
+.root {
+  min-width: 400px;
+}
+
+.title {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  font-weight: $fontSemi;
+}
+
+.footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.propertyName {
+  margin: 10px 0;
+  font-style: italic;
+  font-weight: $fontMedium;
+}
