@@ -4,7 +4,7 @@ import Modal from 'react-responsive-modal';
 import { withPropertiesContainer } from '../../../containers/Properties';
 import { SpinnerLoader, Card, Button, InfoBox } from '../../common';
 import AddNewProperty from '../AddNewProperty/AddNewProperty';
-import PropertiesList from '../PropertiesList/PropertiesList';
+import PropertyList from '../PropertyList/PropertyList';
 import styles from './PropertySettings.scss';
 
 export class PropertySettings extends Component {
@@ -64,7 +64,7 @@ export class PropertySettings extends Component {
           )}
 
           {!!properties.length && (
-            <PropertiesList properties={properties} />
+            <PropertyList properties={properties} />
           )}
         </div>
       </Fragment>

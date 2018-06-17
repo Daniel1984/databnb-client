@@ -11,9 +11,9 @@ import DeleteIcon from 'react-icons/lib/md/delete-forever';
 import RefreshIcon from 'react-icons/lib/io/android-refresh';
 import RemoveProperty from '../RemoveProperty/RemoveProperty';
 import { Button } from '../../common';
-import styles from './PropertiesList.scss';
+import styles from './PropertyList.scss';
 
-export default class PropertiesList extends Component {
+export default class PropertyList extends Component {
   static propTypes = {
     properties: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   };
@@ -39,12 +39,12 @@ export default class PropertiesList extends Component {
                 closeModal={this.toggleConfirmDeleteModal}
               />
             </Modal>
+
             <div
               className={styles.img}
-              style={{
-                backgroundImage: `url(${property.picture_url})`,
-              }}
+              style={{ backgroundImage: `url(${property.picture_url})` }}
             />
+
             <div className={styles.col}>
               <div className={styles.title}>
                 {property.name}
@@ -67,6 +67,7 @@ export default class PropertiesList extends Component {
                 {property.localized_city}
               </div>
             </div>
+
             <div className={classnames([styles.col, styles.rightAligned])}>
               <Button
                 kind="danger"
