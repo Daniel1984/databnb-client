@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { SpinnerLoader, Card, Button, InfoBox } from '../../common';
 import { withPropertiesContainer } from '../../../containers/Properties';
+import PropertyMap from './PropertyMap/PropertyMap';
 import styles from './Property.scss';
 
 export class Property extends Component {
@@ -41,22 +41,8 @@ export class Property extends Component {
 
         {selectedProperty && (
           <Fragment>
-            <Map
-              scrollWheelZoom={false}
-              center={[selectedProperty.lat, selectedProperty.lng]}
-              zoom={14}
-              className={styles.map}
-            >
-              <TileLayer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
-              <Marker position={[selectedProperty.lat, selectedProperty.lng]}>
-                <Popup>
-                  <div
-                    className={styles.heroImage}
-                    style={{ backgroundImage: `url(${selectedProperty.picture_url})` }}
-                  />
-                </Popup>
-              </Marker>
-            </Map>
+            <PropertyMap property={selectedProperty} />
+            <div className={styles.propertyName}>{selectedProperty.name}</div>
           </Fragment>
         )}
       </Fragment>
