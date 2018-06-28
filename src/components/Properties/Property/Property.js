@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { SpinnerLoader, Card, Button, InfoBox } from '../../common';
+import { SpinnerLoader, InfoBox } from '../../common';
 import { withPropertiesContainer } from '../../../containers/Properties';
 import PropertyMap from './PropertyMap/PropertyMap';
 import styles from './Property.scss';

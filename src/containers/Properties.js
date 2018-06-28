@@ -22,10 +22,6 @@ export class PropertiesProvider extends Component {
 
   state = initialState;
 
-  componentDidMount() {
-    this.loadUserProperties();
-  }
-
   getPropertyById = async (id) => {
     this.setState({
       isLoadingProperty: false,
@@ -33,9 +29,10 @@ export class PropertiesProvider extends Component {
     });
 
     try {
-      const { data } = await getUserProperty(id);
+      const { data: { listing, nearbyListings } } = await getUserProperty(id);
       this.setState({
-        selectedProperty: data,
+        selectedProperty: listing,
+        nearbyListings,
         isLoading: false,
       });
     } catch (error) {

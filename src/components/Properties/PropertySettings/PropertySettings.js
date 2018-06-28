@@ -19,6 +19,10 @@ export class PropertySettings extends Component {
     addNewPropertyModalOpened: false,
   };
 
+  componentDidMount = () => {
+    this.props.loadUserProperties();
+  }
+
   toggleAddPropertyModal = () => {
     this.setState({ addNewPropertyModalOpened: !this.state.addNewPropertyModalOpened });
   }
