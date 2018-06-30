@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import customHouseMarkerIcon from '../../../../shared/customHouseMarkerIcon';
+import { PropertyMarkerPopup } from '../../../common';
 import styles from './PropertyMap.scss';
 
 PropertyMap.propTypes = {
@@ -9,23 +11,41 @@ PropertyMap.propTypes = {
     lng: PropTypes.number,
     picture_url: PropTypes.string,
   }).isRequired,
+  nearbyListings: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-export default function PropertyMap({ property }) {
+PropertyMap.defaultProps = {
+  nearbyListings: [],
+};
+
+export default function PropertyMap({ property, nearbyListings }) {
   return (
     <Map
       scrollWheelZoom={false}
       center={[property.lat, property.lng]}
-      zoom={14}
+      bounds={nearbyListings.map(({ lat, lng }) => [lat, lng])}
       className={styles.map}
     >
       <TileLayer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
-      <Marker position={[property.lat, property.lng]}>
+      {nearbyListings.map(({
+        lat,
+        lng,
+        id,
+        picture_url,
+      }) => (
+        <Marker
+          position={[lat, lng]}
+          key={id}
+        >
+          <PropertyMarkerPopup picUrl={picture_url} id={id} />
+        </Marker>
+      ))}
+      <Marker
+        icon={customHouseMarkerIcon}
+        position={[property.lat, property.lng]}
+      >
         <Popup>
-          <div
-            className={styles.heroImage}
-            style={{ backgroundImage: `url(${property.picture_url})` }}
-          />
+          <PropertyMarkerPopup picUrl={property.picture_url} id={property.id} />
         </Popup>
       </Marker>
     </Map>

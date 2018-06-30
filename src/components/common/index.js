@@ -13,3 +13,4 @@ export { default as SpinnerLoader } from './SpinnerLoader/SpinnerLoader';
 export { default as Navbar } from './Navbar/Navbar';
 export { default as Footer } from './Footer/Footer';
 export { default as InfoBox } from './InfoBox/InfoBox';
+export { default as PropertyMarkerPopup } from './PropertyMarkerPopup/PropertyMarkerPopup';

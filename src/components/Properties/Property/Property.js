@@ -14,12 +14,14 @@ export class Property extends Component {
     }).isRequired,
     getPropertyById: PropTypes.func.isRequired,
     selectedProperty: PropTypes.shape({}),
+    nearbyListings: PropTypes.arrayOf(PropTypes.shape({})),
     isLoadingProperty: PropTypes.bool.isRequired,
     errorGettingProperty: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
     selectedProperty: null,
+    nearbyListings: null,
   }
 
   componentDidMount = () => {
@@ -27,7 +29,12 @@ export class Property extends Component {
   }
 
   render() {
-    const { selectedProperty, isLoadingProperty, errorGettingProperty } = this.props;
+    const {
+      selectedProperty,
+      isLoadingProperty,
+      errorGettingProperty,
+      nearbyListings,
+    } = this.props;
 
     return (
       <Fragment>
@@ -41,7 +48,7 @@ export class Property extends Component {
 
         {selectedProperty && (
           <Fragment>
-            <PropertyMap property={selectedProperty} />
+            <PropertyMap property={selectedProperty} nearbyListings={nearbyListings} />
             <div className={styles.propertyName}>{selectedProperty.name}</div>
           </Fragment>
         )}

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, TileLayer, Marker } from 'react-leaflet';
 import customHouseMarkerIcon from '../../shared/customHouseMarkerIcon';
-import LinkIcon from 'react-icons/lib/fa/external-link';
+import { PropertyMarkerPopup } from '../common';
 import styles from './PropertiesMap.scss';
 
 PropertiesMap.propTypes = {
@@ -18,7 +18,6 @@ PropertiesMap.propTypes = {
 };
 
 export default function PropertiesMap({ latlng: { lat, lng }, listings }) {
-  console.log(listings)
   return (
     <div className={styles.root}>
       <Map
@@ -42,20 +41,7 @@ export default function PropertiesMap({ latlng: { lat, lng }, listings }) {
             position={[lat, lng]}
             key={id}
           >
-            <Popup>
-              <div
-                className={styles.popupImage}
-                style={{ backgroundImage: `url(${picture_url})` }}
-              />
-              <a
-                className={styles.link}
-                rel="noopener noreferrer"
-                target="_blank"
-                href={`http://airbnb.com/rooms/${id}`}
-              >
-                View Property <LinkIcon />
-              </a>
-            </Popup>
+            <PropertyMarkerPopup picUrl={picture_url} id={id} />
           </Marker>
         ))}
       </Map>
