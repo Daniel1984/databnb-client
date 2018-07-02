@@ -91,7 +91,7 @@ export default withFormik({
 
     try {
       const { onAddPropertySuccess, propertyId } = values;
-      await axios.post(`${config.apiUrl}/property`, { propertyId: propertyId.match(/\/rooms\/(\d+)/)[1] });
+      await axios.post(`${config.apiUrl}/properties`, { propertyId: propertyId.match(/\/rooms\/(\d+)/)[1] });
       onAddPropertySuccess();
     } catch ({ response: { data } }) {
       setSubmitting(false);

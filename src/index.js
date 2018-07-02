@@ -3,6 +3,7 @@ import bugsnag from 'bugsnag-js';
 import 'reset-css'; // eslint-disable-line
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { render } from 'react-dom';
+import socketio from './shared/socket';
 import Landing from './components/Landing/Landing';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
@@ -16,6 +17,7 @@ import { AuthProvider } from './containers/Auth';
 import './index.scss';
 
 // bugsnag('48900f3e09cc8859e1e9220b2439f97a');
+socketio.init();
 
 const Metabnb = () => (
   <Router>

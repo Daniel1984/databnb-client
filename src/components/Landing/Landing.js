@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Footer } from '../common';
-import socketio from '../../shared/socket';
 import Heading from './Heading/Heading';
 import PlatformFeatures from './PlatformFeatures/PlatformFeatures';
 import PricingResults from './PricingResults/PricingResults';
@@ -17,10 +16,6 @@ export default class Landing extends Component {
     address: '',
     fetchedListings: false,
   };
-
-  componentWillMount() {
-    socketio.init();
-  }
 
   updateState(payload) {
     this.setState(payload);

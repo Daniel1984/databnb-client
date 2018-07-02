@@ -23,7 +23,7 @@ export default function PropertyMap({ property, nearbyListings }) {
     <Map
       scrollWheelZoom={false}
       center={[property.lat, property.lng]}
-      bounds={nearbyListings.map(({ lat, lng }) => [lat, lng])}
+      zoom={16}
       className={styles.map}
     >
       <TileLayer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />

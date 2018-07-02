@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import socket from '../shared/socket';
 import { getUserProperties, getUserProperty, removeUserFromProperty } from '../api/userProperties';
 
 const { Provider, Consumer } = React.createContext();
@@ -22,23 +23,53 @@ export class PropertiesProvider extends Component {
 
   state = initialState;
 
+  componentDidMount() {
+    socket.get().on('get:nearbyListings', ({ listings }) => {
+      this.setState({ nearbyListings: listings });
+    });
+
+    socket.get().on('get:nearbyListing', ({ listing }) => {
+      this.setState({
+        nearbyListings: [...this.state.nearbyListings, listing],
+      });
+    });
+
+    socket.get().on('nearbyListings:loadingInfo', ({ msg }) => {
+      this.setState({ loadingPropertyInfo: msg });
+    });
+
+    socket.get().on('nearbyListings:done', () => {
+      this.state({
+        isLoadingProperty: false,
+        loadingPropertyInfo: '',
+      });
+    });
+  }
+
   getPropertyById = async (id) => {
     this.setState({
-      isLoadingProperty: false,
+      isLoadingProperty: true,
       errorGettingProperty: '',
     });
 
     try {
       const { data: { listing, nearbyListings } } = await getUserProperty(id);
-      this.setState({
-        selectedProperty: listing,
-        nearbyListings,
-        isLoading: false,
-      });
+
+      if (nearbyListings.length) {
+        this.setState({
+          nearbyListings,
+          isLoadingProperty: false,
+          selectedProperty: listing,
+        });
+        return;
+      }
+
+      const { geo: { coordinates } } = listing;
+      socket.get().emit('getNearbyListings', { coordinates });
     } catch (error) {
       this.setState({
         errorGettingProperty: 'Oops. Something went wrong. Try again later',
-        isLoading: false,
+        isLoadingProperty: false,
         selectedProperty: null,
       });
     }
