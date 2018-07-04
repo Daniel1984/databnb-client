@@ -16,6 +16,7 @@ export class Property extends Component {
     selectedProperty: PropTypes.shape({}),
     nearbyListings: PropTypes.arrayOf(PropTypes.shape({})),
     isLoadingProperty: PropTypes.bool.isRequired,
+    loadingPropertyMsg: PropTypes.string.isRequired,
     errorGettingProperty: PropTypes.string.isRequired,
   };
 
@@ -34,14 +35,11 @@ export class Property extends Component {
       isLoadingProperty,
       errorGettingProperty,
       nearbyListings,
+      loadingPropertyMsg,
     } = this.props;
 
     return (
       <Fragment>
-        {isLoadingProperty && (
-          <SpinnerLoader />
-        )}
-
         {errorGettingProperty && (
           <InfoBox>{errorGettingProperty}</InfoBox>
         )}
@@ -51,6 +49,15 @@ export class Property extends Component {
             <PropertyMap property={selectedProperty} nearbyListings={nearbyListings} />
             <div className={styles.propertyName}>{selectedProperty.name}</div>
           </Fragment>
+        )}
+
+        {isLoadingProperty && (
+          <div className={styles.loadingContainer}>
+            <SpinnerLoader />
+            <div className={styles.loadingMsg}>
+              {loadingPropertyMsg}
+            </div>
+          </div>
         )}
       </Fragment>
     );

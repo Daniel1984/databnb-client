@@ -7,6 +7,7 @@ const { Provider, Consumer } = React.createContext();
 
 const initialState = {
   properties: [],
+  nearbyListings: [],
   selectedProperty: null,
   errorGettingProperties: '',
   errorGettingProperty: '',
@@ -14,6 +15,7 @@ const initialState = {
   isLoadingProperties: false,
   isLoadingProperty: false,
   isDeletingProperty: false,
+  loadingPropertyMsg: '',
 };
 
 export class PropertiesProvider extends Component {
@@ -24,24 +26,20 @@ export class PropertiesProvider extends Component {
   state = initialState;
 
   componentDidMount() {
-    socket.get().on('get:nearbyListings', ({ listings }) => {
-      this.setState({ nearbyListings: listings });
+    socket.get().on('getListings:loadingInfo', ({ msg }) => {
+      this.setState({ loadingPropertyMsg: msg });
     });
 
-    socket.get().on('get:nearbyListing', ({ listing }) => {
+    socket.get().on('listing', ({ listing }) => {
       this.setState({
-        nearbyListings: [...this.state.nearbyListings, listing],
+        nearbyListings: [...this.state.nearbyListings, ...listing],
       });
-    });
-
-    socket.get().on('nearbyListings:loadingInfo', ({ msg }) => {
-      this.setState({ loadingPropertyInfo: msg });
     });
 
     socket.get().on('nearbyListings:done', () => {
       this.state({
         isLoadingProperty: false,
-        loadingPropertyInfo: '',
+        loadingPropertyMsg: '',
       });
     });
   }
@@ -53,19 +51,18 @@ export class PropertiesProvider extends Component {
     });
 
     try {
-      const { data: { listing, nearbyListings } } = await getUserProperty(id);
+      const { data: { listing, nearbyListings = [] } } = await getUserProperty(id);
 
-      if (nearbyListings.length) {
-        this.setState({
-          nearbyListings,
-          isLoadingProperty: false,
-          selectedProperty: listing,
-        });
-        return;
+      this.setState({
+        nearbyListings,
+        isLoadingProperty: !nearbyListings.length,
+        selectedProperty: listing,
+      });
+
+      if (!nearbyListings.length) {
+        const { location_title } = listing;
+        socket.get().emit('getNearbyListings', { location_title });
       }
-
-      const { geo: { coordinates } } = listing;
-      socket.get().emit('getNearbyListings', { coordinates });
     } catch (error) {
       this.setState({
         errorGettingProperty: 'Oops. Something went wrong. Try again later',
