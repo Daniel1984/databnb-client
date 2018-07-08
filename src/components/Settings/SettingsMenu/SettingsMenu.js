@@ -11,14 +11,6 @@ const settingsMenuLinks = [
     name: 'Profile',
   },
   {
-    href: '/settings/billing',
-    name: 'Billing',
-  },
-  {
-    href: '/settings/reports',
-    name: 'Reports',
-  },
-  {
     href: '/settings/properties',
     name: 'Properties',
   },

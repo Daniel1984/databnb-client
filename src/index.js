@@ -12,7 +12,6 @@ import ChangePassword from './components/ChangePassword/ChangePassword';
 import FourOfour from './components/FourOfour/FourOfour';
 import RegistrationThankYou from './components/RegistrationThankYou/RegistrationThankYou';
 import Settings from './components/Settings/Settings';
-// import Property from './components/Property/Property';
 import { AuthProvider } from './containers/Auth';
 import './index.scss';
 
@@ -30,10 +29,7 @@ const Metabnb = () => (
         <Route path="/thank-you" component={RegistrationThankYou} />
         <Route path="/change-password" component={ChangePassword} />
         <Route path="/settings" component={Settings} />
-        {/* <Route path="/property/:propertyId" component={Property} /> */}
         {/* https://reacttraining.com/react-router/web/example/basic */}
-        {/* <Route path="/settings/billing" component={Billing} />
-        <Route path="/settings/reports" component={Reports} /> */}
         <Route component={FourOfour} />
       </Switch>
     </AuthProvider>
