@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { CHART_COLORS, getHumanizedRatingLabels } from '../utils';
 import BarChart from '../BarChart/BarChart';
 
@@ -7,7 +7,7 @@ function getPricesGroupedByRating(acc, { star_rating, availability }) {
 
   const totalPrice = availabilityKeys.reduce((acc, currentKey) => {
     const { nativeAdjustedPriceTotal, nativePriceTotal } = availability[currentKey];
-    acc = acc + (nativeAdjustedPriceTotal || nativePriceTotal);
+    acc += (nativeAdjustedPriceTotal || nativePriceTotal);
     return acc;
   }, 0);
 
@@ -17,7 +17,7 @@ function getPricesGroupedByRating(acc, { star_rating, availability }) {
   return acc;
 }
 
-export default class PriceByRatingChart extends Component {
+export default class PriceByRatingChart extends PureComponent {
   state = {};
 
   componentDidMount() {

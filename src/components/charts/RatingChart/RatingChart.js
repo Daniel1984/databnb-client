@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { CHART_COLORS, getHumanizedRatingLabels } from '../utils';
 import BarChart from '../BarChart/BarChart';
 
-export default class RatingPieChart extends Component {
+export default class RatingPieChart extends PureComponent {
   state = {};
 
   componentDidMount() {

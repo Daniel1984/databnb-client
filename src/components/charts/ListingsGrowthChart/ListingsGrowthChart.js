@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import LineChart from '../LineChart/LineChart';
 
-export default class ListingsGrowthChart extends Component {
+export default class ListingsGrowthChart extends PureComponent {
   state = {};
 
   componentDidMount() {
@@ -24,7 +24,7 @@ export default class ListingsGrowthChart extends Component {
     }, {});
 
     const labels = Object.keys(listingsPerYear);
-    const dataset = labels.map(label => listingsPerYear[label])
+    const dataset = labels.map(label => listingsPerYear[label]);
     this.setState({ labels, dataset });
   }
 

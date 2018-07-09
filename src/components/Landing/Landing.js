@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Footer } from '../common';
 import Heading from './Heading/Heading';
 import PlatformFeatures from './PlatformFeatures/PlatformFeatures';
@@ -8,7 +8,7 @@ import About from './About/About';
 import SuccessStories from './SuccessStories/SuccessStories';
 import styles from './Landing.scss';
 
-export default class Landing extends Component {
+export default class Landing extends PureComponent {
   state = {
     latlng: null,
     bedrooms: 0,
@@ -31,7 +31,7 @@ export default class Landing extends Component {
     } = this.state;
 
     return (
-      <div>
+      <Fragment>
         <div className={styles.spacer} />
         <Heading
           listings={listings}
@@ -53,7 +53,7 @@ export default class Landing extends Component {
         <PricingBlock />
         <SuccessStories />
         <Footer />
-      </div>
+      </Fragment>
     );
   }
 }

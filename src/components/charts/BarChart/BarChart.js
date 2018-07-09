@@ -1,10 +1,10 @@
-import React, { Component, createRef } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js';
 
 const chartElRef = createRef();
 
-export default class BarChart extends Component {
+export default class BarChart extends PureComponent {
   static propTypes = {
     type: PropTypes.string,
   };

@@ -1,10 +1,10 @@
-import React, { Component, createRef } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js';
 
 const chartElRef = createRef();
 
-export default class AvailabilityByPriceChart extends Component {
+export default class AvailabilityByPriceChart extends PureComponent {
   static propTypes = {
     label: PropTypes.string.isRequired,
   };

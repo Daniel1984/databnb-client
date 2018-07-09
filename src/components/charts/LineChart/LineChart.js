@@ -1,9 +1,9 @@
-import React, { Component, createRef } from 'react';
+import React, { PureComponent, createRef } from 'react';
 import Chart from 'chart.js';
 
 const chartElRef = createRef();
 
-export default class LineChart extends Component {
+export default class LineChart extends PureComponent {
   componentDidMount() {
     const ctx = chartElRef.current.getContext('2d');
     this.lineChart = new Chart(ctx, {
