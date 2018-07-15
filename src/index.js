@@ -15,7 +15,7 @@ import Settings from './components/Settings/Settings';
 import { AuthProvider } from './containers/Auth';
 import './index.scss';
 
-// bugsnag('48900f3e09cc8859e1e9220b2439f97a');
+bugsnag('48900f3e09cc8859e1e9220b2439f97a');
 socketio.init();
 
 const Metabnb = () => (

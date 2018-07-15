@@ -37,7 +37,7 @@ export class PropertiesProvider extends Component {
     });
 
     socket.get().on('nearbyListings:done', () => {
-      this.state({
+      this.setState({
         isLoadingProperty: false,
         loadingPropertyMsg: '',
       });
@@ -60,8 +60,8 @@ export class PropertiesProvider extends Component {
       });
 
       if (!nearbyListings.length) {
-        const { location_title } = listing;
-        socket.get().emit('getNearbyListings', { location_title });
+        const { location } = listing;
+        socket.get().emit('getNearbyListings', { location });
       }
     } catch (error) {
       this.setState({

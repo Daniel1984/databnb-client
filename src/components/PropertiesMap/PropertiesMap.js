@@ -11,8 +11,9 @@ PropertiesMap.propTypes = {
     lng: PropTypes.number,
   }).isRequired,
   listings: PropTypes.arrayOf(PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number,
+    geo: PropTypes.shape({
+      coordinates: PropTypes.arrayOf(PropTypes.number),
+    }),
     id: PropTypes.number,
   })).isRequired,
 };
@@ -23,7 +24,7 @@ export default function PropertiesMap({ latlng: { lat, lng }, listings }) {
       <Map
         scrollWheelZoom={false}
         center={[lat, lng]}
-        bounds={listings.map(({ lat, lng }) => [lat, lng])}
+        bounds={listings.map(({ geo: { coordinates } }) => [coordinates[1], coordinates[0]])}
         className={styles.map}
       >
         <TileLayer
@@ -31,14 +32,13 @@ export default function PropertiesMap({ latlng: { lat, lng }, listings }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {listings.map(({
-          lat,
-          lng,
+          geo: { coordinates },
           id,
           picture_url,
         }) => (
           <Marker
             icon={customHouseMarkerIcon}
-            position={[lat, lng]}
+            position={[coordinates[1], coordinates[0]]}
             key={id}
           >
             <PropertyMarkerPopup picUrl={picture_url} id={id} />

@@ -90,7 +90,6 @@ export default class PropertyList extends Component {
                   title="Edit listing notifications"
                   kind="info"
                   className={styles.ovalBtn}
-                  onClick={() => console.log('dddd')}
                 >
                   <EditIcon />
                 </Button>

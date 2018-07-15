@@ -7,8 +7,9 @@ import styles from './PropertyMap.scss';
 
 PropertyMap.propTypes = {
   property: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number,
+    geo: PropTypes.shape({
+      coordinates: PropTypes.arrayOf(PropTypes.number),
+    }),
     picture_url: PropTypes.string,
   }).isRequired,
   nearbyListings: PropTypes.arrayOf(PropTypes.shape({})),
@@ -18,23 +19,29 @@ PropertyMap.defaultProps = {
   nearbyListings: [],
 };
 
-export default function PropertyMap({ property, nearbyListings }) {
+export default function PropertyMap({
+  property: {
+    geo: { coordinates },
+    picture_url,
+    id,
+  },
+  nearbyListings,
+}) {
   return (
     <Map
       scrollWheelZoom={false}
-      center={[property.lat, property.lng]}
+      center={[coordinates[1], coordinates[0]]}
       zoom={16}
       className={styles.map}
     >
       <TileLayer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
       {nearbyListings.map(({
-        lat,
-        lng,
+        geo: { coordinates },
         id,
         picture_url,
       }) => (
         <Marker
-          position={[lat, lng]}
+          position={[coordinates[1], coordinates[0]]}
           key={id}
         >
           <PropertyMarkerPopup picUrl={picture_url} id={id} />
@@ -42,10 +49,10 @@ export default function PropertyMap({ property, nearbyListings }) {
       ))}
       <Marker
         icon={customHouseMarkerIcon}
-        position={[property.lat, property.lng]}
+        position={[coordinates[1], coordinates[0]]}
       >
         <Popup>
-          <PropertyMarkerPopup picUrl={property.picture_url} id={property.id} />
+          <PropertyMarkerPopup picUrl={picture_url} id={id} />
         </Popup>
       </Marker>
     </Map>

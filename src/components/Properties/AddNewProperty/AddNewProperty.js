@@ -20,6 +20,9 @@ InnerAddNewPropertyForm.propTypes = {
   }).isRequired,
 };
 
+const propertyIdRegex = /\/rooms\/(\d+)/;
+const locationRegex = /location=([^&]*)/;
+
 function InnerAddNewPropertyForm({
   errors,
   handleSubmit,
@@ -38,11 +41,17 @@ function InnerAddNewPropertyForm({
           <Input
             thickLines
             type="text"
-            name="propertyId"
+            name="listingUrl"
             placeholder="Enter property url"
           />
         </FormControl>
-        <FormInputError>{errors.propertyId}</FormInputError>
+        <FormInputError>
+          {Object.keys(errors).map(key => (
+            <div className={styles.error} key={key}>
+              {errors[key]}
+            </div>
+          ))}
+        </FormInputError>
         <div className={styles.footer}>
           <Button
             onClick={(e) => {
@@ -63,23 +72,28 @@ function InnerAddNewPropertyForm({
 
 export default withFormik({
   mapPropsToValues: ({ onClose, onAddPropertySuccess }) => ({
-    propertyId: '',
+    listingUrl: '',
     onClose,
     onAddPropertySuccess,
   }),
 
-  validate({ propertyId }) {
+  validate({ listingUrl }) {
     const errors = {};
 
-    if (!propertyId) {
-      errors.propertyId = 'Property url is required';
+    if (!listingUrl) {
+      errors.general = 'Property url is required';
     }
 
-    if (propertyId) {
-      const match = propertyId.match(/\/rooms\/(\d+)/);
+    if (listingUrl) {
+      const propertyIdMatch = listingUrl.match(propertyIdRegex);
+      const locationMatch = listingUrl.match(locationRegex);
 
-      if (!match || !match[1]) {
-        errors.propertyId = 'Invalid airbnb property url';
+      if (!propertyIdMatch || !propertyIdMatch[1]) {
+        errors.listingId = 'Invalid property id. Please check url';
+      }
+
+      if (!locationMatch || !locationMatch[1]) {
+        errors.location = 'Invalid location. Please check url';
       }
     }
 
@@ -90,8 +104,14 @@ export default withFormik({
     setSubmitting(true);
 
     try {
-      const { onAddPropertySuccess, propertyId } = values;
-      await axios.post(`${config.apiUrl}/properties`, { propertyId: propertyId.match(/\/rooms\/(\d+)/)[1] });
+      const { onAddPropertySuccess, listingUrl } = values;
+      const propertyId = listingUrl.match(propertyIdRegex)[1];
+      const location = listingUrl.match(locationRegex)[1];
+
+      await axios.post(`${config.apiUrl}/properties`, {
+        propertyId,
+        location: decodeURIComponent(location),
+      });
       onAddPropertySuccess();
     } catch ({ response: { data } }) {
       setSubmitting(false);
