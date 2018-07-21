@@ -89,17 +89,4 @@ const config = {
   },
 };
 
-if (IS_BUILD) {
-  config.plugins = [
-    ...config.plugins,
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
-  ];
-
-  config.optimization = {
-    minimize: true,
-  };
-}
-
 module.exports = config;
