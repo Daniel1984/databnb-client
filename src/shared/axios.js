@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create();
 
-axiosInstance.interceptors.request.use((instance) => {
+axiosInstance.interceptors.request.use(function interceptor(instance) {
   const token = localStorage.getItem('auth-token');
 
   if (token) {

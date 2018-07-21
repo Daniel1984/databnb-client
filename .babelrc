@@ -12,7 +12,13 @@
   "plugins": [
     "transform-class-properties",
     "transform-object-rest-spread",
-    ["transform-react-jsx"]
+    ["inline-react-svg", {
+      "svgo": {
+        "plugins": [{
+          "cleanupIDs": false
+        }]
+      }
+    }]
   ],
   "env": {
     "test": {
@@ -20,14 +26,15 @@
         ["env", {
           "targets": {
             "node": "current"
-          },
-          "modules": false
+          }
         }],
         "react",
         "stage-2"
       ],
       "plugins": [
-        "transform-object-rest-spread"
+        "transform-class-properties",
+        "transform-object-rest-spread",
+        "inline-react-svg"
       ]
     }
   }

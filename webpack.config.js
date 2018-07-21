@@ -1,42 +1,39 @@
 const path = require('path');
-const webpack = require('webpack');
-const HtmlPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const SOURCE_DIR = path.resolve(__dirname, 'src');
-const DESTINATION_DIR = path.resolve(__dirname, 'public');
+const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
-const NODE_ENV = process.env.NODE_ENV;
+const { NODE_ENV } = process.env;
 const IS_BUILD = process.env.npm_lifecycle_event === 'build';
 
-module.exports = {
-  context: SOURCE_DIR,
-  entry: {
-    app: './index.js',
-  },
+const config = {
+  devtool: IS_BUILD ? 'source-map' : 'cheap-module-source-map',
+  entry: './src/index.js',
   output: {
-    filename: '[name].[hash].js',
-    path: DESTINATION_DIR,
+    filename: IS_BUILD ? '[name].[chunkhash].bundle.js' : '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: SOURCE_DIR,
-        loader: 'babel-loader',
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
               options: {
                 modules: true,
-                localIdentName: '[name]-[local]__[hash:base64:5]',
                 importLoaders: 2,
-                minimize: IS_BUILD,
+                localIdentName: '[name]-[local]__[hash:base64:5]',
                 sourceMap: true,
               },
             },
@@ -53,21 +50,7 @@ module.exports = {
               },
             },
           ],
-        }),
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: IS_BUILD,
-                sourceMap: true,
-              },
-            },
-          ],
         }),
       },
       {
@@ -80,46 +63,43 @@ module.exports = {
       },
     ],
   },
-
-  plugins: (() => {
-		const plugins = [
-      new HtmlPlugin({ template: 'index.html' }),
-      new ExtractTextPlugin({
-        filename: IS_BUILD ? '[name].[contenthash].css' : '[name].bundle.css',
-        allChunks: true,
-      }),
-      new CopyWebpackPlugin([
-        { from: 'assets/cover.png', to: 'cover.png' },
-        { from: 'robots.txt', to: 'robots.txt' },
-      ])
-		];
-
-		if (IS_BUILD) {
-			return [...plugins, new webpack.optimize.UglifyJsPlugin({
-				compress: {
-					warnings: false,
-					screw_ie8: true,
-					drop_console: true,
-					drop_debugger: true
-				},
-				output: {
-					comments: false
-				},
-				sourceMap: true
-      }),
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        },
-      })];
-		}
-
-		return plugins;
-	})(),
-
-  devtool: IS_BUILD ? 'source-map' : 'cheap-module-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      env: NODE_ENV,
+    }),
+    new ExtractTextPlugin({
+      filename: IS_BUILD ? '[name].[contenthash].css' : '[name].css',
+      allChunks: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(IS_BUILD ? 'production' : 'local'),
+        HOSTMAKER_ENV: JSON.stringify(NODE_ENV),
+      },
+    }),
+    new CopyPlugin([
+      { from: 'src/assets/cover.png', to: '.' },
+      { from: 'src/robots.txt', to: '.' },
+    ]),
+  ],
   devServer: {
-    contentBase: SOURCE_DIR,
+    contentBase: path.resolve(__dirname, 'src'),
     historyApiFallback: true,
   },
 };
+
+if (IS_BUILD) {
+  config.plugins = [
+    ...config.plugins,
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+  ];
+
+  config.optimization = {
+    minimize: true,
+  };
+}
+
+module.exports = config;
