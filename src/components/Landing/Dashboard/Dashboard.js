@@ -4,7 +4,7 @@ import { Select, Button } from '../../common';
 import socket from '../../../shared/socket';
 import AreaQuickSummary from '../AreaQuickSummary/AreaQuickSummary';
 import Autocomplete from '../Autocomplete/Autocomplete';
-import AuthControls from '../AuthControls/AuthControls';
+// import AuthControls from '../AuthControls/AuthControls';
 import styles from './Dashboard.scss';
 
 export default class Dashboard extends Component {
@@ -123,8 +123,6 @@ export default class Dashboard extends Component {
             {btnText}
           </Button>
         </div>
-
-        <AuthControls />
 
         {!!listings.length && (
           <div className={styles.quickSummary}>
