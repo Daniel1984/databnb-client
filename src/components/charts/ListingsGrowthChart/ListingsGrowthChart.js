@@ -37,6 +37,6 @@ export default class ListingsGrowthChart extends PureComponent {
         data={dataset}
         label="Listings growth per year"
       />
-    )
+    );
   }
 }

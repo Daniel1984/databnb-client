@@ -59,6 +59,6 @@ export default class PriceByRatingChart extends PureComponent {
         data={dataset}
         backgroundColor={backgroundColor}
       />
-    )
+    );
   }
 }

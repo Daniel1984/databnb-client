@@ -14,9 +14,9 @@ function getDistanceFromLatLonInM({
   const halfSinDlat = Math.sin(dLat / 2);
   const halfSinDlon = Math.sin(dLon / 2);
   const a =
-    halfSinDlat * halfSinDlat +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-    halfSinDlon * halfSinDlon;
+    (halfSinDlat * halfSinDlat) +
+    (Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    halfSinDlon * halfSinDlon);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const d = R * c; // Distance in km
   return Math.floor(d * 1000);
